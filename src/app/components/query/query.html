@@ -1,0 +1,23 @@
+<div class="container">
+  <h1 class="mb-0">
+    <p class="text-dark">Query</p>
+  </h1>
+  <br />
+
+  <form (submit)="checkQuery(); $event.preventDefault()">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="inputValue"
+        name="queryInput"
+      />
+    </div>
+
+    <div class="container text-center">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+  <h5 class="align-middle">{{ result }}</h5>
+</div>

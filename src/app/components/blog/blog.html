@@ -1,0 +1,30 @@
+<div class="container">
+  <h1 class="mb-0">
+    <p class="text-dark">Blog</p>
+  </h1>
+  <hr />
+  <br />
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    @for (item of blog; track $index) {
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          {{ item.title }}
+        </div>
+        <div class="card-body">
+          <figure>
+            <blockquote class="blockquote">
+              <p>{{ item.body }}</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+              {{ item.speaker }}
+              <div class="text-end">{{ item.date }}</div>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

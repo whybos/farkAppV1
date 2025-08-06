@@ -1,0 +1,26 @@
+<div class="container">
+  <h1 class="mb-0">
+    <p class="text-dark">Haberler</p>
+  </h1>
+  <hr />
+  <br />
+  @for (item of news; track $index) {
+  <div
+    class="card border-2"
+    style="background-color: #f4f4f4; border-color: #f8f8f8"
+  >
+    <div class="card-body">
+      <h5 class="card-title">{{ item.title }}</h5>
+      <p class="card-text ellipsis-cell">{{ item.summary }}</p>
+      <div class="text-end"><img src="{{ item.photo }}" alt="" /></div>
+      <a class="text-dark" routerLink="detail/{{ item.id }}">
+        devamı için tıklayınız</a
+      >
+      <figcaption class="blockquote-footer">
+        <div class="text-end">{{ item.date }}</div>
+      </figcaption>
+    </div>
+  </div>
+  <br />
+  }
+</div>

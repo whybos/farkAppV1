@@ -1,0 +1,13 @@
+h4 {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+.ellipsis-cell {
+  white-space: nowrap; /* Satır kaydırmayı engeller */
+  overflow: hidden; /* Taşan kısmı gizler */
+  text-overflow: ellipsis; /* ... koyar */
+  max-width: 100%; /* Genişliği sınırlarsın (isteğe bağlı) */
+}
+#card {
+  background-color: #f4f4f4;
+  border-color: #f8f8f8;
+}
