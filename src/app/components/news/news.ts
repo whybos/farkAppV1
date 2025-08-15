@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 
 import { NewsService } from '../../services/news-service';
 import { newsModel } from '../../model/news.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-news',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './news.html',
   styleUrls: ['./news.css'],
 })

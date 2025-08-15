@@ -1,0 +1,163 @@
+<div class="container">
+  <div class="text-center">
+    <button
+      class="btn btn-lg btn-outline-primary"
+      (click)="onNew()"
+      data-bs-toggle="modal"
+      data-bs-target="#updateModal"
+    >
+      <i class="bi bi-pencil-square me-1"></i> New News
+    </button>
+  </div>
+  <br />
+
+  @for (item of news; track $index) {
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="card-title">{{ item.id }}</h5>
+
+      <p class="card-text text-muted">
+        <strong>Title:</strong> {{ item.title }}
+      </p>
+      <p class="card-text text-muted">
+        <strong>Summary:</strong> {{ item.summary }}
+      </p>
+      <p class="card-text text-muted">
+        <strong>Photo:</strong> {{ item.photo }}
+      </p>
+      <p class="card-text text-muted"><strong>Date:</strong> {{ item.date }}</p>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button
+          class="btn btn-sm btn-outline-info"
+          (click)="goToDetail(item.id)"
+        >
+          <i class="bi bi-trash me-1"></i> Details
+        </button>
+
+        <button
+          class="btn btn-sm btn-outline-primary"
+          (click)="onUpdate(item)"
+          data-bs-toggle="modal"
+          data-bs-target="#updateModal"
+        >
+          <i class="bi bi-pencil-square me-1"></i> Update
+        </button>
+
+        <button
+          class="btn btn-sm btn-outline-danger"
+          (click)="onDelete(item.id)"
+        >
+          <i class="bi bi-trash me-1"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="updateModal"
+  tabindex="-1"
+  aria-labelledby="updateModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Tek form açılıyor -->
+      <form [formGroup]="myForm" (ngSubmit)="saveUpdate()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateModalLabel">
+            {{ isNew ? "New Slider Item" : "Update Slider Item" }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="titleInput" class="form-label">Title</label>
+            <input
+              id="titleInput"
+              type="text"
+              class="form-control"
+              formControlName="title"
+            />
+            <div class="text-danger">
+              @if (myForm.get('title')?.invalid &&
+              myForm.get('title')?.touched){ Title is required.}
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="summaryInput" class="form-label">Summary</label>
+            <input
+              id="summaryInput"
+              type="text"
+              class="form-control"
+              formControlName="summary"
+            />
+            <div class="text-danger">
+              @if (myForm.get('summary')?.invalid &&
+              myForm.get('summary')?.touched){ Summary is required.}
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="photoInput" class="form-label">Photo URL</label>
+            <input
+              id="photoInput"
+              type="text"
+              class="form-control"
+              formControlName="photo"
+            />
+            <div class="text-danger">
+              @if (myForm.get('photo')?.invalid &&
+              myForm.get('photo')?.touched){ Photo is required.}
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="dateInput" class="form-label">Date</label>
+            <input
+              id="dateInput"
+              type="text"
+              class="form-control"
+              formControlName="date"
+            />
+            <div class="text-danger">
+              @if (myForm.get('date')?.invalid && myForm.get('date')?.touched){
+              Date is required.}
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <!-- Modal footer butonları burada -->
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="myForm.invalid"
+          >
+            {{ isNew ? "Create" : "Update" }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

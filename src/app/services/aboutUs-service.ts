@@ -15,4 +15,18 @@ export class aboutUsService {
   getaboutUs(): Observable<ListResponse<aboutUsModel>> {
     return this.httpClient.get<ListResponse<aboutUsModel>>(this.apiUrl);
   }
+
+  createAboutUs(data: aboutUsModel): Observable<ListResponse<aboutUsModel>> {
+    return this.httpClient.post<ListResponse<aboutUsModel>>(this.apiUrl, data);
+  }
+
+  updateAboutUs(data: aboutUsModel): Observable<ListResponse<aboutUsModel>> {
+    return this.httpClient.patch<ListResponse<aboutUsModel>>(this.apiUrl, data);
+  }
+
+  deleteAboutUs(id: number): Observable<ListResponse<aboutUsModel>> {
+    return this.httpClient.delete<ListResponse<aboutUsModel>>(
+      `${this.apiUrl}?id=${id}`
+    );
+  }
 }

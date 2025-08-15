@@ -14,4 +14,17 @@ export class FormsService {
   getforms(): Observable<ListResponse<formsModel>> {
     return this.httpClient.get<ListResponse<formsModel>>(this.apiUrl);
   }
+  createForms(data: formsModel): Observable<ListResponse<formsModel>> {
+    return this.httpClient.post<ListResponse<formsModel>>(this.apiUrl, data);
+  }
+
+  updateForms(data: formsModel): Observable<ListResponse<formsModel>> {
+    return this.httpClient.patch<ListResponse<formsModel>>(this.apiUrl, data);
+  }
+
+  deleteForms(id: number): Observable<ListResponse<formsModel>> {
+    return this.httpClient.delete<ListResponse<formsModel>>(
+      `${this.apiUrl}?id=${id}`
+    );
+  }
 }

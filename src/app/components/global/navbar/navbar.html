@@ -16,7 +16,9 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div
+      #offcanvas
       class="offcanvas offcanvas-end"
       tabindex="-1"
       id="offcanvas"
@@ -25,7 +27,6 @@
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasLabel">
           Fikri Araştırmalar Kulübü
-          <hr />
         </h5>
         <button
           type="button"
@@ -36,11 +37,40 @@
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav flex-grow-1 justify-content-between">
-          @for (item of navbar; track $index) {
+          @for (item of navbar; track $index) { @if(checkLogin() && item.body ==
+          "GİRİŞ YAP"){ }@else {
           <li class="nav-item">
-            <a class="nav-link" routerLink="{{ item.link }}"
-              ><h4>{{ item.name }}</h4></a
+            <a
+              class="nav-link"
+              routerLink="{{ item.link }}"
+              (click)="closeOffcanvas()"
             >
+              <h4>{{ item.body }}</h4>
+            </a>
+          </li>
+          } } @if(checkLogin()){
+          <li>
+            <div class="dropdown">
+              <a
+                class="btn btn-secondary dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Admin Sekmeleri
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" (click)="logOut()">Çıkış Yap</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" routerLink="adminPanel"
+                    >Admin Paneli</a
+                  >
+                </li>
+              </ul>
+            </div>
           </li>
           }
         </ul>
@@ -48,5 +78,5 @@
     </div>
   </div>
 </nav>
-<hr />
+
 <br />

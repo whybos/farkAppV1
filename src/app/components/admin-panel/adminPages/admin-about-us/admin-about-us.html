@@ -1,0 +1,132 @@
+<div class="container">
+  <div class="text-center">
+    <button
+      class="btn btn-lg btn-outline-primary"
+      (click)="onNew()"
+      data-bs-toggle="modal"
+      data-bs-target="#updateModal"
+    >
+      <i class="bi bi-pencil-square me-1"></i> New AboutUs
+    </button>
+  </div>
+  <br />
+
+  @for (item of aboutUs; track $index) {
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="card-title">{{ item.id }}</h5>
+
+      <p class="card-text text-muted"><strong>body:</strong> {{ item.body }}</p>
+      <p class="card-text text-muted">
+        <strong>summary:</strong> {{ item.summary }}
+      </p>
+      <p class="card-text text-muted"><strong>Date:</strong> {{ item.date }}</p>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-sm btn-outline-primary" (click)="onUpdate(item)">
+          <i class="bi bi-pencil-square me-1"></i> Update
+        </button>
+
+        <button
+          class="btn btn-sm btn-outline-danger"
+          (click)="onDelete(item.id)"
+        >
+          <i class="bi bi-trash me-1"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="updateModal"
+  tabindex="-1"
+  aria-labelledby="updateModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Tek form açılıyor -->
+      <form [formGroup]="myForm" (ngSubmit)="saveUpdate()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateModalLabel">
+            {{ isNew ? "New Slider Item" : "Update Slider Item" }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="bodyInput" class="form-label">Body</label>
+            <input
+              id="bodyInput"
+              type="text"
+              class="form-control"
+              formControlName="body"
+            />
+            <div class="text-danger">
+              @if (myForm.get('body')?.invalid && myForm.get('body')?.touched){
+              Body is required.}
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="summaryInput" class="form-label">Summary</label>
+            <input
+              id="summaryInput"
+              type="text"
+              class="form-control"
+              formControlName="summary"
+            />
+            <div class="text-danger">
+              @if (myForm.get('summary')?.invalid &&
+              myForm.get('summary')?.touched){ Summary is required.}
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="dateInput" class="form-label">Date</label>
+            <input
+              id="dateInput"
+              type="text"
+              class="form-control"
+              formControlName="date"
+            />
+            <div class="text-danger">
+              @if (myForm.get('date')?.invalid && myForm.get('date')?.touched){
+              Date is required.}
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <!-- Modal footer butonları burada -->
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="myForm.invalid"
+          >
+            {{ isNew ? "Create" : "Update" }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

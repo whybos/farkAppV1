@@ -13,7 +13,7 @@ export class Contact implements OnInit {
   readonly formsService = inject(FormsService);
   readonly sanitizer = inject(DomSanitizer);
   forms: formsModel[] = [];
-  title: string = 'FORMLAR';
+  title: string = 'Etkinlik Formlarımız';
 
   ngOnInit(): void {
     this.getData();

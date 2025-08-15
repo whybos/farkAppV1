@@ -1,4 +1,5 @@
 export interface navbarModel {
-  name: string;
+  id: number;
+  body: string;
   link: string;
 }

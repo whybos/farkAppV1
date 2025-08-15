@@ -1,15 +1,126 @@
+/* --- Genel Navbar Yapısı --- */
 .navbar {
-  background-color: #f4f4f4;
+  background-color: #ffffff; /* Tamamen beyaz, temiz bir arka plan */
+  border-bottom: 1px solid #e0e0e0; /* Çok ince ve açık gri bir ayırıcı çizgi */
+  padding: 0.75rem 0;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
 }
 
-.nav-link,
-a {
-  color: #212529;
+/* --- Marka/Logo Alanı --- */
+.navbar-brand {
+  font-size: 1.75rem; /* Markanın dikkat çekmesi için biraz daha büyük */
+  font-weight: 700; /* Cesur ve güçlü bir marka görünümü */
+  color: #212529; /* Saf siyaha yakın, güçlü bir metin rengi */
 }
-h4 {
-  font-family: "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans",
-    "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
-  font-weight: normal;
-  font-size: smaller;
+
+/* --- Navigasyon Linkleri (En Önemli Kısım) --- */
+.nav-link {
+  color: #343a40; /* Ana metinler için koyu gri, okunabilir bir renk */
+  padding: 0.5rem 1.25rem; /* Linkler arası boşluğu artırarak ferah bir görünüm */
+  position: relative;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Navigasyon linkleri içindeki H4 etiketini sıfırlama ve yeniden şekillendirme */
+.nav-link h4 {
+  font-size: 1rem; /* Profesyonel ve standart bir menü yazı boyutu */
+  font-weight: 600; /* "Hakkımızda" başlığındaki gibi tok ve yarı-kalın stil */
+  margin: 0; /* h4 etiketinin varsayılan boşluklarını kaldırma */
+  padding: 0;
+  letter-spacing: 0.5px; /* Harfler arasına çok hafif boşluk ekleyerek okunabilirliği artırma */
+  transition: all 0.3s ease;
+}
+
+/* --- Hover (Üzerine Gelme) Efektleri --- */
+.nav-link:hover {
+  color: #000000; /* Üzerine gelince metni saf siyaha çevirerek vurgulama */
+}
+
+/* Alt çizgi animasyonu */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px; /* Çizgiyi metnin biraz altında konumlandırma */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #212529; /* Vurgu rengi olarak siyaha yakın koyu gri */
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 75%; /* Çizginin tamamını değil, bir kısmını göstererek daha estetik bir görünüm */
+}
+
+/* --- Giriş Yap ve Admin Paneli (Dropdown) --- */
+.dropdown-toggle {
+  background-color: transparent !important; /* Arka planı tamamen şeffaf yapma */
+  border: 1px solid #ced4da !important; /* İnce bir çerçeve */
+  color: #343a40 !important;
+}
+/* Dropdown ikonunu göstermek için ek kod */
+.dropdown-toggle::after {
+  color: #343a40;
+}
+
+.dropdown-menu {
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Daha yumuşak ve modern bir gölge */
+}
+
+.dropdown-item {
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa; /* Çok hafif bir vurgu rengi */
+  color: #000000;
+}
+
+/* --- Mobil (Offcanvas) Menü --- */
+.offcanvas-header {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.offcanvas-title {
+  color: #212529;
+  font-weight: 600;
+}
+/* --- Dropdown Animasyonunu Ayarlama --- */
+
+/* 1. Bootstrap'in anlık gösterme/gizleme davranışını geçersiz kılalım */
+.dropdown-menu {
+  display: block; /* Menüyü her zaman 'block' olarak ayarla ki animasyon çalışabilsin */
+  opacity: 0; /* Başlangıçta tamamen şeffaf yap */
+  visibility: hidden; /* Gizliyken tıklanamaz olmasını sağla */
+  transform: translateY(10px); /* Başlangıçta 10px aşağıda konumlandır */
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out,
+    visibility 0.3s; /* Animasyon hızını ve yumuşaklığını ayarla */
+}
+
+/* 2. Bootstrap'in menüyü göstermek için eklediği '.show' class'ı aktif olduğunda animasyonu tetikle */
+.dropdown-menu.show {
+  opacity: 1; /* Tamamen görünür yap */
+  visibility: visible; /* Tıklanabilir hale getir */
+  transform: translateY(0); /* Orijinal konumuna geri kaydır */
+}
+
+/* --- Dropdown Butonunun Stilini Koruma --- */
+/* Bir önceki yanıttaki profesyonel buton stilini de ekleyelim ki bütünlük bozulmasın */
+.dropdown-toggle {
+  background-color: transparent !important;
+  border: 1px solid #ced4da !important;
+  color: #343a40 !important;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.dropdown-toggle::after {
+  color: #343a40;
+}
+
+.dropdown-toggle:hover {
+  background-color: #f8f9fa !important;
 }

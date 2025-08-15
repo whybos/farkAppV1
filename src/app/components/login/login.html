@@ -1,0 +1,42 @@
+<div class="container mt-5 animate-fade-up" style="animation-delay: 200ms">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="mb-4 text-center text-dark fw-bold">Giriş Yap</h2>
+          <form (ngSubmit)="onLogin()">
+            <div class="mb-3">
+              <label for="email" class="form-label"
+                >Kullanıcı adınızı giriniz</label
+              >
+              <input
+                [(ngModel)]="email"
+                name="email"
+                id="email"
+                type="email"
+                class="form-control"
+                placeholder="Kullanıcı adınızı giriniz"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Şifre</label>
+              <input
+                [(ngModel)]="password"
+                name="password"
+                id="password"
+                type="password"
+                class="form-control"
+                placeholder="Şifrenizi girin"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">
+              Giriş Yap
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

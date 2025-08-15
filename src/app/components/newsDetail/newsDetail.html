@@ -1,11 +1,22 @@
-<div class="container">
-  @if (detail) {
-  <div class="blog-post">
-    <h1 class="blog-post-title">{{ detail.title }}</h1>
-    <p>{{ detail.date }}</p>
-    <hr />
-    <p>{{ detail.summary }}</p>
-    <p>{{ detail.body }}</p>
+<div class="container my-5 animate-fade-sequence">
+  @if (detail==null) {
+  <p class="text-muted fst-italic mb-4 animate-step" style="--delay: 100ms">
+    Bu habere henüz detay eklenmemiştir
+  </p>
+  } @else {
+  <div class="blog-post mx-auto" style="max-width: 800px">
+    <h1
+      class="text-center text-dark fw-bold mb-4 animate-step"
+      style="--delay: 0ms"
+    >
+      {{ detail.title }}
+    </h1>
+    <p class="text-muted fst-italic mb-4 animate-step" style="--delay: 300ms">
+      {{ detail.summary }}
+    </p>
+    <p class="text-secondary lh-lg fs-5 animate-step" style="--delay: 600ms">
+      {{ detail.body }}
+    </p>
   </div>
   }
 </div>

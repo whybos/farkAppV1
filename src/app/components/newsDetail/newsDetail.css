@@ -1,0 +1,34 @@
+.animate-fade-sequence .animate-step {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 600ms forwards;
+  animation-delay: var(--delay);
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ekstra stil önerileri */
+.blog-post h1 {
+  font-size: 2.5rem;
+}
+
+.blog-post p {
+  font-size: 1.125rem;
+}
+
+.fst-italic {
+  font-style: italic;
+}
+
+.lh-lg {
+  line-height: 1.7;
+}
+
+.fs-5 {
+  font-size: 1.25rem;
+}

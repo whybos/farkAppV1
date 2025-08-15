@@ -1,23 +1,38 @@
-<div class="container">
-  <h1 class="mb-0">
-    <p class="text-dark">Query</p>
+<div class="container my-5">
+  <!-- Başlık -->
+  <h1
+    class="mb-4 text-center text-dark fw-bold animate-fade-up"
+    style="animation-delay: 0ms"
+  >
+    Query
   </h1>
-  <br />
 
   <form (submit)="checkQuery(); $event.preventDefault()">
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input
-        type="text"
-        class="form-control"
-        [(ngModel)]="inputValue"
-        name="queryInput"
-      />
+    <div class="row justify-content-center">
+      <!-- Input -->
+      <div class="col-md-6 animate-fade-up" style="animation-delay: 200ms">
+        <label for="queryInput" class="form-label fw-semibold">Ürün adı</label>
+        <input
+          type="text"
+          id="queryInput"
+          class="form-control form-control-lg"
+          [(ngModel)]="inputValue"
+          name="queryInput"
+          placeholder="Ürün adını girin..."
+        />
+      </div>
     </div>
 
-    <div class="container text-center">
-      <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="row mt-4 justify-content-center">
+      <!-- Buton -->
+      <div
+        class="col-md-6 text-center animate-fade-up"
+        style="animation-delay: 400ms"
+      >
+        <button type="submit" class="btn btn-primary btn-lg px-5">
+          Sorgula
+        </button>
+      </div>
     </div>
   </form>
-  <h5 class="align-middle">{{ result }}</h5>
 </div>

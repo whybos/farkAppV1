@@ -1,4 +1,5 @@
 export interface footerModel {
-  name: string;
+  id: number;
+  body: string;
   link: string;
 }

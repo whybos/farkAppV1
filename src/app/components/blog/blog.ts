@@ -1,10 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { BlogService } from '../../services/blog-service';
 import { BlogModel } from '../../model/blog.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-blog',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './blog.html',
   styleUrls: ['./blog.css'],
 })

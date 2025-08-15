@@ -14,4 +14,17 @@ export class FooterService {
   getfooter(): Observable<ListResponse<footerModel>> {
     return this.httpClient.get<ListResponse<footerModel>>(this.apiUrl);
   }
+  createFooter(data: footerModel): Observable<ListResponse<footerModel>> {
+    return this.httpClient.post<ListResponse<footerModel>>(this.apiUrl, data);
+  }
+
+  updateFooter(data: footerModel): Observable<ListResponse<footerModel>> {
+    return this.httpClient.patch<ListResponse<footerModel>>(this.apiUrl, data);
+  }
+
+  deleteFooter(id: number): Observable<ListResponse<footerModel>> {
+    return this.httpClient.delete<ListResponse<footerModel>>(
+      `${this.apiUrl}?id=${id}`
+    );
+  }
 }

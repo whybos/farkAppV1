@@ -1,11 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { aboutUsService } from '../../services/aboutUs-service';
 import { aboutUsModel } from '../../model/aboutUs.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-users',
   templateUrl: './aboutUs.html',
   styleUrls: ['./aboutUs.css'],
+  imports: [CommonModule],
 })
 export class aboutUs implements OnInit {
   readonly aboutUsService = inject(aboutUsService);

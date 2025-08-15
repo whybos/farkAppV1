@@ -1,0 +1,86 @@
+/* --- Genel Footer Stili --- */
+footer {
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  border-top: 1px solid #e9ecef !important;
+}
+
+/* --- Telif Hakkı ve Link Stilleri --- */
+footer .text-body-secondary {
+  color: #6c757d !important;
+  font-weight: 500;
+}
+
+/* --- ORTADAKİ LİNK GRUBU İÇİN DÜZELTME --- */
+/* Bu kural, linklerin kendisine ayrılan alana sığmayıp alt satıra kaymasını engeller. */
+footer .nav.justify-content-center {
+  white-space: nowrap; /* Linklerin tek bir satırda kalmasını zorunlu kılar */
+  flex-wrap: nowrap; /* Flexbox için de satır kırmayı engeller */
+}
+
+/* Footer'daki navigasyon linkleri */
+footer .nav-link {
+  color: #6c757d;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+footer .nav-link:hover {
+  color: #212529;
+}
+
+/* --- Sosyal Medya İkonları (Gelişmiş Etkileşimler) --- */
+.footer-icons a {
+  color: #6c757d;
+  font-size: 1.5rem;
+  display: inline-block;
+  transition: all 0.3s ease-in-out;
+}
+
+.footer-icons a:hover {
+  transform: translateY(-3px);
+}
+
+/* Marka Renkleri */
+.footer-icons a:hover .bi-facebook {
+  color: #3b5998;
+}
+.footer-icons a:hover .bi-instagram {
+  color: #e4405f;
+}
+.footer-icons a:hover .bi-twitter-x {
+  color: #000000;
+}
+.footer-icons a:hover .bi-linkedin {
+  color: #0077b5;
+}
+
+/* --- Mobil Görünüm İçin Medya Sorgusu (Footer Düzenlemesi) --- */
+@media (max-width: 767.98px) {
+  footer.d-flex {
+    flex-direction: column;
+  }
+
+  footer .col-md-4 {
+    justify-content: center !important;
+    margin-bottom: 1.5rem;
+    width: 100%; /* Mobil görünümde tam genişlik kaplamasını sağlar */
+  }
+
+  /* Mobil görünümde linklerin taşmasını engellemek için */
+  footer .nav.justify-content-center {
+    justify-content: center !important;
+    flex-wrap: wrap; /* Sadece mobilde gerekirse alt satıra atmasına izin ver */
+  }
+
+  .footer-icons .ms-3 {
+    margin-left: 0 !important;
+  }
+
+  .footer-icons li {
+    padding: 0 0.5rem;
+  }
+
+  footer .col-md-4:last-child {
+    margin-bottom: 0;
+  }
+}

@@ -14,4 +14,20 @@ export class SliderService {
   getSlider(): Observable<ListResponse<sliderModel>> {
     return this.httpClient.get<ListResponse<sliderModel>>(this.apiUrl);
   }
+  createSlider(data: sliderModel): Observable<ListResponse<sliderModel>> {
+    return this.httpClient.post<ListResponse<sliderModel>>(this.apiUrl, data);
+  }
+
+  updateSlider(data: sliderModel): Observable<ListResponse<sliderModel>> {
+    return this.httpClient.patch<ListResponse<sliderModel>>(
+      `https://localhost:44345/api/Slider`,
+      data
+    );
+  }
+
+  deleteSlider(id: number): Observable<ListResponse<sliderModel>> {
+    return this.httpClient.delete<ListResponse<sliderModel>>(
+      `${this.apiUrl}?id=${id}`
+    );
+  }
 }

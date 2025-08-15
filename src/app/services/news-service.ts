@@ -15,4 +15,17 @@ export class NewsService {
   getNews(): Observable<ListResponse<newsModel>> {
     return this.httpClient.get<ListResponse<newsModel>>(this.apiUrl);
   }
+  createNews(data: newsModel): Observable<ListResponse<newsModel>> {
+    return this.httpClient.post<ListResponse<newsModel>>(this.apiUrl, data);
+  }
+
+  updateNews(data: newsModel): Observable<ListResponse<newsModel>> {
+    return this.httpClient.patch<ListResponse<newsModel>>(this.apiUrl, data);
+  }
+
+  deleteNews(id: number): Observable<ListResponse<newsModel>> {
+    return this.httpClient.delete<ListResponse<newsModel>>(
+      `${this.apiUrl}?id=${id}`
+    );
+  }
 }
