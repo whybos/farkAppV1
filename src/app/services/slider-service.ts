@@ -8,7 +8,7 @@ import { ListResponse } from '../model/globalResponseModel';
   providedIn: 'root',
 })
 export class SliderService {
-  apiUrl: string = 'https://localhost:44345/api/Slider';
+  apiUrl: string = 'https://api.ytufarkk.com/api/Slider';
   constructor(private httpClient: HttpClient) {}
 
   getSlider(): Observable<ListResponse<sliderModel>> {
@@ -20,7 +20,7 @@ export class SliderService {
 
   updateSlider(data: sliderModel): Observable<ListResponse<sliderModel>> {
     return this.httpClient.patch<ListResponse<sliderModel>>(
-      `https://localhost:44345/api/Slider`,
+      `https://api.ytufarkk.com/api/Slider`,
       data
     );
   }

@@ -8,7 +8,7 @@ import { ListResponse } from '../model/globalResponseModel';
   providedIn: 'root',
 })
 export class FooterService {
-  apiUrl = 'https://localhost:44345/api/Footer';
+  apiUrl = 'https://api.ytufarkk.com/api/Footer';
   constructor(private httpClient: HttpClient) {}
 
   getfooter(): Observable<ListResponse<footerModel>> {

@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://localhost:44345",
+    "target": "https://api.ytufarkk.com/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"

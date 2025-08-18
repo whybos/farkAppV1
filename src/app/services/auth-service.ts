@@ -9,7 +9,7 @@ export class AuthService {
 
   login(data: { email: string; password: string }) {
     return this.httpClient.post<any>(
-      'https://localhost:44345/api/Auth/login',
+      'https://api.ytufarkk.com/api/Auth/login',
       data
     );
   }
@@ -37,7 +37,7 @@ export class AuthService {
 
   validate(): Observable<BaseResponse> {
     return this.httpClient.post<BaseResponse>(
-      'https://localhost:44345/api/Auth/Validate',
+      'https://api.ytufarkk.com/api/Auth/Validate',
       null
     );
   }

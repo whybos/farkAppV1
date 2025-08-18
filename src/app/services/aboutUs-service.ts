@@ -8,7 +8,7 @@ import { ListResponse } from '../model/globalResponseModel';
   providedIn: 'root',
 })
 export class aboutUsService {
-  apiUrl = 'https://localhost:44345/api/AboutUs';
+  apiUrl = 'https://api.ytufarkk.com/api/AboutUs';
 
   constructor(private httpClient: HttpClient) {}
 

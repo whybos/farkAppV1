@@ -8,7 +8,7 @@ import { ListResponse, SingleResponse } from '../model/globalResponseModel';
   providedIn: 'root',
 })
 export class NavbarService {
-  apiUrl = 'https://localhost:5001/api/Navbar';
+  apiUrl = 'https://api.ytufarkk.com/api/Navbar';
   constructor(private httpClient: HttpClient) {}
 
   getnavbar(): Observable<ListResponse<navbarModel>> {

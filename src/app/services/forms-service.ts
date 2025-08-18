@@ -8,7 +8,7 @@ import { formsModel } from '../model/forms.model';
   providedIn: 'root',
 })
 export class FormsService {
-  apiUrl = 'https://localhost:44345/api/FormsActive';
+  apiUrl = 'https://api.ytufarkk.com/api/FormsActive';
   constructor(private httpClient: HttpClient) {}
 
   getforms(): Observable<ListResponse<formsModel>> {

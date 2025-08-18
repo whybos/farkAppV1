@@ -8,13 +8,13 @@ import { SingleResponse } from '../model/globalResponseModel';
   providedIn: 'root',
 })
 export class newsDetailService {
-  private apiUrl = `https://localhost:44345/api/NewsDetail`;
+  private apiUrl = `https://api.ytufarkk.com/api/NewsDetail`;
 
   constructor(private httpClient: HttpClient) {}
 
   getDetail(id: number): Observable<SingleResponse<newsDetailModel>> {
     return this.httpClient.get<SingleResponse<newsDetailModel>>(
-      'https://localhost:44345/api/NewsDetail/GetById?id=' + id
+      'https://api.ytufarkk.com/api/NewsDetail/GetById?id=' + id
     );
   }
   createDetail(
