@@ -8,8 +8,7 @@ import { SingleResponse } from '../model/globalResponseModel';
   providedIn: 'root',
 })
 export class newsDetailService {
-  // private apiUrl = `https://api.ytufarkk.com/api/NewsDetail`;
-  private apiUrl = 'https://localhost:44345/api/NewsDetail';
+  private apiUrl = `https://api.ytufarkk.com/api/NewsDetail`;
 
   constructor(private httpClient: HttpClient) {}
 
