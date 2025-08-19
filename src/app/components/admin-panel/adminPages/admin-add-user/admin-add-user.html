@@ -6,33 +6,33 @@
       data-bs-toggle="modal"
       data-bs-target="#updateModal"
     >
-      <i class="bi bi-pencil-square me-1"></i> New News
+      <i class="bi bi-pencil-square me-1"></i> New User
     </button>
   </div>
   <br />
 
-  @for (item of news; track $index) {
+  @for (item of users; track $index) {
   <div class="card shadow-sm mb-4">
     <div class="card-body">
       <h5 class="card-title">{{ item.id }}</h5>
 
       <p class="card-text text-muted">
-        <strong>Title:</strong> {{ item.title }}
+        <strong>firstname:</strong> {{ item.firstname }}
       </p>
       <p class="card-text text-muted">
-        <strong>Summary:</strong> {{ item.summary }}
+        <strong>lastname:</strong> {{ item.lastname }}
+      </p>
+      <p class="card-text text-muted">
+        <strong>email:</strong> {{ item.email }}
+      </p>
+      <p class="card-text text-muted">
+        <strong>passwordhash:</strong> {{ item.passwordhash }}
+      </p>
+      <p class="card-text text-muted">
+        <strong>passwordsalt:</strong> {{ item.passwordsalt }}
       </p>
 
-      <p class="card-text text-muted"><strong>Date:</strong> {{ item.date }}</p>
-
       <div class="d-flex justify-content-end gap-2">
-        <button
-          class="btn btn-sm btn-outline-info"
-          (click)="goToDetail(item.id)"
-        >
-          <i class="bi bi-trash me-1"></i> Details
-        </button>
-
         <button
           class="btn btn-sm btn-outline-primary"
           (click)="onUpdate(item)"
@@ -80,58 +80,84 @@
 
         <div class="modal-body">
           <div class="mb-3">
-            <label for="titleInput" class="form-label">Title</label>
+            <label for="firstnameInput" class="form-label">firstname</label>
             <input
-              id="titleInput"
+              id="firstnameInput"
               type="text"
               class="form-control"
-              formControlName="title"
+              formControlName="firstname"
             />
             <div class="text-danger">
-              @if (myForm.get('title')?.invalid &&
-              myForm.get('title')?.touched){ Title is required.}
+              @if (myForm.get('firstname')?.invalid &&
+              myForm.get('firstname')?.touched){ firstname is required.}
             </div>
           </div>
+        </div>
 
+        <div class="modal-body">
           <div class="mb-3">
-            <label for="summaryInput" class="form-label">Summary</label>
+            <label for="lastnameInput" class="form-label">lastname</label>
             <input
-              id="summaryInput"
+              id="lastnameInput"
               type="text"
               class="form-control"
-              formControlName="summary"
+              formControlName="lastname"
             />
             <div class="text-danger">
-              @if (myForm.get('summary')?.invalid &&
-              myForm.get('summary')?.touched){ Summary is required.}
+              @if (myForm.get('lastname')?.invalid &&
+              myForm.get('lastname')?.touched){ lastname is required.}
             </div>
           </div>
+        </div>
 
+        <div class="modal-body">
           <div class="mb-3">
-            <label for="photoInput" class="form-label">Photo URL</label>
+            <label for="emailInput" class="form-label">email</label>
             <input
-              id="photoInput"
+              id="emailInput"
               type="text"
               class="form-control"
-              formControlName="photo"
+              formControlName="email"
             />
             <div class="text-danger">
-              @if (myForm.get('photo')?.invalid &&
-              myForm.get('photo')?.touched){ Photo is required.}
+              @if (myForm.get('email')?.invalid &&
+              myForm.get('email')?.touched){ email is required.}
             </div>
           </div>
+        </div>
 
+        <div class="modal-body">
           <div class="mb-3">
-            <label for="dateInput" class="form-label">Date</label>
+            <label for="passwordhashInput" class="form-label"
+              >passwordhash</label
+            >
             <input
-              id="dateInput"
+              id="passwordhashInput"
               type="text"
               class="form-control"
-              formControlName="date"
+              formControlName="passwordhash"
             />
             <div class="text-danger">
-              @if (myForm.get('date')?.invalid && myForm.get('date')?.touched){
-              Date is required.}
+              @if (myForm.get('passwordhash')?.invalid &&
+              myForm.get('passwordhash')?.touched){ passwordhash is required.}
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="passwordsaltInput" class="form-label"
+              >passwordsalt</label
+            >
+            <input
+              id="passwordsaltInput"
+              type="text"
+              class="form-control"
+              formControlName="passwordsalt"
+            />
+            <div class="text-danger">
+              @if (myForm.get('passwordsalt')?.invalid &&
+              myForm.get('passwordsalt')?.touched){ passwordsalt is required.}
             </div>
           </div>
         </div>

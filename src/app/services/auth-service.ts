@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseResponse } from '../model/globalResponseModel';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -40,5 +41,20 @@ export class AuthService {
       'https://api.ytufarkk.com/api/Auth/Validate',
       null
     );
+  }
+  getRole(): string {
+    const token = this.getToken();
+    if (!token) return '';
+    try {
+      const decoded: any = jwtDecode(token);
+      return (
+        decoded[
+          'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+        ] || ''
+      );
+    } catch (e) {
+      console.error('Token decode error:', e);
+      return '';
+    }
   }
 }
