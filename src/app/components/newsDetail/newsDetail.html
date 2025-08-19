@@ -1,19 +1,29 @@
 <div class="container my-5 animate-fade-sequence">
-  @if (detail==null) {
+  @if (detail == null) {
   <p class="text-muted fst-italic mb-4 animate-step" style="--delay: 100ms">
     Bu habere henüz detay eklenmemiştir
   </p>
   } @else {
   <div class="blog-post mx-auto" style="max-width: 800px">
+    <!-- Başlık -->
     <h1
       class="text-center text-dark fw-bold mb-4 animate-step"
       style="--delay: 0ms"
     >
       {{ detail.title }}
     </h1>
+
+    <!-- Görsel -->
+    <div class="image-wrapper animate-step" style="--delay: 200ms">
+      <img src="{{ detail.photo }}" alt="Haber görseli" class="blog-image" />
+    </div>
+
+    <!-- Özet -->
     <p class="text-muted fst-italic mb-4 animate-step" style="--delay: 300ms">
       {{ detail.summary }}
     </p>
+
+    <!-- İçerik -->
     <p class="text-secondary lh-lg fs-5 animate-step" style="--delay: 600ms">
       {{ detail.body }}
     </p>

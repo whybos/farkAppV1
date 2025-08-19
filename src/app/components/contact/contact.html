@@ -12,9 +12,10 @@
 
     } @else { @for (item of forms; track $index) {
     <h3>{{ item.title }}</h3>
-    <div class="ratio ratio-21x9 mb-4">
-      <iframe [src]="item.safeUrl" frameborder="0"></iframe>
+    <div class="responsive-iframe">
+      <iframe [src]="item.safeUrl" frameborder="0" allowfullscreen></iframe>
     </div>
+
     } }
   </div>
 
@@ -49,7 +50,10 @@
                 <i class="bi bi-geo-alt-fill fs-4 me-3"></i>
                 <div>
                   <h5 class="mb-1 fw-bold">Adres</h5>
-                  <p class="mb-0 text-secondary">İstanbul, Türkiye</p>
+                  <p class="mb-0 text-secondary">
+                    Yıldız Teknik Üniversitesi Davutpaşa Kampüsü
+                    Esenler/İstanbul
+                  </p>
                 </div>
               </div>
             </div>
@@ -68,10 +72,29 @@
           class="d-flex justify-content-center gap-3 footer-icons animate-fade-up"
           style="animation-delay: 400ms"
         >
-          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-          <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <!-- <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a> -->
+          <a
+            href="https://www.instagram.com/ytufarkk?igsh=NjNqMHBkMXBhazIz"
+            aria-label="Instagram"
+            ><i class="bi bi-instagram"></i
+          ></a>
+          <a
+            href="https://x.com/ytufarkk?t=A1d6wNbVIJAecaahI-wsRg&s=09  "
+            aria-label="Twitter"
+            ><i class="bi bi-twitter-x"></i
+          ></a>
+
+          <a
+            href="https://youtube.com/@ytufarkk?si=04TVYiqmzT06U3CE"
+            aria-label="YouTube"
+          >
+            <i class="bi bi-youtube"></i>
+          </a>
+          <a
+            href="https://www.linkedin.com/company/ytufarkk/"
+            aria-label="LinkedIn"
+            ><i class="bi bi-linkedin"></i
+          ></a>
         </div>
       </div>
     </div>

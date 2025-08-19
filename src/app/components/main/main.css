@@ -1,13 +1,21 @@
-.ellipsis-cell {
-  white-space: nowrap; /* Satır kaydırmayı engeller */
-  overflow: hidden; /* Taşan kısmı gizler */
-  text-overflow: ellipsis; /* ... koyar */
-  max-width: 100%; /* Genişliği sınırlarsın (isteğe bağlı) */
+.ratio-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 en-boy oranı (9 / 16 = 0.5625) */
+  overflow: hidden;
+  border-radius: 0.5rem; /* opsiyonel: köşeleri yumuşat */
 }
-#card {
-  background-color: #f4f4f4;
-  border-color: #f8f8f8;
+
+.carousel-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Görseli kutuya sığdır, taşanı kırp */
+  display: block;
 }
+
 @keyframes fadeUp {
   from {
     opacity: 0;

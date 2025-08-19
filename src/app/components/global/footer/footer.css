@@ -53,6 +53,9 @@ footer .nav-link:hover {
 .footer-icons a:hover .bi-linkedin {
   color: #0077b5;
 }
+.footer-icons a:hover .bi-youtube {
+  color: #ff0000;
+}
 
 /* --- Mobil Görünüm İçin Medya Sorgusu (Footer Düzenlemesi) --- */
 @media (max-width: 767.98px) {

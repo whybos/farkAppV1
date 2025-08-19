@@ -12,12 +12,13 @@
         class="carousel-item {{ $index === 0 ? 'active' : '' }}"
         data-bs-interval="10000"
       >
-        <img
-          src="{{ item.photo }}"
-          class="d-block w-100"
-          alt="Slide image"
-          style="max-height: 500px; object-fit: cover"
-        />
+        <div class="ratio-wrapper">
+          <img
+            src="{{ item.photo }}"
+            alt="Slide image"
+            class="carousel-image"
+          />
+        </div>
         <div
           class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3"
         >
@@ -63,13 +64,16 @@
       #animItem
       [ngStyle]="{ 'animation-delay': ($index + 3) * 200 + 'ms' }"
     >
-      <div class="card h-100 shadow-sm border-1">
+      <div
+        class="card h-100 shadow-sm border-0 rounded-4 hover-shadow transition"
+      >
         <div class="row g-0 h-100">
-          <div class="col-md-8 d-flex flex-column p-4">
+          <!-- METİN -->
+          <div class="col-md-8 d-flex flex-column p-4 gap-2">
             <h4 class="fw-semibold mb-2 text-truncate" title="{{ item.title }}">
               {{ item.title }}
             </h4>
-            <small class="text-muted mb-3">{{ item.date }}</small>
+            <small class="text-muted">{{ item.date }}</small>
             <p class="card-text text-secondary flex-grow-1">
               {{ item.summary }}
             </p>
@@ -80,13 +84,18 @@
               Devamı için tıklayınız →
             </a>
           </div>
-          <div class="col-md-4 d-none d-md-block">
-            <img
-              src="{{ item.photo }}"
-              alt="Haber resmi"
-              class="img-fluid rounded-end h-100 object-fit-cover"
-              style="max-height: 180px"
-            />
+
+          <!-- GÖRSEL -->
+          <div
+            class="col-md-4 d-none d-md-flex align-items-center justify-content-center p-3"
+          >
+            <div class="news-image-wrapper rounded-3 overflow-hidden">
+              <img
+                src="{{ item.photo }}"
+                alt="Haber görseli"
+                class="img-fluid w-100 h-100 object-fit-cover"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -118,6 +127,12 @@
       >
         {{ item.summary }}
       </p>
+      <a
+        class="text-decoration-none fw-semibold text-body-emphasis"
+        routerLink="/aboutUs/"
+      >
+        Devamı için tıklayınız →
+      </a>
     </div>
     }
   </div>
