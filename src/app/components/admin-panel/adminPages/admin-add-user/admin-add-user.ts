@@ -27,8 +27,7 @@ export class AdminAddUser {
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       email: ['', Validators.required],
-      passwordhash: ['', Validators.required],
-      passwordsalt: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
   ngOnInit(): void {
@@ -65,11 +64,10 @@ export class AdminAddUser {
     this.isNew = false;
     this.selectedItem = item;
     this.myForm.patchValue({
-      firstname: item.firstname,
-      lastname: item.lastname,
+      firstname: item.firstName,
+      lastname: item.lastName,
       email: item.email,
-      passwordhash: item.passwordhash,
-      passwordsalt: item.passwordsalt,
+      password: item.password,
     });
     this.modalInstance.show();
   }
@@ -95,13 +93,6 @@ export class AdminAddUser {
         this.getData();
         this.modalInstance?.hide();
       });
-    } else if (this.selectedItem) {
-      this.blogService
-        .updateUser({ ...this.selectedItem, ...formData })
-        .subscribe(() => {
-          this.getData();
-          this.modalInstance?.hide();
-        });
     }
   }
 }

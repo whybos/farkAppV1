@@ -12,7 +12,9 @@ export class UserService {
   constructor(private httpClient: HttpClient) {}
 
   getUser(): Observable<ListResponse<usersModel>> {
-    return this.httpClient.get<ListResponse<usersModel>>(this.apiUrl);
+    return this.httpClient.get<ListResponse<usersModel>>(
+      'https://localhost:44345/api/Auth/getAll'
+    );
   }
   createUser(data: usersModel): Observable<ListResponse<usersModel>> {
     return this.httpClient.post<ListResponse<usersModel>>(
@@ -21,16 +23,9 @@ export class UserService {
     );
   }
 
-  updateUser(data: usersModel): Observable<ListResponse<usersModel>> {
-    return this.httpClient.patch<ListResponse<usersModel>>(
-      `https://api.ytufarkk.com/api/User`,
-      data
-    );
-  }
-
   deleteUser(id: number): Observable<ListResponse<usersModel>> {
     return this.httpClient.delete<ListResponse<usersModel>>(
-      `${this.apiUrl}?id=${id}`
+      `https://api.ytufarkk.com/api/Auth/delete/{id}`
     );
   }
 }

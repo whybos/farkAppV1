@@ -17,31 +17,16 @@
       <h5 class="card-title">{{ item.id }}</h5>
 
       <p class="card-text text-muted">
-        <strong>firstname:</strong> {{ item.firstname }}
+        <strong>firstname:</strong> {{ item.firstName }}
       </p>
       <p class="card-text text-muted">
-        <strong>lastname:</strong> {{ item.lastname }}
+        <strong>lastname:</strong> {{ item.lastName }}
       </p>
       <p class="card-text text-muted">
         <strong>email:</strong> {{ item.email }}
       </p>
-      <p class="card-text text-muted">
-        <strong>passwordhash:</strong> {{ item.passwordhash }}
-      </p>
-      <p class="card-text text-muted">
-        <strong>passwordsalt:</strong> {{ item.passwordsalt }}
-      </p>
 
       <div class="d-flex justify-content-end gap-2">
-        <button
-          class="btn btn-sm btn-outline-primary"
-          (click)="onUpdate(item)"
-          data-bs-toggle="modal"
-          data-bs-target="#updateModal"
-        >
-          <i class="bi bi-pencil-square me-1"></i> Update
-        </button>
-
         <button
           class="btn btn-sm btn-outline-danger"
           (click)="onDelete(item.id)"
@@ -128,36 +113,16 @@
 
         <div class="modal-body">
           <div class="mb-3">
-            <label for="passwordhashInput" class="form-label"
-              >passwordhash</label
-            >
+            <label for="passwordInput" class="form-label">password</label>
             <input
-              id="passwordhashInput"
+              id="passwordInput"
               type="text"
               class="form-control"
-              formControlName="passwordhash"
+              formControlName="password"
             />
             <div class="text-danger">
-              @if (myForm.get('passwordhash')?.invalid &&
-              myForm.get('passwordhash')?.touched){ passwordhash is required.}
-            </div>
-          </div>
-        </div>
-
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="passwordsaltInput" class="form-label"
-              >passwordsalt</label
-            >
-            <input
-              id="passwordsaltInput"
-              type="text"
-              class="form-control"
-              formControlName="passwordsalt"
-            />
-            <div class="text-danger">
-              @if (myForm.get('passwordsalt')?.invalid &&
-              myForm.get('passwordsalt')?.touched){ passwordsalt is required.}
+              @if (myForm.get('password')?.invalid &&
+              myForm.get('password')?.touched){ password is required.}
             </div>
           </div>
         </div>
