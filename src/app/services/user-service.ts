@@ -13,7 +13,7 @@ export class UserService {
 
   getUser(): Observable<ListResponse<usersModel>> {
     return this.httpClient.get<ListResponse<usersModel>>(
-      'https://localhost:44345/api/Auth/getAll'
+      'https://api.ytufarkk.com/api/Auth/getAll'
     );
   }
   createUser(data: usersModel): Observable<ListResponse<usersModel>> {
