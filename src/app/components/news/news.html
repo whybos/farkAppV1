@@ -18,11 +18,10 @@
       class="card-body d-flex flex-column flex-md-row align-items-start gap-3"
     >
       <div class="flex-grow-1">
-        <h5 class="card-title fw-semibold text-dark">{{ item.title }}</h5>
-        <p
-          class="card-text text-secondary text-truncate"
-          style="max-height: 4.5rem; overflow: hidden"
-        >
+        <h5 class="card-title fw-semibold text-dark">
+          {{ item.title }}
+        </h5>
+        <p class="card-text text-secondary text-wrap summary-text">
           {{ item.summary }}
         </p>
         <a
