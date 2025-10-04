@@ -58,7 +58,8 @@ footer .nav-link:hover {
 }
 
 /* --- Mobil Görünüm İçin Medya Sorgusu (Footer Düzenlemesi) --- */
-@media (max-width: 767.98px) {
+@media (max-width: 995px) {
+  /* Mevcut mobil ayarlar */
   footer.d-flex {
     flex-direction: column;
   }
@@ -66,13 +67,12 @@ footer .nav-link:hover {
   footer .col-md-4 {
     justify-content: center !important;
     margin-bottom: 1.5rem;
-    width: 100%; /* Mobil görünümde tam genişlik kaplamasını sağlar */
+    width: 100%;
   }
 
-  /* Mobil görünümde linklerin taşmasını engellemek için */
   footer .nav.justify-content-center {
     justify-content: center !important;
-    flex-wrap: wrap; /* Sadece mobilde gerekirse alt satıra atmasına izin ver */
+    flex-wrap: wrap;
   }
 
   .footer-icons .ms-3 {
@@ -85,5 +85,10 @@ footer .nav-link:hover {
 
   footer .col-md-4:last-child {
     margin-bottom: 0;
+  }
+
+  /* --- Dinamik linkleri gizle --- */
+  footer .nav.col-md-4.justify-content-center {
+    display: none;
   }
 }

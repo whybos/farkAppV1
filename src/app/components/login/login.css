@@ -1,4 +1,4 @@
-/* Animasyon için örnek */
+/* Animasyon */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -15,4 +15,11 @@
   animation-duration: 0.6s;
   animation-fill-mode: forwards;
   opacity: 0;
+}
+
+/* Göz ikonu */
+.password-toggle {
+  cursor: pointer;
+  color: #6c757d;
+  transition: color 0.2s ease;
 }

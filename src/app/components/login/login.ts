@@ -17,6 +17,7 @@ declare var bootstrap: any;
 export class Login implements OnInit {
   email = '';
   password = '';
+  passwordFieldType: 'password' | 'text' = 'password'; // başlangıçta gizli
 
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
@@ -41,5 +42,10 @@ export class Login implements OnInit {
           alert('Giriş başarısız');
         }
       });
+  }
+
+  togglePassword() {
+    this.passwordFieldType =
+      this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 }
