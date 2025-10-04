@@ -8,7 +8,6 @@ import { usersModel } from '../model/users.model';
   providedIn: 'root',
 })
 export class UserService {
-  apiUrl: string = 'https://api.ytufarkk.com/api/User';
   constructor(private httpClient: HttpClient) {}
 
   getUser(): Observable<ListResponse<usersModel>> {
@@ -25,7 +24,7 @@ export class UserService {
 
   deleteUser(id: number): Observable<ListResponse<usersModel>> {
     return this.httpClient.delete<ListResponse<usersModel>>(
-      `https://api.ytufarkk.com/api/Auth/delete/{id}`
+      `https://api.ytufarkk.com/api/Auth/delete/` + id
     );
   }
 }
