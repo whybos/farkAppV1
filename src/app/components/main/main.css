@@ -88,22 +88,32 @@ app-root {
   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
 }
 
+/* Slider Kontrol Butonları - Güncellenmiş */
 .carousel-control-prev,
 .carousel-control-next {
-  width: 5%;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
+  width: 15%; /* Genişlik artırıldı */
+  opacity: 0; /* Hafif daha görünür başlangıç opaklığı */
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.4); /* Hafif arka plan rengi eklendi */
 }
 
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-  opacity: 1;
+  opacity: 1; /* Üzerine gelindiğinde tam opaklık */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.6
+  ); /* Üzerine gelindiğinde daha koyu arka plan */
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   filter: invert(1);
-  font-size: 2rem;
+  font-size: 3.5rem; /* Boyut büyütüldü */
+  color: #fff; /* Renk beyaz yapıldı */
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Hafif gölge eklendi */
 }
 
 /* Section Başlıkları */
@@ -261,6 +271,17 @@ app-root {
     margin-bottom: 5vw;
   }
 
+  /* Slider Kontrol Butonları - Mobil Düzenlemeler */
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 20%; /* Mobilde daha geniş */
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    font-size: 2.5rem; /* Mobilde ikon boyutu */
+  }
+
   .section-title {
     font-size: 2rem;
     text-align: center;
@@ -298,6 +319,17 @@ app-root {
 
   .banner-description {
     font-size: 2vw;
+  }
+
+  /* Slider Kontrol Butonları - Orta Boyut Düzenlemeler */
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 10%;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    font-size: 3rem;
   }
 
   .section-title {
