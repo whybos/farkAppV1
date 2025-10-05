@@ -1,8 +1,112 @@
+.auth-wrapper {
+  background-color: #141414; /* Koyu arka plan */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.auth-card {
+  background-color: #000; /* Siyah kart */
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); /* Derin gölge */
+  width: 100%;
+  max-width: 450px; /* Sabit genişlik */
+  padding: 3rem;
+  color: #e5e5e5; /* Açık renk yazı */
+}
+
+.auth-card-body {
+  padding: 0;
+}
+
+.auth-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #e5e5e5;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-label {
+  color: #b3b3b3;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-control {
+  width: 100%;
+  padding: 1rem 0.75rem;
+  background-color: #333; /* Koyu gri input */
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #e5e5e5;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control::placeholder {
+  color: #8c8c8c;
+}
+
+.form-control:focus {
+  background-color: #444;
+  border-color: #e0cf95; /* Vurgu rengi */
+  outline: none;
+  box-shadow: 0 0 0 3px #b5a678;
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  color: #8c8c8c;
+  font-size: 1.2rem;
+  transition: color 0.2s ease;
+}
+
+.password-toggle-icon:hover {
+  color: #e5e5e5;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background-color: #e0cf95; /* Vurgu rengi buton */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 1.5rem;
+}
+
+.submit-button:hover {
+  background-color: #efdda2; /* Daha koyu kırmızı hover */
+  transform: translateY(-2px);
+}
+
 /* Animasyon */
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px); /* Daha belirgin kayma */
   }
   to {
     opacity: 1;
@@ -12,14 +116,8 @@
 
 .animate-fade-up {
   animation-name: fadeUp;
-  animation-duration: 0.6s;
+  animation-duration: 0.7s; /* Daha akıcı animasyon */
   animation-fill-mode: forwards;
-  opacity: 0;
-}
-
-/* Göz ikonu */
-.password-toggle {
-  cursor: pointer;
-  color: #6c757d;
-  transition: color 0.2s ease;
+  animation-timing-function: ease-out;
+  opacity: 0; /* Başlangıçta gizli */
 }

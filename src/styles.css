@@ -1,1 +1,333 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Genel Ayarlar */
+body {
+  font-family: "fark Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* body arka plan rengini kaldırıyoruz, Angular app-root'un arka planı geçerli olacaktır */
+  color: #e5e5e5; /* Açık gri metin rengi, eğer app-root beyazsa bu renk geçerli olmaz */
+  overflow-x: hidden; /* Yatay kaydırmayı engelle */
+}
+
+/* app-root'un varsayılan bir arka plan rengi yoksa veya beyazsa,
+   içeriğin daha iyi görünmesi için global bir arka plan rengi ekliyoruz.
+   Bu, tüm Angular uygulamasının arka planını kapsayacaktır. */
+app-root {
+  display: block; /* app-root'un blok seviyesinde olmasını sağlar */
+  background-color: #141414; /* fark'in koyu arka planı */
+  min-height: 100vh; /* Ekran yüksekliğinin tamamını kaplar */
+  color: #e5e5e5; /* Genel metin rengi */
+}
+
+.fark-container {
+  max-width: 100%; /* Tam genişlik */
+  padding: 0;
+  margin: 0 auto;
+}
+
+/* fark Hero Slider */
+.fark-hero-slider {
+  position: relative;
+  width: 100%;
+  height: 90vh; /* Ekran yüksekliğinin %90'ı */
+  overflow: hidden;
+  background-color: #000; /* Slider yüklenirken veya resim yoksa siyah arka plan */
+}
+
+.fark-hero-slide {
+  height: 90vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 5%; /* fark'e benzer bir boşluk */
+  padding-right: 5%;
+}
+
+.fark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    77deg,
+    rgba(0, 0, 0, 0.8) 0,
+    /* Başlangıç noktasında daha koyu */ rgba(0, 0, 0, 0.3) 85%
+      /* Bitiş noktasında hala belirgin */
+  ); /* fark'in degrade efekti - güçlendirildi */
+}
+
+.fark-hero-slide .carousel-caption {
+  position: relative;
+  z-index: 10;
+  text-align: left;
+  max-width: 50%; /* Metin genişliği */
+  left: 0;
+  right: auto;
+  bottom: auto;
+  transform: none; /* Bootstrap varsayılanını sıfırla */
+  padding-bottom: 0; /* Bootstrap varsayılanını sıfırla */
+}
+
+.fark-title {
+  font-size: 4.5vw; /* Duyarlı başlık boyutu */
+  font-weight: 800; /* Daha kalın */
+  margin-bottom: 1.5vw;
+  color: #fff; /* Tam beyaz metin */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7); /* Daha belirgin gölge */
+}
+
+.fark-description {
+  font-size: 1.5vw;
+  line-height: 1.3;
+  margin-bottom: 2.5vw;
+  color: #f0f0f0; /* Hafif kirli beyaz */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7); /* Daha belirgin gölge */
+}
+
+.fark-button {
+  background-color: #e0cf95; /* fark kırmızısı */
+  color: #fff;
+  border: none;
+  padding: 0.8vw 2.5vw;
+  font-size: 1.2vw;
+  font-weight: 600;
+  border-radius: 0.2vw;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.fark-button:hover {
+  background-color: #efdda2;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%; /* Okların genişliği */
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1); /* Siyah okları beyaz yap */
+  font-size: 2rem; /* Ok simgelerinin boyutu */
+}
+
+/* Section Başlıkları */
+.fark-section {
+  padding: 0 4%; /* Yan boşluklar */
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.fark-section-title {
+  color: #fff; /* Başlıklar tam beyaz */
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #e0cf95; /* fark alt çizgi efekti */
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+/* Haberler Grid */
+.fark-news-grid {
+  gap: 20px; /* Kartlar arası boşluk */
+}
+
+.fark-card {
+  background-color: #222; /* Daha da koyu kart arka planı */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Daha belirgin gölge */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #444; /* Daha belirgin kenarlık */
+}
+
+.fark-card:hover {
+  transform: translateY(-8px); /* Hafifçe yukarı kayma */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7); /* Daha yoğun gölge */
+}
+
+.fark-card-image-wrapper {
+  width: 100%;
+  padding-top: 75%; /* 4:3 en boy oranı */
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.fark-card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fark-card-title {
+  font-size: 1.5rem;
+  font-weight: 700; /* Daha kalın */
+  color: #fff; /* Tam beyaz başlık */
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* İki satırla sınırlama */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fark-card-date {
+  color: #a0a0a0; /* Biraz daha açık tarih rengi */
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.fark-card-text {
+  color: #e0e0e0; /* Daha açık metin rengi */
+  font-size: 1rem;
+  line-height: 1.6; /* Satır aralığını biraz artırdık */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Üç satırla sınırlama */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fark-link {
+  color: #e0cf95; /* fark kırmızısı */
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.fark-link:hover {
+  color: #efdda2;
+  text-decoration: underline;
+}
+
+/* Hakkımızda Bölümü */
+.fark-about-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #e0e0e0; /* Daha açık metin rengi */
+  text-align: center;
+  margin-bottom: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Animasyonlar */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation-name: fadeIn;
+  animation-duration: 0.8s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+}
+
+/* Responsive Düzenlemeler */
+@media (max-width: 768px) {
+  .fark-hero-slider {
+    height: 60vh;
+  }
+
+  .fark-hero-slide {
+    height: 60vh;
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+
+  .fark-hero-slide .carousel-caption {
+    max-width: 90%;
+    text-align: center;
+    left: 5%; /* Ortalamak için */
+    right: 5%;
+  }
+
+  .fark-title {
+    font-size: 8vw;
+    margin-bottom: 3vw;
+  }
+
+  .fark-description {
+    font-size: 4vw;
+    margin-bottom: 5vw;
+  }
+
+  .fark-button {
+    padding: 2.5vw 7vw;
+    font-size: 4vw;
+  }
+
+  .fark-section-title {
+    font-size: 2rem;
+    text-align: center;
+    border-bottom: none; /* Mobil için alt çizgiyi kaldır */
+    padding-bottom: 0;
+    margin-bottom: 20px;
+  }
+
+  .fark-news-card .col-md-4,
+  .fark-news-card .col-md-8 {
+    width: 100%;
+  }
+
+  .fark-card-image-wrapper {
+    padding-top: 56.25%; /* 16:9 en boy oranı mobil için */
+  }
+
+  .fark-card-title {
+    font-size: 1.3rem;
+  }
+
+  .fark-card-text {
+    -webkit-line-clamp: 4; /* Daha fazla metin görünür olsun */
+  }
+
+  .fark-about-text {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .fark-title {
+    font-size: 5.5vw;
+  }
+
+  .fark-description {
+    font-size: 2vw;
+  }
+
+  .fark-button {
+    font-size: 1.5vw;
+    padding: 1vw 3vw;
+  }
+
+  .fark-section-title {
+    font-size: 2.8rem;
+  }
+
+  .fark-card-title {
+    font-size: 1.4rem;
+  }
+}

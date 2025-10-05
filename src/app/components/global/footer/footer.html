@@ -1,73 +1,60 @@
-<div class="container">
-  <footer
-    class="d-flex flex-wrap justify-content-between align-items-center py-4 my-4 border-top"
-  >
+<div class="app-container">
+  <footer class="app-footer">
     <!-- Logo ve Telif Hakkı -->
-    <div class="col-md-4 d-flex align-items-center">
-      <a
-        href="/"
-        class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1"
-        aria-label="Bootstrap"
-      >
-        <svg class="bi" width="30" height="24" aria-hidden="true">
-          <use xlink:href="#bootstrap"></use>
-        </svg>
+    <div class="app-footer-col app-footer-brand-section">
+      <a href="/" class="app-footer-logo-link" aria-label="Fark Ana Sayfa">
+        <!-- SVG içindeki Bootstrap ikonunu kaldırıp basit bir marka adı yerleştiriyorum,
+             çünkü Bootstrap ikonuna gerek kalmayacak. İstersen buraya kendi SVG logon ekleyebilirsin. -->
+        <span class="app-footer-logo-text">FARK</span>
       </a>
-      <span class="mb-3 mb-md-0 text-body-secondary"
-        >Fikri Araştırmalar Kulübü</span
-      >
+      <span class="app-footer-copyright">© Fikri Araştırmalar Kulübü</span>
     </div>
 
     <!-- Dinamik Linkler -->
-    <ul class="nav col-md-4 justify-content-center">
+    <ul class="app-footer-col app-footer-nav-links">
       @for (item of footer; track $index) {
-      <li class="nav-item">
-        <a
-          routerLink="{{ item.link }}"
-          class="nav-link px-2 text-body-secondary"
-          >{{ item.body }}</a
-        >
+      <li class="app-footer-nav-item">
+        <a routerLink="{{ item.link }}" class="app-footer-nav-link">{{
+          item.body
+        }}</a>
       </li>
       }
     </ul>
 
     <!-- Sosyal Medya İkonları -->
-    <ul
-      class="nav col-md-4 justify-content-end list-unstyled d-flex footer-icons"
-    >
-      <!-- <li class="ms-3">
-        <a href="#" aria-label="Facebook">
-          <i class="bi bi-facebook"></i>
-        </a>
-      </li> -->
-      <li class="ms-3">
+    <ul class="app-footer-col app-social-icons-list">
+      <li class="app-social-item">
         <a
           href="https://www.instagram.com/ytufarkk?igsh=NjNqMHBkMXBhazIz"
           aria-label="Instagram"
+          class="app-social-link instagram"
         >
           <i class="bi bi-instagram"></i>
         </a>
       </li>
-      <li class="ms-3">
+      <li class="app-social-item">
         <a
           href="https://x.com/ytufarkk?t=A1d6wNbVIJAecaahI-wsRg&s=09  "
           aria-label="X"
+          class="app-social-link twitter"
         >
           <i class="bi bi-twitter-x"></i>
         </a>
       </li>
-      <li class="ms-3">
+      <li class="app-social-item">
         <a
           href="https://youtube.com/@ytufarkk?si=04TVYiqmzT06U3CE"
           aria-label="YouTube"
+          class="app-social-link youtube"
         >
           <i class="bi bi-youtube"></i>
         </a>
       </li>
-      <li class="ms-3">
+      <li class="app-social-item">
         <a
           href="https://www.linkedin.com/company/ytufarkk/"
           aria-label="Linkedin"
+          class="app-social-link linkedin"
         >
           <i class="bi bi-linkedin"></i>
         </a>

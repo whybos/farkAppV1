@@ -1,5 +1,3 @@
-
-
 [
   { "keyword": "Mercedes-Benz" },
   { "keyword": "Hyundai" },
@@ -81,8 +79,6 @@
   { "keyword": "Condenast" },
   { "keyword": "Naot" },
 
-
-  
   { "keyword": "Tchibo" },
   { "keyword": "Jacobs" },
   { "keyword": "Gloria Jean'S Coffees" },
@@ -109,8 +105,6 @@
   { "keyword": "Royal Canin" },
   { "keyword": "National Geographic" },
 
-
-  
   { "keyword": "Pro Plan" },
   { "keyword": "Nestle Purina" },
   { "keyword": "DHL Group" },
@@ -166,9 +160,6 @@
   { "keyword": "Live Nation Entertainment" },
   { "keyword": "Petcare" },
 
-
-
-  
   { "keyword": "Yves Rocher" },
   { "keyword": "Nivea" },
   { "keyword": "Head and Shoulders" },
@@ -186,8 +177,6 @@
   { "keyword": "Aerin" },
   { "keyword": "Aesop" },
 
-
-  
   { "keyword": "Erikli Su" },
   { "keyword": "Cappy" },
   { "keyword": "Hayat Su" },
@@ -210,16 +199,12 @@
   { "keyword": "Mountain Dew" },
   { "keyword": "Perrier" },
 
-
-  
   { "keyword": "Shell" },
   { "keyword": "Petrol Ofisi" },
   { "keyword": "Zorlu Holding" },
   { "keyword": "Bp Petrol" },
   { "keyword": "Vontier" },
 
-
-  
   { "keyword": "Tv8" },
   { "keyword": "Ecem Erkek" },
   { "keyword": "Orkun Işıtmak" },
@@ -271,9 +256,6 @@
   { "keyword": "Dost Yoğurt" },
   { "keyword": "Algida" },
 
-
-
-  
   { "keyword": "İçim" },
   { "keyword": "Birşah" },
   { "keyword": "Çerezza" },
@@ -326,10 +308,6 @@
   { "keyword": "My M&M's" },
   { "keyword": "Subway" },
 
-
-
-
-  
   { "keyword": "Aptamil" },
   { "keyword": "Sprite" },
   { "keyword": "Galaxy" },
@@ -382,9 +360,6 @@
   { "keyword": "Hellmann's" },
   { "keyword": "Crunch" },
 
-
-
-  
   { "keyword": "Hellman's" },
   { "keyword": "Nuts And Seeds" },
   { "keyword": "Alaçam" },
@@ -441,8 +416,6 @@
   { "keyword": "İnstacart" },
   { "keyword": "Mıss Vıckıes" },
 
-
-
   { "keyword": "Kotex" },
   { "keyword": "Bayer" },
   { "keyword": "Durex" },
@@ -476,9 +449,6 @@
   { "keyword": "AniCura" },
   { "keyword": "Pepto Bismol" },
 
-
-
-  
   { "keyword": "Finish" },
   { "keyword": "Fairy" },
   { "keyword": "Pril" },
@@ -531,7 +501,6 @@
   { "keyword": "Gain" },
   { "keyword": "Mr Clean" },
 
-
   { "keyword": "Woolite" },
   { "keyword": "Swiffer" },
   { "keyword": "Safeguard" },
@@ -567,10 +536,6 @@
   { "keyword": "Warby Parker" },
   { "keyword": "Leibish & Co." },
 
-
-
-
-  
   { "keyword": "Tefal" },
   { "keyword": "Lactalis Group" },
   { "keyword": "Castrol" },
@@ -608,9 +573,6 @@
   { "keyword": "Kevin's Natural Foods" },
   { "keyword": "Spiellers" },
 
-
-
-  
   { "keyword": "Migros" },
   { "keyword": "Şok" },
   { "keyword": "Carrefour" },
@@ -623,7 +585,7 @@
   { "keyword": "Instagram" },
   { "keyword": "Google" },
   { "keyword": "Duracell" },
-  { "keyword": "Netflix" },
+  { "keyword": "fark" },
   { "keyword": "Profilo" },
   { "keyword": "Telegram" },
   { "keyword": "Siemens" },
@@ -680,8 +642,6 @@
   { "keyword": "Salesforce" },
   { "keyword": "Taboola" },
 
-
-  
   { "keyword": "İnsight Partners" },
   { "keyword": "Pet Insight Project" },
   { "keyword": "Atlassian" },
@@ -830,5 +790,4 @@
   { "keyword": "Myjool" },
   { "keyword": "Galilee Export" },
   { "keyword": "Mehadrin" }
-
 ]

@@ -1,32 +1,34 @@
-<div class="container my-5 animate-fade-sequence">
+<div class="detail-page-wrapper">
   @if (detail == null) {
-  <p class="text-muted fst-italic mb-4 animate-step" style="--delay: 100ms">
-    Bu habere henüz detay eklenmemiştir
-  </p>
+  <div class="empty-detail-state animate-fade-in" style="--delay: 100ms">
+    <p class="empty-detail-message">Bu habere henüz detay eklenmemiştir.</p>
+  </div>
   } @else {
-  <div class="blog-post mx-auto" style="max-width: 800px">
-    <!-- Başlık -->
-    <h1
-      class="text-center text-dark fw-bold mb-4 animate-step"
-      style="--delay: 0ms"
-    >
+  <article class="news-article-detail">
+    <!-- Title -->
+    <h1 class="article-title animate-step" style="--delay: 0ms">
       {{ detail.title }}
     </h1>
 
-    <!-- Görsel -->
-    <div class="image-wrapper animate-step" style="--delay: 200ms">
-      <img src="{{ detail.photo }}" alt="Haber görseli" class="blog-image" />
+    <!-- Image -->
+    <div class="article-image-container animate-step" style="--delay: 200ms">
+      <img
+        [src]="detail.photo"
+        alt="Haber görseli"
+        class="article-image"
+        onerror="this.onerror=null;this.src='https://via.placeholder.com/800x600?text=Görsel+Yok';"
+      />
     </div>
 
-    <!-- Özet -->
-    <p class="text-muted fst-italic mb-4 animate-step" style="--delay: 300ms">
+    <!-- Summary -->
+    <p class="article-summary animate-step" style="--delay: 300ms">
       {{ detail.summary }}
     </p>
 
-    <!-- İçerik -->
-    <p class="text-secondary lh-lg fs-5 animate-step" style="--delay: 600ms">
-      {{ detail.body }}
-    </p>
-  </div>
+    <!-- Body Content -->
+    <div class="article-body animate-step" style="--delay: 600ms">
+      <p>{{ detail.body }}</p>
+    </div>
+  </article>
   }
 </div>

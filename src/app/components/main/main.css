@@ -1,25 +1,224 @@
-.ratio-wrapper {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 en-boy oranı (9 / 16 = 0.5625) */
-  overflow: hidden;
-  border-radius: 0.5rem; /* opsiyonel: köşeleri yumuşat */
+/* Genel Ayarlar */
+body {
+  font-family: "fark Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #e5e5e5;
+  overflow-x: hidden;
 }
 
-.carousel-image {
+app-root {
+  display: block;
+  background-color: #141414;
+  min-height: 100vh;
+  color: #e5e5e5;
+}
+
+.main-content-container {
+  max-width: 100%;
+  padding: 0;
+  margin: 0 auto;
+}
+
+/* Hero Banner Section */
+.hero-banner-section {
+  position: relative;
+  width: 100%;
+  padding-top: 46.875%;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.hero-banner-section .carousel,
+.hero-banner-section .carousel-inner,
+.hero-banner-section .carousel-item {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Görseli kutuya sığdır, taşanı kırp */
-  display: block;
 }
 
-@keyframes fadeUp {
+.hero-banner-slide {
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    77deg,
+    rgba(0, 0, 0, 0.8) 0,
+    rgba(0, 0, 0, 0.3) 85%
+  );
+}
+
+.hero-banner-slide .carousel-caption {
+  position: relative;
+  z-index: 10;
+  text-align: left;
+  max-width: 50%;
+  left: 0;
+  right: auto;
+  bottom: auto;
+  transform: none;
+  padding-bottom: 0;
+}
+
+.banner-title {
+  font-size: 4.5vw;
+  font-weight: 800;
+  margin-bottom: 1.5vw;
+  color: #fff;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.banner-description {
+  font-size: 1.5vw;
+  line-height: 1.3;
+  margin-bottom: 2.5vw;
+  color: #f0f0f0;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+  font-size: 2rem;
+}
+
+/* Section Başlıkları */
+.content-section {
+  padding: 0 4%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.section-title {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #e0cf95;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+/* Haberler Grid */
+.content-grid {
+  gap: 20px;
+}
+
+.item-card {
+  background-color: #222;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #444;
+}
+
+.item-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+}
+
+.card-image-wrapper {
+  width: 100%;
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-image {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-date {
+  color: #a0a0a0;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  color: #e0e0e0;
+  font-size: 1rem;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.content-link {
+  color: #e0cf95;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.content-link:hover {
+  color: #efdda2;
+  text-decoration: none;
+}
+
+/* Hakkımızda Bölümü */
+.about-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #e0e0e0;
+  text-align: center;
+  margin-bottom: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Animasyonlar */
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -27,9 +226,86 @@
   }
 }
 
-.animate-fade-up {
-  animation-name: fadeUp;
-  animation-duration: 0.6s;
+.animate-fade-in {
+  animation-name: fadeIn;
+  animation-duration: 0.8s;
   animation-fill-mode: both;
   animation-timing-function: ease-out;
+}
+
+/* Responsive Düzenlemeler */
+@media (max-width: 768px) {
+  /* Hero Banner için mobil düzenlemeler */
+  .hero-banner-section {
+    padding-top: 56.25%;
+  }
+
+  .hero-banner-slide {
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+
+  .hero-banner-slide .carousel-caption {
+    max-width: 90%;
+    text-align: center;
+    left: 5%;
+    right: 5%;
+  }
+
+  .banner-title {
+    font-size: 8vw;
+    margin-bottom: 3vw;
+  }
+
+  .banner-description {
+    font-size: 4vw;
+    margin-bottom: 5vw;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    text-align: center;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 20px;
+  }
+
+  .news-card .col-md-4,
+  .news-card .col-md-8 {
+    width: 100%;
+  }
+
+  .card-image-wrapper {
+    height: 180px;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  .card-text {
+    -webkit-line-clamp: 4;
+  }
+
+  .about-text {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .banner-title {
+    font-size: 5.5vw;
+  }
+
+  .banner-description {
+    font-size: 2vw;
+  }
+
+  .section-title {
+    font-size: 2.8rem;
+  }
+
+  .card-title {
+    font-size: 1.4rem;
+  }
 }

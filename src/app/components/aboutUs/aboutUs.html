@@ -1,18 +1,18 @@
-<div class="container my-5">
-  <!-- Başlık animasyonlu -->
-  <h1
-    class="mb-4 text-center text-dark fw-bold animate-fade-up"
-    [ngStyle]="{ 'animation-delay': '0ms' }"
-  >
-    Hakkımızda
-  </h1>
-  <hr />
+<div class="main-container">
+  <div class="page-header">
+    <h1
+      class="section-title animate-fade-up"
+      [ngStyle]="{ 'animation-delay': '0ms' }"
+    >
+      Hakkımızda
+    </h1>
+    <hr class="section-divider" />
+  </div>
 
-  <div class="about-text mx-auto" style="max-width: 800px">
+  <div class="content-area">
     @for (item of aboutUs; track $index) {
     <p
-      class="mb-4 animate-fade-up"
-      style="color: #4a4a4a; line-height: 1.65; font-size: 1.125rem"
+      class="body-text animate-fade-up"
       [ngStyle]="{ 'animation-delay': ($index + 1) * 200 + 'ms' }"
     >
       {{ item.body }}

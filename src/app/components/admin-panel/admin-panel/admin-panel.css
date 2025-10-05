@@ -1,0 +1,140 @@
+/* --- Admin Panel Genel Yapı --- */
+.admin-panel-wrapper {
+  background-color: #141414;
+  color: #e5e5e5;
+  padding-top: 2rem; /* Üst padding'i koruyalım, bu navbar'dan uzaklığı */
+  padding-bottom: 0; /* Alt padding'i tamamen sıfırla */
+  padding-left: 2rem;
+  padding-right: 2rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  min-height: calc(100vh - var(--navbar-height, 64px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0 !important; /* Tüm marginleri sıfırla */
+  /* Eğer bu elementin kendisinin boşluk yaratma ihtimali varsa */
+  width: 100%; /* Genişliğini tam olarak ayarla */
+}
+
+/* Navbar yüksekliğini bir CSS değişkeni olarak tanımlamak iyi bir pratiktir */
+/* Bu değişkeni uygulamanızın global CSS'inde (pl. styles.css) tanımlamanız tavsiye edilir */
+/* :root { --navbar-height: 64px; } */
+
+.admin-panel-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #e0cf95;
+  margin-top: 0; /* Başlığın kendi üstündeki boşluğu sıfırlar */
+  margin-bottom: 2rem; /* Başlık ile sekmeler arası boşluğu koruyalım */
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
+}
+
+/* --- Sekmeler (Tabs) --- */
+.admin-tabs {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0; /* Tüm marginleri sıfırla */
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.tab-item {
+  flex-shrink: 0;
+  margin: 0; /* Liste öğelerinin kendi marginlerini sıfırla */
+  padding: 0; /* Liste öğelerinin kendi paddinglerini sıfırla */
+}
+
+.tab-button {
+  background-color: #222;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #b3b3b3;
+  padding: 0.9rem 1.8rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  text-decoration: none;
+  display: block;
+  margin: 0; /* Butonların kendi marginlerini sıfırla */
+}
+
+.tab-button:hover {
+  background-color: #333;
+  color: #e5e5e5;
+  border-color: #e0cf95;
+  box-shadow: 0 0 15px rgba(229, 9, 20, 0.3);
+}
+
+.tab-button.active-tab {
+  background-color: #e0cf95;
+  color: #ffffff;
+  border-color: #e0cf95;
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.6);
+  transform: translateY(-2px);
+}
+
+.tab-button.active-tab .tab-text {
+  color: #ffffff;
+}
+
+.tab-text {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+/* --- Router Outlet İçeriği İçin Ayarlar --- */
+router-outlet {
+  display: block;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 !important; /* Tüm dış boşlukları tamamen sıfırla */
+  padding: 0 !important; /* İç boşlukları da tamamen sıfırla */
+  box-sizing: border-box;
+  overflow: hidden; /* Taşmaları engellemek için */
+
+  /* Router-outlet'in içine yansıyan tüm elementlerin margin/padding'ini sıfırla */
+  /* Bu kural çok güçlüdür ve Shadow DOM'u aşmak için kullanılır. */
+  :host ::ng-deep > * {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1; /* Metinler arası boşluğu da minimuma indir */
+    /* Flex veya grid kapsayıcıları içindeki boşlukları da kontrol edebiliriz */
+    gap: 0 !important;
+  }
+}
+
+/* --- Responsive Düzenlemeler --- */
+@media (max-width: 768px) {
+  .admin-panel-title {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .admin-tabs {
+    flex-direction: column;
+    gap: 0.8rem;
+    max-width: 300px;
+    margin: 0 auto !important; /* Mobil görünümde de boşluk sıfır ve ortala */
+    padding: 0;
+  }
+
+  .tab-button {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-panel-title {
+    font-size: 1.8rem;
+  }
+}

@@ -1,59 +1,50 @@
-<div class="container mt-5 animate-fade-up" style="animation-delay: 200ms">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h2 class="mb-4 text-center text-dark fw-bold">Giriş Yap</h2>
-          <form (ngSubmit)="onLogin()">
-            <div class="mb-3">
-              <label for="email" class="form-label"
-                >Kullanıcı adınızı giriniz</label
-              >
-              <input
-                [(ngModel)]="email"
-                name="email"
-                id="email"
-                type="email"
-                class="form-control"
-                placeholder="Kullanıcı adınızı giriniz"
-                required
-              />
-            </div>
-
-            <div class="mb-3 position-relative">
-              <label for="password" class="form-label">Şifre</label>
-              <div class="input-group">
-                <input
-                  [(ngModel)]="password"
-                  name="password"
-                  id="password"
-                  [type]="passwordFieldType"
-                  class="form-control"
-                  placeholder="Şifrenizi girin"
-                  required
-                />
-                <span class="input-group-text bg-white">
-                  <i
-                    class="bi"
-                    [ngClass]="
-                      passwordFieldType === 'password'
-                        ? 'bi-eye'
-                        : 'bi-eye-slash'
-                    "
-                    (click)="togglePassword()"
-                    style="cursor: pointer"
-                    title="Şifreyi Göster/Gizle"
-                  ></i>
-                </span>
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100">
-              Giriş Yap
-            </button>
-          </form>
+<div class="auth-wrapper">
+  <div class="auth-card animate-fade-up" style="animation-delay: 200ms">
+    <div class="auth-card-body">
+      <h2 class="auth-title">Admin</h2>
+      <form (ngSubmit)="onLogin()">
+        <div class="form-group">
+          <label for="email" class="form-label"
+            >Kullanıcı adınızı giriniz</label
+          >
+          <input
+            [(ngModel)]="email"
+            name="email"
+            id="email"
+            type="email"
+            class="form-control"
+            placeholder="Kullanıcı adınızı giriniz"
+            required
+          />
         </div>
-      </div>
+
+        <div class="form-group password-group">
+          <label for="password" class="form-label">Şifre</label>
+          <div class="input-with-icon">
+            <input
+              [(ngModel)]="password"
+              name="password"
+              id="password"
+              [type]="passwordFieldType"
+              class="form-control"
+              placeholder="Şifrenizi girin"
+              required
+            />
+            <span class="password-toggle-icon">
+              <i
+                class="bi"
+                [ngClass]="
+                  passwordFieldType === 'password' ? 'bi-eye' : 'bi-eye-slash'
+                "
+                (click)="togglePassword()"
+                title="Şifreyi Göster/Gizle"
+              ></i>
+            </span>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-button">Giriş Yap</button>
+      </form>
     </div>
   </div>
 </div>

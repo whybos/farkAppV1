@@ -38,4 +38,22 @@ export class Contact implements OnInit {
       }
     );
   }
+
+  hovering = false;
+
+  copyEmail(email: string) {
+    navigator.clipboard
+      .writeText(email)
+      .then(() => console.log('Kopyalandı:', email))
+      .catch((err) => console.error('Kopyalama hatası:', err));
+  }
+
+  hovering1 = false;
+
+  copyAdress(adress: string) {
+    navigator.clipboard
+      .writeText(adress)
+      .then(() => console.log('Kopyalandı:', adress))
+      .catch((err) => console.error('Kopyalama hatası:', err));
+  }
 }

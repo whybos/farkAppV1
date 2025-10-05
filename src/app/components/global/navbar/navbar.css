@@ -1,126 +1,330 @@
-/* --- Genel Navbar Yapısı --- */
-.navbar {
-  background-color: #ffffff; /* Tamamen beyaz, temiz bir arka plan */
-  border-bottom: 1px solid #e0e0e0; /* Çok ince ve açık gri bir ayırıcı çizgi */
-  padding: 0.75rem 0;
-  font-family: "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+/* --- Genel Header ve Navigasyon Yapısı --- */
+.fark-navbar {
+  background-color: #141414; /* fark'in koyu arka planı */
+  padding: 1rem 4%; /* Yan boşluklar ve dikey dolgu */
+  border-bottom: 1px solid #000; /* Daha koyu bir alt çizgi */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Hafif gölge */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* fark fontu */
+  position: sticky; /* Sayfa kaydırıldığında yukarıda kalır */
+  top: 0;
+  z-index: 1020; /* Diğer içeriklerin üzerinde olmasını sağlar */
+  display: flex; /* İçeriği ortalamak için flex kullan */
+  justify-content: center; /* İçeriği yatayda ortala */
 }
 
-/* --- Marka/Logo Alanı --- */
-.navbar-brand {
-  font-size: 1.75rem; /* Markanın dikkat çekmesi için biraz daha büyük */
-  font-weight: 700; /* Cesur ve güçlü bir marka görünümü */
-  color: #212529; /* Saf siyaha yakın, güçlü bir metin rengi */
+.navbar-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px; /* Maksimum genişlik */
 }
 
-/* --- Navigasyon Linkleri (En Önemli Kısım) --- */
-.nav-link {
-  color: #343a40; /* Ana metinler için koyu gri, okunabilir bir renk */
-  padding: 0.5rem 1.25rem; /* Linkler arası boşluğu artırarak ferah bir görünüm */
+/* --- Marka Alanı --- */
+.fark-brand {
+  font-size: 2.2rem; /* Logoya yakın boyut */
+  font-weight: 700;
+  color: #e0cf95; /* Ana vurgu kırmızısı */
+  letter-spacing: -1px; /* Harfler arası boşluğu azalt */
+  text-decoration: none;
+  transition: color 0.3s ease;
+  flex-shrink: 0; /* Küçülmesini engelle */
+}
+
+.fark-brand:hover {
+  color: #efdda2; /* Hover'da daha parlak kırmızı */
+}
+
+/* --- Masaüstü Navigasyon Linkleri --- */
+.main-nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.main-nav-links .nav-item {
+  margin: 0 1rem;
+}
+
+.main-nav-links .nav-link {
+  color: #e5e5e5; /* Açık gri metin rengi */
+  padding: 0.75rem 0; /* Daha geniş dolgu */
   position: relative;
   transition: color 0.3s ease-in-out;
-}
-
-/* Navigasyon linkleri içindeki H4 etiketini sıfırlama ve yeniden şekillendirme */
-.nav-link h4 {
-  font-size: 1rem; /* Profesyonel ve standart bir menü yazı boyutu */
-  font-weight: 600; /* "Hakkımızda" başlığındaki gibi tok ve yarı-kalın stil */
-  margin: 0; /* h4 etiketinin varsayılan boşluklarını kaldırma */
-  padding: 0;
-  letter-spacing: 0.5px; /* Harfler arasına çok hafif boşluk ekleyerek okunabilirliği artırma */
-  transition: all 0.3s ease;
+  font-weight: 500; /* Orta kalınlık */
+  font-size: 1.05rem; /* Hafif büyük metin */
+  text-decoration: none;
+  display: block; /* Tam tıklanabilir alan */
 }
 
 /* --- Hover (Üzerine Gelme) Efektleri --- */
-.nav-link:hover {
-  color: #000000; /* Üzerine gelince metni saf siyaha çevirerek vurgulama */
+.main-nav-links .nav-link:hover {
+  color: #ffffff; /* Üzerine gelince tam beyaz */
 }
 
-/* Alt çizgi animasyonu */
-.nav-link::after {
+/* Alt çizgi animasyonu (Modern bir vurgu) */
+.main-nav-links .nav-link::after {
   content: "";
   position: absolute;
   width: 0;
-  height: 2px;
-  bottom: -2px; /* Çizgiyi metnin biraz altında konumlandırma */
+  height: 3px; /* Daha belirgin çizgi */
+  bottom: -5px; /* Metnin altında biraz boşluk */
   left: 50%;
   transform: translateX(-50%);
-  background-color: #212529; /* Vurgu rengi olarak siyaha yakın koyu gri */
+  background-color: #e0cf95; /* Ana vurgu kırmızısı */
   transition: width 0.3s ease-in-out;
 }
 
-.nav-link:hover::after {
-  width: 75%; /* Çizginin tamamını değil, bir kısmını göstererek daha estetik bir görünüm */
+.main-nav-links .nav-link:hover::after {
+  width: 80%; /* Çizgi daha geniş ve belirgin */
 }
 
-/* --- Giriş Yap ve Admin Paneli (Dropdown) --- */
-.dropdown-toggle {
-  background-color: transparent !important; /* Arka planı tamamen şeffaf yapma */
-  border: 1px solid #ced4da !important; /* İnce bir çerçeve */
-  color: #343a40 !important;
+/* Aktif link için ekstra vurgu */
+.main-nav-links .nav-link.active {
+  color: #ffffff; /* Aktif link tam beyaz */
+  font-weight: 700;
 }
-/* Dropdown ikonunu göstermek için ek kod */
-.dropdown-toggle::after {
-  color: #343a40;
-}
-
-.dropdown-menu {
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Daha yumuşak ve modern bir gölge */
+.main-nav-links .nav-link.active::after {
+  width: 80%;
+  background-color: #e0cf95;
 }
 
-.dropdown-item {
-  font-weight: 500;
-  transition: background-color 0.2s ease, color 0.2s ease;
+/* --- Admin Menüsü/Dropdown --- */
+.dropdown-container {
+  position: relative;
+  margin-left: 1.5rem;
 }
 
-.dropdown-item:hover {
-  background-color: #f8f9fa; /* Çok hafif bir vurgu rengi */
-  color: #000000;
-}
-
-/* --- Mobil (Offcanvas) Menü --- */
-.offcanvas-header {
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.offcanvas-title {
-  color: #212529;
-  font-weight: 600;
-}
-/* --- Dropdown Animasyonunu Ayarlama --- */
-
-/* 1. Bootstrap'in anlık gösterme/gizleme davranışını geçersiz kılalım */
-.dropdown-menu {
-  display: block; /* Menüyü her zaman 'block' olarak ayarla ki animasyon çalışabilsin */
-  opacity: 0; /* Başlangıçta tamamen şeffaf yap */
-  visibility: hidden; /* Gizliyken tıklanamaz olmasını sağla */
-  transform: translateY(10px); /* Başlangıçta 10px aşağıda konumlandır */
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out,
-    visibility 0.3s; /* Animasyon hızını ve yumuşaklığını ayarla */
-}
-
-/* 2. Bootstrap'in menüyü göstermek için eklediği '.show' class'ı aktif olduğunda animasyonu tetikle */
-.dropdown-menu.show {
-  opacity: 1; /* Tamamen görünür yap */
-  visibility: visible; /* Tıklanabilir hale getir */
-  transform: translateY(0); /* Orijinal konumuna geri kaydır */
-}
-
-/* --- Dropdown Butonunun Stilini Koruma --- */
-/* Bir önceki yanıttaki profesyonel buton stilini de ekleyelim ki bütünlük bozulmasın */
-.dropdown-toggle {
-  background-color: transparent !important;
-  border: 1px solid #ced4da !important;
-  color: #343a40 !important;
+.admin-dropdown-toggle {
+  background-color: #e0cf95 !important;
+  border: none !important;
+  color: #fff !important;
+  padding: 0.6rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
-.dropdown-toggle::after {
-  color: #343a40;
+.admin-dropdown-toggle:hover {
+  background-color: #efdda2 !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.dropdown-toggle:hover {
-  background-color: #f8f9fa !important;
+.admin-dropdown-toggle::after {
+  color: #fff;
+  margin-left: 5px;
+  display: inline-block;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
+}
+
+.admin-dropdown-menu {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+  padding: 0.5rem 0;
+  list-style: none;
+  position: absolute;
+  top: 100%;
+  left: auto;
+  right: 0; /* Sağa hizalama */
+  min-width: 10rem;
+  z-index: 1000;
+  border-radius: 4px;
+  /* Dropdown Animasyonu */
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out,
+    visibility 0.3s;
+}
+
+.admin-dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item-link {
+  color: #e5e5e5;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  display: block;
+  text-decoration: none;
+}
+
+.dropdown-item-link:hover {
+  background-color: #333;
+  color: #ffffff;
+}
+
+/* --- Mobil Menü Açma Butonu (Hamburger) --- */
+.mobile-menu-toggle {
+  display: none; /* Varsayılan olarak gizli (PC'de) */
+  border-color: #e0cf95; /* Vurgu kırmızı kenarlık */
+  background-color: #e0cf95; /* Vurgu kırmızı arka plan */
+  padding: 0.5rem 0.75rem; /* İç dolgu */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); /* Hafif gölge */
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.mobile-menu-toggle:hover {
+  background-color: #efdda2;
+  border-color: #efdda2;
+}
+
+.toggle-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+/* --- Mobil Offcanvas Menü --- */
+.mobile-offcanvas {
+  background-color: #1a1a1a;
+  color: #e5e5e5;
+  width: 280px; /* Sabit genişlik */
+}
+
+.mobile-offcanvas .offcanvas-header {
+  border-bottom: 1px solid #333;
+  padding: 1.5rem 1rem;
+}
+
+.mobile-offcanvas .offcanvas-title {
+  color: #e0cf95;
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+/* Offcanvas kapatma butonu */
+.btn-close-white {
+  background: transparent
+    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e")
+    center/1em auto no-repeat;
+  border: 0;
+  border-radius: 0.375rem;
+  opacity: 0.8;
+  padding: 0.5rem;
+  transition: opacity 0.3s ease;
+  filter: none; /* Bootstrap'in kendi beyaz kapatma butonu stili */
+}
+
+.btn-close-white:hover {
+  opacity: 1;
+}
+
+.mobile-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-nav-list .nav-item {
+  margin-bottom: 5px; /* Mobil menü öğeleri arasında boşluk */
+}
+
+.mobile-nav-list .nav-link {
+  color: #e5e5e5;
+  padding: 1rem 1.5rem;
+  display: block;
+  text-decoration: none;
+  background-color: #222; /* Daha belirgin arka plan */
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.mobile-nav-list .nav-link::after {
+  display: none; /* Mobil menüde alt çizgi animasyonu olmasın */
+}
+
+.mobile-nav-list .nav-link:hover {
+  background-color: #3a3a3a;
+  color: #ffffff;
+}
+
+.mobile-nav-list .dropdown-container {
+  margin-left: 0; /* Mobil menüde sol boşluk sıfırlanır */
+  margin-top: 10px; /* Admin sekmesi için üst boşluk */
+}
+
+.mobile-nav-list .admin-dropdown-toggle {
+  width: 100%;
+  text-align: left;
+  justify-content: space-between; /* Okun sağa gitmesi için */
+}
+
+.mobile-nav-list .admin-dropdown-menu {
+  position: static; /* Offcanvas içinde pozisyonu iptal et */
+  width: 100%;
+  border: none;
+  box-shadow: none;
+  background-color: #333; /* Mobil dropdown için daha açık arka plan */
+  margin-top: 5px;
+  opacity: 1; /* Mobil menüde direkt görünür olsun */
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* --- Responsive Düzenlemeler --- */
+
+/* Mobil görünüm için (ekran 991.98px ve altı) */
+@media (max-width: 991.98px) {
+  .fark-brand {
+    font-size: 1.8rem; /* Mobil marka boyutu küçültülür */
+  }
+
+  .main-nav-links {
+    display: none; /* Masaüstü navigasyon gizlenir */
+  }
+
+  .mobile-menu-toggle {
+    display: block; /* Hamburger menü ikonu gösterilir */
+  }
+}
+
+/* PC görünümü için (ekran 992px ve üzeri) */
+@media (min-width: 992px) {
+  .mobile-menu-toggle {
+    display: none; /* Hamburger ikonu gizlenir */
+  }
+
+  .mobile-offcanvas {
+    visibility: hidden; /* Offcanvas PC'de tamamen gizli kalır */
+  }
+
+  .main-nav-links {
+    display: flex; /* Masaüstü navigasyonu gösterilir */
+    flex-grow: 1; /* Marka ile menü arasındaki boşluğu doldurur */
+    justify-content: flex-end; /* Menü öğelerini sağa hizalar */
+  }
+
+  .main-nav-links .nav-item {
+    margin: 0 0.8rem; /* PC'de menü öğeleri arası boşluk */
+  }
+
+  .dropdown-container {
+    margin-left: 0.8rem; /* PC'de dropdown'dan önceki boşluk */
+  }
 }

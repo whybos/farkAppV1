@@ -38,6 +38,8 @@ export class Query {
         title: 'Girdi boş',
         text: 'Lütfen bir ürün adı girin.',
         confirmButtonColor: '#0d6efd',
+        color: '#f5f5f5',
+        background: '#171616ff',
       });
       return;
     }
@@ -54,14 +56,18 @@ export class Query {
         text: 'Bu ürün boykot listemizde bulunmaktadır. Alınmamasını tavsiye ederiz ❌',
         confirmButtonColor: '#d33',
         confirmButtonText: 'Anladım',
+        color: '#f5f5f5',
+        background: '#171616ff',
       });
     } else {
       Swal.fire({
         icon: 'success',
         title: 'Temiz!',
         text: 'Bu ürün boykot listemizde bulunmamaktadır ✅',
+        color: '#f5f5f5',
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'Tamam',
+        background: '#171616ff',
       });
     }
   }

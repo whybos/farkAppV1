@@ -1,18 +1,19 @@
-<div class="container py-4">
-  <h2 class="text-center mb-4">🛠️ Admin Panel</h2>
+<h2 class="admin-panel-title">🛠️ Admin Panel</h2>
 
-  <!-- Sekmeler -->
-  <ul class="nav nav-tabs justify-content-center mb-4">
-    @for (item of tabs; track item) {
-    <li class="nav-item">
-      <button class="nav-link">
-        <div class="text-dark" [routerLink]="item.url">
-          {{ item.title }}
-        </div>
-      </button>
-    </li>
-    }
-  </ul>
-</div>
+<!-- Sekmeler -->
+<ul class="admin-tabs">
+  @for (item of tabs; track item) {
+  <li class="tab-item">
+    <button
+      class="tab-button"
+      [routerLink]="item.url"
+      routerLinkActive="active-tab"
+    >
+      <span class="tab-text">{{ item.title }}</span>
+    </button>
+  </li>
+  }
+</ul>
+<br />
 
 <router-outlet></router-outlet>

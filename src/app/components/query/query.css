@@ -1,11 +1,149 @@
-input::placeholder {
-  color: #adb5bd;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* Haberler sayfasının genel arka planı ve fontu */
+  background-color: #141414; /* var(--page-background) */
+  font-family: "Inter", sans-serif;
+  color: #f5f5f5; /* var(--text-color-light) */
+  box-sizing: border-box;
 }
 
-input:focus {
-  border-color: #0d6efd;
-  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+/* Haberler sayfasından alınan renk değişkenleri */
+:root {
+  --primary-bg: #141414;
+  --secondary-bg: #1f1f1f; /* Haber kartlarının arkaplanına benzer */
+  --text-color-light: #f5f5f5;
+  --text-color-medium: #b3b3b3;
+  --text-color-dark: #8c8c8c;
+  --heading-color-primary: #e0cf95; /* fark red */
+  --accent-color: #e0cf95; /* For links and highlights */
+  --border-color-dark: #333333;
+  --box-shadow-dark: rgba(0, 0, 0, 0.4);
+  --box-shadow-light: rgba(0, 0, 0, 0.2);
+
+  /* Input ve butonlar için orijinal değerler, ancak renk değişkenlerine bağlı */
+  --input-border: var(--border-color-dark); /* Önceki #444 yerine */
+  --input-focus-border: var(--accent-color); /* Önceki #007bff yerine */
+  --input-placeholder: var(--text-color-dark); /* Önceki #8c8c8c yerine */
+  --button-primary: var(--accent-color); /* Önceki #e0cf95 yerine */
+  --button-hover: #c11119; /* Orijinal değeri korundu */
 }
+
+.main-wrapper {
+  width: 100%;
+  max-width: 900px;
+  background-color: var(--secondary-bg); /* Orijinal #1f1f1f'i değişkenle */
+  border-radius: 8px;
+  box-shadow: 0 15px 30px var(--box-shadow-dark); /* Orijinal gölgeyi değişkenle */
+  padding: 40px;
+  box-sizing: border-box;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--input-border); /* Orijinal #444 yerine değişkenle */
+}
+
+.page-title {
+  font-size: 3.5rem;
+  font-weight: 800; /* Haberler sayfasından */
+  color: var(--heading-color-primary); /* Orijinal #e0cf95'i değişkenle */
+  letter-spacing: -1px;
+  text-shadow: 2px 2px 5px var(--box-shadow-dark); /* Orijinal gölgeyi değişkenle */
+}
+
+.query-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.input-section {
+  display: flex;
+  justify-content: center;
+}
+
+.input-group {
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color-light); /* Orijinal #f5f5f5'i değişkenle */
+}
+
+.query-input {
+  width: 100%;
+  padding: 15px 20px;
+  border: 1px solid var(--input-border); /* Orijinal #444 yerine değişkenle */
+  border-radius: 4px;
+  background-color: #333; /* Orijinal #333 korundu */
+  color: var(--text-color-light); /* Orijinal #f5f5f5'i değişkenle */
+  font-size: 1.1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.query-input::placeholder {
+  color: var(--input-placeholder); /* Orijinal #8c8c8c yerine değişkenle */
+  opacity: 0.7;
+}
+
+.query-input:focus {
+  border-color: var(
+    --input-focus-border
+  ); /* Orijinal #007bff yerine değişkenle */
+  box-shadow: 0 0 0 0.25rem rgba(229, 9, 20, 0.25); /* rgba(0, 123, 255, 0.25) yerine fark kırmızısı */
+  outline: none;
+  background-color: #444; /* Orijinal #444 korundu */
+}
+
+.action-section {
+  text-align: center;
+}
+
+.button-wrapper {
+  margin-top: 20px;
+}
+
+.action-button {
+  padding: 15px 50px;
+  background-color: var(--button-primary); /* Orijinal #e0cf95'i değişkenle */
+  color: var(--text-color-light); /* Orijinal #f5f5f5'i değişkenle */
+  border: none;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.action-button:hover {
+  background-color: var(--button-hover); /* Orijinal değeri korundu */
+  transform: translateY(-2px);
+}
+
+.action-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Animasyonlar - Orijinal hali korundu, sadece fadeUp'ın timing-function'ı Haberler'e uygun hale getirildi */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -17,9 +155,62 @@ input:focus {
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .animate-fade-up {
   animation-name: fadeUp;
-  animation-duration: 0.6s;
+  animation-duration: 0.7s;
   animation-fill-mode: both;
-  animation-timing-function: ease-out;
+  animation-timing-function: cubic-bezier(
+    0.25,
+    0.46,
+    0.45,
+    0.94
+  ); /* Haberler sayfasından */
+}
+
+/* Responsive adjustments - Orijinal hali korundu */
+@media (max-width: 768px) {
+  .main-wrapper {
+    padding: 30px 20px;
+    margin: 20px;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+  }
+
+  .query-input,
+  .action-button {
+    font-size: 1rem;
+    padding: 12px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .main-wrapper {
+    border-radius: 0;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  /* Ensure a solid background on mobile for full-height component */
+  :host {
+    background-color: var(--primary-bg); /* Değişken kullanıldı */
+  }
 }
