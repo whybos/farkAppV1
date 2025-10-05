@@ -17,7 +17,6 @@
   background-color: var(--page-background); /* Haberler sayfasından */
   color: var(--text-color-light); /* Haberler sayfasından */
   padding: 50px 20px; /* Haberler sayfasından (host padding) */
-  font-family: "Inter", sans-serif; /* Haberler sayfasından */
   min-height: 100vh;
   box-sizing: border-box;
 }

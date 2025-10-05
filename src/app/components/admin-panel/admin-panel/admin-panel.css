@@ -6,7 +6,6 @@
   padding-bottom: 0; /* Alt padding'i tamamen sıfırla */
   padding-left: 2rem;
   padding-right: 2rem;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   min-height: calc(100vh - var(--navbar-height, 64px));
   display: flex;
   flex-direction: column;

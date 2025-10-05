@@ -5,7 +5,6 @@
   min-height: 100vh;
   /* Haberler sayfasının genel arka planı ve fontu */
   background-color: #141414; /* var(--page-background) */
-  font-family: "Inter", sans-serif;
   color: #f5f5f5; /* var(--text-color-light) */
   box-sizing: border-box;
 }

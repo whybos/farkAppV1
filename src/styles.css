@@ -2,7 +2,7 @@
 
 /* Genel Ayarlar */
 body {
-  font-family: "fark Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "DM sans";
   /* body arka plan rengini kaldırıyoruz, Angular app-root'un arka planı geçerli olacaktır */
   color: #e5e5e5; /* Açık gri metin rengi, eğer app-root beyazsa bu renk geçerli olmaz */
   overflow-x: hidden; /* Yatay kaydırmayı engelle */

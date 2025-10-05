@@ -4,7 +4,6 @@
   padding: 1rem 4%; /* Yan boşluklar ve dikey dolgu */
   border-bottom: 1px solid #000; /* Daha koyu bir alt çizgi */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Hafif gölge */
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* fark fontu */
   position: sticky; /* Sayfa kaydırıldığında yukarıda kalır */
   top: 0;
   z-index: 1020; /* Diğer içeriklerin üzerinde olmasını sağlar */
