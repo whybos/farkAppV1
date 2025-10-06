@@ -53,7 +53,7 @@ export class Query {
       Swal.fire({
         icon: 'warning',
         title: 'Dikkat!',
-        text: 'Bu ürün boykot listemizde bulunmaktadır. Alınmamasını tavsiye ederiz ❌',
+        text: 'Bu ürün boykot listemizdedir ❌',
         confirmButtonColor: '#d33',
         confirmButtonText: 'Anladım',
         color: '#f5f5f5',
