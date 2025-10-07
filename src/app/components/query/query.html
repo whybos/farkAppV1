@@ -10,11 +10,15 @@
   <div class="content-area">
     <form (submit)="checkQuery(); $event.preventDefault()" class="query-form">
       <div class="input-section">
-        <div class="input-group animate-fade-up" style="animation-delay: 200ms">
+        <div
+          class="input-group animate-fade-up"
+          style="animation-delay: 200ms; position: relative; overflow: visible"
+        >
           <label for="queryInput" class="input-label">Ürün adını girin</label>
           <i class="input-label" style="font-weight: lighter">
             Lütfen marka ismini doğru girdiğinizden emin olunuz
           </i>
+
           <input
             type="text"
             id="queryInput"
@@ -22,7 +26,50 @@
             [(ngModel)]="inputValue"
             name="queryInput"
             placeholder="Örn: Coca-Cola, Starbucks..."
+            (input)="onInputChange()"
+            autocomplete="off"
           />
+
+          <!-- 🔽 Otomatik öneri dropdown -->
+          <ul
+            *ngIf="suggestions.length > 0"
+            style="
+              position: absolute;
+              top: calc(100% + 5px);
+              left: 0;
+              width: 100%;
+              z-index: 1000;
+              background: #fff;
+              color: #222;
+              border-radius: 0.5rem;
+              border: 1px solid #ccc;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+              list-style: none;
+              padding: 0;
+              margin: 0;
+              max-height: 220px;
+              overflow-y: auto;
+              pointer-events: none; /* 🔸 butona tıklamayı engellemez */
+            "
+          >
+            <li
+              *ngFor="let suggestion of suggestions"
+              (click)="selectSuggestion(suggestion)"
+              style="
+                padding: 0.75rem 1rem;
+                cursor: pointer;
+                transition: background 0.15s ease;
+                pointer-events: auto; /* 🔸 sadece li tıklanabilir */
+              "
+              (mouseenter)="hovered = suggestion"
+              (mouseleave)="hovered = ''"
+              [style.background]="
+                hovered === suggestion ? '#f0f0f0' : 'transparent'
+              "
+            >
+              {{ suggestion }}
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -31,7 +78,9 @@
           class="button-wrapper animate-fade-up"
           style="animation-delay: 400ms"
         >
+          @if (suggestions.length) { } @else {
           <button type="submit" class="action-button">Sorgula</button>
+          }
         </div>
       </div>
     </form>

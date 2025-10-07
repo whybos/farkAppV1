@@ -15,6 +15,9 @@ import Swal from 'sweetalert2';
 export class Query {
   inputValue: string = '';
   queries: queryModel[] = [];
+  suggestions: string[] = [];
+  hovered: string = '';
+  buttonvis: boolean = true;
 
   constructor(private queryService: QueryService) {}
 
@@ -28,10 +31,29 @@ export class Query {
     });
   }
 
+  onInputChange() {
+    const input = this.inputValue.trim().toLowerCase();
+
+    // 3 harften azsa öneri gösterme
+    if (input.length < 3) {
+      this.suggestions = [];
+      return;
+    }
+
+    // Önerileri filtrele
+    this.suggestions = this.queries
+      .map((q) => q.keyword)
+      .filter((keyword) => keyword.toLowerCase().includes(input));
+  }
+
+  selectSuggestion(suggestion: string) {
+    this.inputValue = suggestion;
+    this.suggestions = [];
+  }
+
   checkQuery() {
     const input = this.inputValue.trim().toLowerCase();
 
-    // Giriş boşsa uyar
     if (!input) {
       Swal.fire({
         icon: 'info',
@@ -44,7 +66,6 @@ export class Query {
       return;
     }
 
-    // Liste kontrolü
     const found = this.queries.some(
       (item) => item.keyword.toLowerCase() === input
     );
@@ -53,7 +74,7 @@ export class Query {
       Swal.fire({
         icon: 'warning',
         title: 'Dikkat!',
-        text: 'Bu ürün boykot listemizdedir ❌',
+        text: 'Bu ürün boykot listemizde bulunmaktadır. Alınmamasını tavsiye ederiz ❌',
         confirmButtonColor: '#d33',
         confirmButtonText: 'Anladım',
         color: '#f5f5f5',
