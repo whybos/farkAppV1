@@ -6,22 +6,27 @@ import {
   Validators,
 } from '@angular/forms';
 import { SliderService } from '../../../../services/slider-service';
+import { AuthService } from '../../../../services/auth-service';
 import { sliderModel } from '../../../../model/slider.model';
+import { ImageUpload } from '../../../global/image-upload/image-upload';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-slider',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ImageUpload],
   templateUrl: './admin-slider.html',
   styleUrl: './admin-slider.css',
 })
 export class AdminSlider implements OnInit {
   readonly SliderService = inject(SliderService);
+  readonly authService = inject(AuthService);
   slider: sliderModel[] = [];
   myForm: FormGroup;
   isNew = true;
   selectedItem?: sliderModel;
   modalInstance: any;
+  isSuperAdmin = false;
 
   constructor(private fb: FormBuilder) {
     this.myForm = this.fb.group({
@@ -31,6 +36,7 @@ export class AdminSlider implements OnInit {
     });
   }
   ngOnInit(): void {
+    this.isSuperAdmin = this.authService.isSuperAdmin();
     this.getData();
 
     const modalEl = document.getElementById('updateModal');
@@ -43,11 +49,10 @@ export class AdminSlider implements OnInit {
   getData() {
     this.SliderService.getSlider().subscribe(
       (resp) => {
-        console.log('Gelen veri:', resp);
-
         if (resp.success && Array.isArray(resp.data)) {
-          // En büyük ID’li haberi bul
           this.slider = [...resp.data].sort((a, b) => b.id - a.id);
+        } else {
+          this.slider = [];
         }
       },
       (err) => {
@@ -69,15 +74,50 @@ export class AdminSlider implements OnInit {
       title: item.title,
       photo: item.photo,
     });
-    this.modalInstance.show();
+    this.modalInstance?.show();
+  }
+
+  onPhotoChange(base64: string): void {
+    this.myForm.get('photo')?.setValue(base64);
+    this.myForm.get('photo')?.markAsDirty();
+    this.myForm.get('photo')?.markAsTouched();
   }
 
   onDelete(id: number): void {
-    if (confirm('Bu öğeyi silmek istediğinizden emin misiniz?')) {
-      this.SliderService.deleteSlider(id).subscribe(() => {
-        this.getData();
-      });
-    }
+    Swal.fire({
+      icon: 'warning',
+      title: 'Öğeyi Sil',
+      text: 'Bu slider öğesini silmek istediğinizden emin misiniz?',
+      showCancelButton: true,
+      confirmButtonText: 'Evet, Sil',
+      cancelButtonText: 'İptal',
+      confirmButtonColor: '#dc3545',
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.SliderService.deleteSlider(id).subscribe(() => {
+          this.getData();
+        });
+      }
+    });
+  }
+
+  onDeleteAll(): void {
+    if (!this.authService.isSuperAdmin()) return;
+    Swal.fire({
+      icon: 'warning',
+      title: 'Tüm Slider Öğelerini Sil',
+      text: 'Slider tablosundaki tüm kayıtlar kalıcı olarak silinecektir. Emin misiniz?',
+      showCancelButton: true,
+      confirmButtonText: 'Evet, Tümünü Sil',
+      cancelButtonText: 'İptal',
+      confirmButtonColor: '#dc3545',
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.SliderService.deleteAllSlider().subscribe(() => {
+          this.getData();
+        });
+      }
+    });
   }
 
   saveUpdate(): void {

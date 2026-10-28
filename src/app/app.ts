@@ -1,7 +1,8 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './components/global/navbar/navbar';
 import { Footer } from './components/global/footer/footer';
+import { ThemeService } from './services/theme-service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { Footer } from './components/global/footer/footer';
 })
 export class App {
   protected readonly title = signal('FARK-APP');
+  readonly themeService = inject(ThemeService);
 
   showScrollTopButton = false;
 

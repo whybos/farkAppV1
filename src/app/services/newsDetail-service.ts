@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { newsDetailModel } from '../model/newsDetail.model';
-import { Observable, map } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SingleResponse } from '../model/globalResponseModel';
 
@@ -39,5 +39,11 @@ export class newsDetailService {
     return this.httpClient.delete<SingleResponse<newsDetailModel>>(
       `${this.apiUrl}?id=${id}`
     );
+  }
+
+  deleteAllDetails(): Observable<any> {
+    return this.httpClient
+      .delete(`${this.apiUrl}/deleteAll`)
+      .pipe(catchError(() => of(null)));
   }
 }

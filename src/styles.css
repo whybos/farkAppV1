@@ -1,236 +1,167 @@
-/* You can add global styles to this file, and also import other style files */
+/* ==========================================================================
+   YTÜ FARK — MERKEZİ TASARIM SİSTEMİ & TEMA DEĞİŞKENLERİ (GECE / AYDINLIK MOD)
+   ========================================================================== */
 
-/* Genel Ayarlar */
+:root,
+[data-theme="dark"],
+body[data-theme="dark"] {
+  --page-background: #141414;
+  --section-background: #1f1f1f;
+  --card-background: #252525;
+  --surface-elevated: #2e2e2e;
+  --navbar-bg: #141414;
+  --footer-bg: #141414;
+  --text-color-light: #f5f5f5;
+  --text-color-medium: #b8b8b8;
+  --text-color-dark: #8c8c8c;
+  --heading-color-primary: #e0cf95;
+  --accent-color: #e0cf95;
+  --accent-hover: #efdda2;
+  --border-color-dark: #343434;
+  --box-shadow-dark: rgba(0, 0, 0, 0.45);
+  --box-shadow-light: rgba(0, 0, 0, 0.2);
+  --input-bg: #2a2a2a;
+  --input-focus-bg: #333333;
+}
+
+[data-theme="light"],
+body[data-theme="light"] {
+  --page-background: #f8f6f0;
+  --section-background: #ffffff;
+  --card-background: #ffffff;
+  --surface-elevated: #f1ede4;
+  --navbar-bg: #ffffff;
+  --footer-bg: #f1ede4;
+  --text-color-light: #1c1917;
+  --text-color-medium: #57534e;
+  --text-color-dark: #78716c;
+  --heading-color-primary: #9a7b2c;
+  --accent-color: #b5943b;
+  --accent-hover: #9a7b2c;
+  --border-color-dark: #e2dcd0;
+  --box-shadow-dark: rgba(28, 25, 23, 0.08);
+  --box-shadow-light: rgba(28, 25, 23, 0.04);
+  --input-bg: #ffffff;
+  --input-focus-bg: #fcfbf9;
+}
+
+/* --- Genel Sayfa ve Kök Stiller --- */
 body {
-  font-family: "DM sans";
-  /* body arka plan rengini kaldırıyoruz, Angular app-root'un arka planı geçerli olacaktır */
-  color: #e5e5e5; /* Açık gri metin rengi, eğer app-root beyazsa bu renk geçerli olmaz */
-  overflow-x: hidden; /* Yatay kaydırmayı engelle */
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--page-background);
+  color: var(--text-color-light);
+  overflow-x: hidden;
+  margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* app-root'un varsayılan bir arka plan rengi yoksa veya beyazsa,
-   içeriğin daha iyi görünmesi için global bir arka plan rengi ekliyoruz.
-   Bu, tüm Angular uygulamasının arka planını kapsayacaktır. */
 app-root {
-  display: block; /* app-root'un blok seviyesinde olmasını sağlar */
-  background-color: #141414; /* fark'in koyu arka planı */
-  min-height: 100vh; /* Ekran yüksekliğinin tamamını kaplar */
-  color: #e5e5e5; /* Genel metin rengi */
+  display: block;
+  background-color: var(--page-background);
+  min-height: 100vh;
+  color: var(--text-color-light);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.fark-container {
-  max-width: 100%; /* Tam genişlik */
-  padding: 0;
+/* --- Ortak Sayfa Kapsayıcıları (Tüm Bileşenler İçin Birleştirildi) --- */
+.content-wrapper,
+.main-container,
+.detail-page-wrapper {
+  max-width: 1140px;
   margin: 0 auto;
+  padding: 50px 20px;
+  text-align: center;
+  box-sizing: border-box;
 }
 
-/* fark Hero Slider */
-.fark-hero-slider {
-  position: relative;
-  width: 100%;
-  height: 90vh; /* Ekran yüksekliğinin %90'ı */
-  overflow: hidden;
-  background-color: #000; /* Slider yüklenirken veya resim yoksa siyah arka plan */
-}
-
-.fark-hero-slide {
-  height: 90vh;
-  background-size: cover;
-  background-position: center;
-  position: relative;
+.page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
   display: flex;
-  align-items: center;
-  padding-left: 5%; /* fark'e benzer bir boşluk */
-  padding-right: 5%;
+  flex-direction: column;
+  gap: 40px;
+  box-sizing: border-box;
 }
 
-.fark-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    77deg,
-    rgba(0, 0, 0, 0.8) 0,
-    /* Başlangıç noktasında daha koyu */ rgba(0, 0, 0, 0.3) 85%
-      /* Bitiş noktasında hala belirgin */
-  ); /* fark'in degrade efekti - güçlendirildi */
+/* --- Ortak Başlıklar ve Ayırıcı Çizgiler --- */
+.section-title,
+.block-title,
+.page-title {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  color: var(--heading-color-primary);
+  margin-bottom: 20px;
+  letter-spacing: -0.6px;
 }
 
-.fark-hero-slide .carousel-caption {
-  position: relative;
-  z-index: 10;
-  text-align: left;
-  max-width: 50%; /* Metin genişliği */
-  left: 0;
-  right: auto;
-  bottom: auto;
-  transform: none; /* Bootstrap varsayılanını sıfırla */
-  padding-bottom: 0; /* Bootstrap varsayılanını sıfırla */
+.section-divider,
+.divider {
+  border: 0;
+  height: 2px;
+  background-color: var(--border-color-dark);
+  max-width: 600px;
+  margin: 25px auto 50px auto;
+  opacity: 0.85;
 }
 
-.fark-title {
-  font-size: 4.5vw; /* Duyarlı başlık boyutu */
-  font-weight: 800; /* Daha kalın */
-  margin-bottom: 1.5vw;
-  color: #fff; /* Tam beyaz metin */
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7); /* Daha belirgin gölge */
-}
-
-.fark-description {
-  font-size: 1.5vw;
-  line-height: 1.3;
-  margin-bottom: 2.5vw;
-  color: #f0f0f0; /* Hafif kirli beyaz */
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7); /* Daha belirgin gölge */
-}
-
-.fark-button {
-  background-color: #e0cf95; /* fark kırmızısı */
-  color: #fff;
-  border: none;
-  padding: 0.8vw 2.5vw;
-  font-size: 1.2vw;
-  font-weight: 600;
-  border-radius: 0.2vw;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.fark-button:hover {
-  background-color: #efdda2;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-  width: 5%; /* Okların genişliği */
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
-
-.carousel-control-prev:hover,
-.carousel-control-next:hover {
-  opacity: 1;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  filter: invert(1); /* Siyah okları beyaz yap */
-  font-size: 2rem; /* Ok simgelerinin boyutu */
-}
-
-/* Section Başlıkları */
-.fark-section {
-  padding: 0 4%; /* Yan boşluklar */
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
-
-.fark-section-title {
-  color: #fff; /* Başlıklar tam beyaz */
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 30px;
-  border-bottom: 3px solid #e0cf95; /* fark alt çizgi efekti */
-  display: inline-block;
-  padding-bottom: 10px;
-}
-
-/* Haberler Grid */
-.fark-news-grid {
-  gap: 20px; /* Kartlar arası boşluk */
-}
-
+/* --- Ortak Kartlar, Bağlantılar ve Boş Durum Mesajları --- */
+.item-card,
+.news-card,
+.info-card,
 .fark-card {
-  background-color: #222; /* Daha da koyu kart arka planı */
-  border-radius: 8px;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color-dark);
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Daha belirgin gölge */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #444; /* Daha belirgin kenarlık */
+  box-shadow: 0 6px 20px var(--box-shadow-dark);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
+.item-card:hover,
+.news-card:hover,
+.info-card:hover,
 .fark-card:hover {
-  transform: translateY(-8px); /* Hafifçe yukarı kayma */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7); /* Daha yoğun gölge */
+  transform: translateY(-6px);
+  border-color: var(--accent-color);
+  box-shadow: 0 12px 30px var(--box-shadow-dark);
 }
 
-.fark-card-image-wrapper {
-  width: 100%;
-  padding-top: 75%; /* 4:3 en boy oranı */
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px;
-}
-
-.fark-card-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.fark-card-title {
-  font-size: 1.5rem;
-  font-weight: 700; /* Daha kalın */
-  color: #fff; /* Tam beyaz başlık */
-  margin-bottom: 10px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* İki satırla sınırlama */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.fark-card-date {
-  color: #a0a0a0; /* Biraz daha açık tarih rengi */
-  font-size: 0.9rem;
-  margin-bottom: 10px;
-}
-
-.fark-card-text {
-  color: #e0e0e0; /* Daha açık metin rengi */
-  font-size: 1rem;
-  line-height: 1.6; /* Satır aralığını biraz artırdık */
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Üç satırla sınırlama */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.fark-link {
-  color: #e0cf95; /* fark kırmızısı */
+.content-link,
+.read-more-link,
+.fark-link,
+.next-link {
+  color: var(--accent-color);
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.3s ease;
+  transition: color 0.25s ease;
 }
 
-.fark-link:hover {
-  color: #efdda2;
-  text-decoration: underline;
+.content-link:hover,
+.read-more-link:hover,
+.fark-link:hover,
+.next-link:hover {
+  color: var(--accent-hover);
+  text-decoration: none;
 }
 
-/* Hakkımızda Bölümü */
-.fark-about-text {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #e0e0e0; /* Daha açık metin rengi */
+.no-content-message,
+.empty-detail-state {
+  margin-top: 30px;
+  padding: 50px 20px;
+  background-color: var(--section-background);
+  border: 1px solid var(--border-color-dark);
+  border-radius: 12px;
+  font-size: 1.15rem;
+  color: var(--text-color-medium);
   text-align: center;
-  margin-bottom: 30px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-/* Animasyonlar */
-@keyframes fadeIn {
+/* --- Ortak Animasyonlar --- */
+@keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(28px);
   }
   to {
     opacity: 1;
@@ -238,96 +169,414 @@ app-root {
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
 .animate-fade-in {
-  animation-name: fadeIn;
-  animation-duration: 0.8s;
-  animation-fill-mode: both;
-  animation-timing-function: ease-out;
+  animation: fadeIn 0.65s ease-out both;
 }
 
-/* Responsive Düzenlemeler */
-@media (max-width: 768px) {
-  .fark-hero-slider {
-    height: 60vh;
+/* ==========================================================================
+   MERKEZİ ADMİN PANELİ & SÜRÜKLE-BIRAK GÖRSEL YÜKLEYİCİ STİLLERİ
+   ========================================================================== */
+
+.admin-page-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 0 3rem 0;
+}
+
+.admin-action-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--section-background);
+  border: 1px solid var(--border-color-dark);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 16px var(--box-shadow-dark);
+}
+
+.admin-section-heading {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--heading-color-primary);
+  margin: 0 0 0.25rem 0;
+}
+
+.admin-section-subtext {
+  font-size: 0.92rem;
+  color: var(--text-color-medium);
+  margin: 0;
+}
+
+.fark-admin-btn-primary {
+  background-color: var(--accent-color);
+  color: #141414;
+  border: none;
+  border-radius: 8px;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.fark-admin-btn-primary:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.admin-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.fark-admin-btn-danger-solid {
+  background-color: #dc3545;
+  color: #ffffff;
+  border: 1px solid #dc3545;
+  border-radius: 8px;
+  padding: 0.65rem 1.2rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.fark-admin-btn-danger-solid:hover:not(:disabled) {
+  background-color: #bb2d3b;
+  border-color: #b02a37;
+  transform: translateY(-1px);
+}
+
+.fark-admin-btn-danger-solid:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.fark-admin-btn-danger-outline {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #ff6b7a;
+  border: 1px solid rgba(220, 53, 69, 0.45);
+  border-radius: 8px;
+  padding: 0.62rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+[data-theme="light"] .fark-admin-btn-danger-outline {
+  color: #dc3545;
+}
+
+.fark-admin-btn-danger-outline:hover:not(:disabled) {
+  background-color: #dc3545;
+  color: #ffffff;
+  border-color: #dc3545;
+  transform: translateY(-1px);
+}
+
+.fark-admin-btn-danger-outline:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.superadmin-protected-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background-color: rgba(32, 201, 151, 0.14);
+  border: 1px solid rgba(32, 201, 151, 0.4);
+  color: #20c997;
+}
+
+[data-theme="light"] .superadmin-protected-tag {
+  color: #0f766e;
+  background-color: rgba(15, 118, 110, 0.1);
+  border-color: rgba(15, 118, 110, 0.35);
+}
+
+/* Admin Kartları & Bootstrap Uyumlaması */
+.admin-page-container .card {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color-dark);
+  border-radius: 12px;
+  color: var(--text-color-light);
+  box-shadow: 0 4px 14px var(--box-shadow-dark) !important;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.admin-page-container .card:hover {
+  border-color: var(--accent-color);
+}
+
+.admin-page-container .card-body {
+  padding: 1.25rem 1.5rem;
+}
+
+.admin-page-container .card-text {
+  color: var(--text-color-medium) !important;
+  margin-bottom: 0.45rem;
+  line-height: 1.5;
+}
+
+.admin-page-container .card-text strong {
+  color: var(--text-color-light);
+}
+
+.admin-item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.admin-item-thumb {
+  width: 110px;
+  height: 85px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border-color-dark);
+  flex-shrink: 0;
+  background-color: var(--section-background);
+}
+
+.admin-item-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-item-id {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-bottom: 0.35rem;
+}
+
+.admin-empty-box {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  background-color: var(--section-background);
+  border: 1px dashed var(--border-color-dark);
+  border-radius: 12px;
+  color: var(--text-color-medium);
+}
+
+/* Admin Modal & Form Kontrolleri (Gece/Aydınlık Mod Uyumlu) */
+.modal-content {
+  background-color: var(--section-background) !important;
+  color: var(--text-color-light) !important;
+  border: 1px solid var(--border-color-dark) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 16px 45px var(--box-shadow-dark) !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border-color-dark) !important;
+  padding: 1.15rem 1.5rem !important;
+}
+
+.modal-title {
+  color: var(--heading-color-primary) !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="dark"] .modal-header .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.modal-body {
+  padding: 1.25rem 1.5rem !important;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border-color-dark) !important;
+  padding: 1rem 1.5rem !important;
+}
+
+.modal-body .form-label {
+  color: var(--text-color-light);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.modal-body .form-control {
+  background-color: var(--input-bg) !important;
+  color: var(--text-color-light) !important;
+  border: 1px solid var(--border-color-dark) !important;
+  border-radius: 8px;
+  padding: 0.65rem 0.9rem;
+}
+
+.modal-body .form-control:focus {
+  background-color: var(--input-focus-bg) !important;
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 0 0 3px rgba(224, 207, 149, 0.25) !important;
+}
+
+.modal-footer .btn-primary {
+  background-color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+  color: #141414 !important;
+  font-weight: 700;
+}
+
+.modal-footer .btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
+}
+
+/* --- Sürükle-Bırak Fotoğraf Yükleyici (Dropzone) --- */
+.fark-dropzone {
+  border: 2px dashed var(--border-color-dark);
+  background-color: var(--input-bg);
+  border-radius: 10px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.fark-dropzone:hover,
+.fark-dropzone.dragging {
+  border-color: var(--accent-color);
+  background-color: var(--surface-elevated);
+}
+
+.dropzone-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.dropzone-icon {
+  font-size: 2.2rem;
+  color: var(--accent-color);
+}
+
+.dropzone-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-color-light);
+  margin: 0;
+}
+
+.dropzone-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-color-medium);
+}
+
+.dropzone-preview-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+}
+
+.dropzone-preview-img {
+  width: 96px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border-color-dark);
+  flex-shrink: 0;
+}
+
+.dropzone-preview-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.dropzone-meta {
+  font-size: 0.82rem;
+  color: var(--text-color-medium);
+}
+
+.dropzone-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.fark-btn-sm {
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fark-btn-outline {
+  background: transparent;
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+}
+
+.fark-btn-outline:hover {
+  background-color: var(--accent-color);
+  color: #141414;
+}
+
+.fark-btn-danger {
+  background: transparent;
+  border: 1px solid #dc3545;
+  color: #dc3545;
+}
+
+.fark-btn-danger:hover {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+@media (max-width: 576px) {
+  .admin-item-row,
+  .dropzone-preview-container {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .fark-hero-slide {
-    height: 60vh;
-    padding-left: 3%;
-    padding-right: 3%;
-  }
-
-  .fark-hero-slide .carousel-caption {
-    max-width: 90%;
-    text-align: center;
-    left: 5%; /* Ortalamak için */
-    right: 5%;
-  }
-
-  .fark-title {
-    font-size: 8vw;
-    margin-bottom: 3vw;
-  }
-
-  .fark-description {
-    font-size: 4vw;
-    margin-bottom: 5vw;
-  }
-
-  .fark-button {
-    padding: 2.5vw 7vw;
-    font-size: 4vw;
-  }
-
-  .fark-section-title {
-    font-size: 2rem;
-    text-align: center;
-    border-bottom: none; /* Mobil için alt çizgiyi kaldır */
-    padding-bottom: 0;
-    margin-bottom: 20px;
-  }
-
-  .fark-news-card .col-md-4,
-  .fark-news-card .col-md-8 {
+  .admin-item-thumb {
     width: 100%;
-  }
-
-  .fark-card-image-wrapper {
-    padding-top: 56.25%; /* 16:9 en boy oranı mobil için */
-  }
-
-  .fark-card-title {
-    font-size: 1.3rem;
-  }
-
-  .fark-card-text {
-    -webkit-line-clamp: 4; /* Daha fazla metin görünür olsun */
-  }
-
-  .fark-about-text {
-    font-size: 1rem;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1200px) {
-  .fark-title {
-    font-size: 5.5vw;
-  }
-
-  .fark-description {
-    font-size: 2vw;
-  }
-
-  .fark-button {
-    font-size: 1.5vw;
-    padding: 1vw 3vw;
-  }
-
-  .fark-section-title {
-    font-size: 2.8rem;
-  }
-
-  .fark-card-title {
-    font-size: 1.4rem;
+    height: 160px;
   }
 }

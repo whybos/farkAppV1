@@ -8,10 +8,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ImageUpload } from '../../../global/image-upload/image-upload';
 
 @Component({
   selector: 'app-admin-news-detail',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ImageUpload],
   templateUrl: './admin-news-detail.html',
   styleUrl: './admin-news-detail.css',
 })
@@ -74,6 +75,12 @@ export class AdminNewsDetail implements OnInit {
       date: item.date,
     });
     this.modalInstance.show();
+  }
+
+  onPhotoChange(base64: string): void {
+    this.myForm.get('photo')?.setValue(base64);
+    this.myForm.get('photo')?.markAsDirty();
+    this.myForm.get('photo')?.markAsTouched();
   }
 
   onDelete(id: number): void {

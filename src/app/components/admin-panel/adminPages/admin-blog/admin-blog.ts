@@ -7,6 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { BlogService } from '../../../../services/blog-service';
+import { AuthService } from '../../../../services/auth-service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-blog',
@@ -16,11 +18,13 @@ import { BlogService } from '../../../../services/blog-service';
 })
 export class AdminBlog implements OnInit {
   readonly blogService = inject(BlogService);
+  readonly authService = inject(AuthService);
   blogs: BlogModel[] = [];
   myForm: FormGroup;
   isNew = true;
   selectedItem?: BlogModel;
   modalInstance: any;
+  isSuperAdmin = false;
 
   constructor(private fb: FormBuilder) {
     this.myForm = this.fb.group({
@@ -31,6 +35,7 @@ export class AdminBlog implements OnInit {
     });
   }
   ngOnInit(): void {
+    this.isSuperAdmin = this.authService.isSuperAdmin();
     this.getData();
 
     const modalEl = document.getElementById('updateModal');
@@ -43,11 +48,10 @@ export class AdminBlog implements OnInit {
   getData() {
     this.blogService.getBlog().subscribe(
       (resp) => {
-        console.log('Gelen veri:', resp);
-
         if (resp.success && Array.isArray(resp.data)) {
-          // En büyük ID’li haberi bul
           this.blogs = [...resp.data].sort((a, b) => b.id - a.id);
+        } else {
+          this.blogs = [];
         }
       },
       (err) => {
@@ -70,15 +74,44 @@ export class AdminBlog implements OnInit {
       speaker: item.speaker,
       date: item.date,
     });
-    this.modalInstance.show();
+    this.modalInstance?.show();
   }
 
   onDelete(id: number): void {
-    if (confirm('Bu öğeyi silmek istediğinizden emin misiniz?')) {
-      this.blogService.deleteBlog(id).subscribe(() => {
-        this.getData();
-      });
-    }
+    Swal.fire({
+      icon: 'warning',
+      title: 'Bilgiyi Sil',
+      text: 'Bu haftalık bilgi paylaşımını silmek istediğinizden emin misiniz?',
+      showCancelButton: true,
+      confirmButtonText: 'Evet, Sil',
+      cancelButtonText: 'İptal',
+      confirmButtonColor: '#dc3545',
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.blogService.deleteBlog(id).subscribe(() => {
+          this.getData();
+        });
+      }
+    });
+  }
+
+  onDeleteAll(): void {
+    if (!this.authService.isSuperAdmin()) return;
+    Swal.fire({
+      icon: 'warning',
+      title: 'Tüm Haftalık Bilgileri Sil',
+      text: 'Haftalık Bilgi (Blog) tablosundaki tüm kayıtlar kalıcı olarak silinecektir. Emin misiniz?',
+      showCancelButton: true,
+      confirmButtonText: 'Evet, Tümünü Sil',
+      cancelButtonText: 'İptal',
+      confirmButtonColor: '#dc3545',
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.blogService.deleteAllBlogs().subscribe(() => {
+          this.getData();
+        });
+      }
+    });
   }
 
   saveUpdate(): void {

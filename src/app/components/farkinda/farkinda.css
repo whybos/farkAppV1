@@ -1,0 +1,142 @@
+.farkinda-subtitle {
+  color: var(--text-color-medium);
+  font-size: 1.1rem;
+  max-width: 680px;
+  margin: 0 auto 20px auto;
+  line-height: 1.6;
+}
+
+.farkinda-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  text-align: left;
+}
+
+.farkinda-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.farkinda-card {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color-dark);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px var(--box-shadow-dark);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.farkinda-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent-color);
+  box-shadow: 0 14px 35px var(--box-shadow-dark);
+}
+
+.farkinda-cover-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 130%; /* 3:4 Dergi/PDF Kapak Oranı */
+  background-color: var(--section-background);
+  overflow: hidden;
+}
+
+.farkinda-cover-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.farkinda-card:hover .farkinda-cover-image {
+  transform: scale(1.04);
+}
+
+.farkinda-cover-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--accent-color);
+  font-size: 3rem;
+}
+
+.farkinda-cover-fallback span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color-medium);
+}
+
+.farkinda-hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.25) 60%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.farkinda-card:hover .farkinda-hover-overlay {
+  opacity: 1;
+}
+
+.farkinda-open-cta {
+  background-color: var(--accent-color);
+  color: #141414;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 10px 18px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.farkinda-card-body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.farkinda-card-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-color-light);
+  margin: 0 0 16px 0;
+  line-height: 1.35;
+}
+
+.farkinda-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-color-dark);
+  font-size: 0.9rem;
+}
+
+.farkinda-card-date {
+  color: var(--text-color-medium);
+}
+
+.farkinda-action-text {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.no-content-message {
+  grid-column: 1 / -1;
+}

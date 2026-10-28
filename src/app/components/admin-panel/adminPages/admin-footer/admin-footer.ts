@@ -6,7 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { FooterService } from '../../../../services/footer-service';
+import { AuthService } from '../../../../services/auth-service';
 import { footerModel } from '../../../../model/footer.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-footer',
@@ -16,11 +18,13 @@ import { footerModel } from '../../../../model/footer.model';
 })
 export class AdminFooter implements OnInit {
   readonly footerService = inject(FooterService);
+  readonly authService = inject(AuthService);
   footer: footerModel[] = [];
   myForm: FormGroup;
   isNew = true;
   selectedItem?: footerModel;
   modalInstance: any;
+  isSuperAdmin = false;
 
   constructor(private fb: FormBuilder) {
     this.myForm = this.fb.group({
@@ -29,6 +33,7 @@ export class AdminFooter implements OnInit {
     });
   }
   ngOnInit(): void {
+    this.isSuperAdmin = this.authService.isSuperAdmin();
     this.getData();
 
     const modalEl = document.getElementById('updateModal');
@@ -41,11 +46,10 @@ export class AdminFooter implements OnInit {
   getData() {
     this.footerService.getfooter().subscribe(
       (resp) => {
-        console.log('Gelen veri:', resp);
-
         if (resp.success && Array.isArray(resp.data)) {
-          // En büyük ID’li haberi bul
           this.footer = [...resp.data].sort((a, b) => b.id - a.id);
+        } else {
+          this.footer = [];
         }
       },
       (err) => {
@@ -66,14 +70,43 @@ export class AdminFooter implements OnInit {
       body: item.body,
       link: item.link,
     });
-    this.modalInstance.show();
+    this.modalInstance?.show();
   }
   onDelete(id: number): void {
-    if (confirm('Bu öğeyi silmek istediğinizden emin misiniz?')) {
-      this.footerService.deleteFooter(id).subscribe(() => {
-        this.getData();
-      });
-    }
+    Swal.fire({
+      icon: 'warning',
+      title: 'Öğeyi Sil',
+      text: 'Bu footer bağlantısını silmek istediğinizden emin misiniz?',
+      showCancelButton: true,
+      confirmButtonText: 'Evet, Sil',
+      cancelButtonText: 'İptal',
+      confirmButtonColor: '#dc3545',
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.footerService.deleteFooter(id).subscribe(() => {
+          this.getData();
+        });
+      }
+    });
+  }
+
+  onDeleteAll(): void {
+    if (!this.authService.isSuperAdmin()) return;
+    Swal.fire({
+      icon: 'warning',
+      title: 'Tüm Footer Linklerini Sil',
+      text: 'Footer tablosundaki tüm bağlantılar kalıcı olarak silinecektir. Emin misiniz?',
+      showCancelButton: true,
+      confirmButtonText: 'Evet, Tümünü Sil',
+      cancelButtonText: 'İptal',
+      confirmButtonColor: '#dc3545',
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.footerService.deleteAllFooter().subscribe(() => {
+          this.getData();
+        });
+      }
+    });
   }
 
   saveUpdate(): void {

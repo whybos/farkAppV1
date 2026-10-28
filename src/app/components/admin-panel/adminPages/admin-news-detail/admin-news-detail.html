@@ -1,56 +1,73 @@
-<div class="container">
-  @if (!detail || detail.id==null){
-  <div class="text-center">
-    <button
-      class="btn btn-lg btn-outline-danger"
-      (click)="onNew()"
-      data-bs-toggle="modal"
-      data-bs-target="#updateModal"
-    >
-      <i class="bi bi-pencil-square me-1"></i> New Detail
-    </button>
+<div class="admin-page-container">
+  <div class="admin-action-header">
+    <div>
+      <h3 class="admin-section-heading">Haber Detay Yönetimi</h3>
+      <p class="admin-section-subtext">
+        Seçili haberin tam metnini ve detay görselini buradan düzenleyebilirsiniz.
+      </p>
+    </div>
+    @if (!detail || detail.id == null) {
+      <button
+        class="fark-admin-btn-primary"
+        (click)="onNew()"
+        data-bs-toggle="modal"
+        data-bs-target="#updateModal"
+      >
+        <i class="bi bi-plus-lg me-1"></i> Yeni Detay Ekle
+      </button>
+    }
   </div>
-  } @else{
-  <div class="card shadow-sm mb-4">
-    <div class="card-body">
-      <p class="card-text text-muted">
-        <strong>NewsId:</strong> {{ detail.newsId }}
-      </p>
 
-      <p class="card-text text-muted">
-        <strong>Title:</strong> {{ detail.title }}
-      </p>
-      <p class="card-text text-muted">
-        <strong>Summary:</strong> {{ detail.summary }}
-      </p>
-      <p class="card-text text-muted">
-        <strong>Body:</strong> {{ detail.body }}
-      </p>
-      <p class="card-text text-muted">
-        <strong>Date:</strong> {{ detail.date }}
-      </p>
+  @if (!detail || detail.id == null) {
+    <div class="admin-empty-box">
+      Bu habere henüz detay içeriği eklenmemiştir. Yukarıdaki butondan ekleyebilirsiniz.
+    </div>
+  } @else {
+    <div class="card shadow-sm mb-3">
+      <div class="card-body">
+        <div class="admin-item-row">
+          @if (detail.photo) {
+            <img [src]="detail.photo" [alt]="detail.title" class="admin-item-thumb" />
+          }
+          <div class="admin-item-details">
+            <span class="admin-item-id">Haber #{{ detail.newsId }}</span>
+            <p class="card-text">
+              <strong>Başlık:</strong> {{ detail.title }}
+            </p>
+            <p class="card-text">
+              <strong>Özet:</strong> {{ detail.summary }}
+            </p>
+            <p class="card-text">
+              <strong>İçerik:</strong> {{ detail.body }}
+            </p>
+            <p class="card-text">
+              <strong>Tarih:</strong> {{ detail.date }}
+            </p>
+          </div>
+        </div>
 
-      <div class="d-flex justify-content-end gap-2">
-        <button
-          class="btn btn-sm btn-outline-primary"
-          (click)="onUpdate(detail)"
-          data-bs-toggle="modal"
-          data-bs-target="#updateModal"
-        >
-          <i class="bi bi-pencil-square me-1"></i> Update
-        </button>
+        <div class="d-flex justify-content-end gap-2 mt-3">
+          <button
+            class="btn btn-sm btn-outline-primary"
+            (click)="onUpdate(detail)"
+            data-bs-toggle="modal"
+            data-bs-target="#updateModal"
+          >
+            <i class="bi bi-pencil-square me-1"></i> Güncelle
+          </button>
 
-        <button
-          class="btn btn-sm btn-outline-danger"
-          (click)="onDelete(detail.id)"
-        >
-          <i class="bi bi-trash me-1"></i> Delete
-        </button>
+          <button
+            class="btn btn-sm btn-outline-danger"
+            (click)="onDelete(detail.id)"
+          >
+            <i class="bi bi-trash me-1"></i> Sil
+          </button>
+        </div>
       </div>
     </div>
-  </div>
   }
 </div>
+
 <!-- Modal -->
 <div
   class="modal fade"
@@ -59,13 +76,12 @@
   aria-labelledby="updateModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <!-- Tek form açılıyor -->
       <form [formGroup]="myForm" (ngSubmit)="saveUpdate()">
         <div class="modal-header">
           <h5 class="modal-title" id="updateModalLabel">
-            {{ isNew ? "New Slider Item" : "Update Slider Item" }}
+            {{ isNew ? "Yeni Haber Detayı" : "Haber Detayını Güncelle" }}
           </h5>
           <button
             type="button"
@@ -77,91 +93,86 @@
 
         <div class="modal-body">
           <div class="mb-3">
-            <label for="summaryInput" class="form-label">Summary</label>
-            <input
-              id="summaryInput"
-              type="text"
-              class="form-control"
-              formControlName="summary"
-            />
-            <div class="text-danger">
-              @if (myForm.get('summary')?.invalid &&
-              myForm.get('summary')?.touched){ Summary is required.}
-            </div>
-          </div>
-        </div>
-
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="titleInput" class="form-label">Title</label>
+            <label for="titleInput" class="form-label">Başlık (Title)</label>
             <input
               id="titleInput"
               type="text"
               class="form-control"
               formControlName="title"
             />
-            <div class="text-danger">
-              @if (myForm.get('title')?.invalid &&
-              myForm.get('title')?.touched){ Title is required.}
+            <div class="text-danger small mt-1">
+              @if (myForm.get('title')?.invalid && myForm.get('title')?.touched) {
+                Başlık zorunludur.
+              }
             </div>
           </div>
-        </div>
 
-        <div class="modal-body">
           <div class="mb-3">
-            <label for="bodyInput" class="form-label">Body</label>
+            <label for="summaryInput" class="form-label">Özet (Summary)</label>
             <input
-              id="bodyInput"
+              id="summaryInput"
               type="text"
               class="form-control"
-              formControlName="body"
+              formControlName="summary"
             />
-            <div class="text-danger">
-              @if (myForm.get('body')?.invalid && myForm.get('body')?.touched){
-              Body is required.}
-            </div>
-          </div>
-
-          <div class="modal-body">
-            <div class="mb-3">
-              <label for="photoInput" class="form-label">Photo</label>
-              <input
-                id="photoInput"
-                type="text"
-                class="form-control"
-                formControlName="photo"
-              />
-              <div class="text-danger">
-                @if (myForm.get('photo')?.invalid &&
-                myForm.get('photo')?.touched){ Photo is required.}
-              </div>
+            <div class="text-danger small mt-1">
+              @if (myForm.get('summary')?.invalid && myForm.get('summary')?.touched) {
+                Özet zorunludur.
+              }
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="dateInput" class="form-label">Date</label>
+            <label for="bodyInput" class="form-label">Detay İçeriği (Body)</label>
+            <textarea
+              id="bodyInput"
+              rows="4"
+              class="form-control"
+              formControlName="body"
+            ></textarea>
+            <div class="text-danger small mt-1">
+              @if (myForm.get('body')?.invalid && myForm.get('body')?.touched) {
+                İçerik zorunludur.
+              }
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Detay Fotoğrafı (Sürükle & Bırak)</label>
+            <app-image-upload
+              [value]="myForm.get('photo')?.value"
+              (valueChange)="onPhotoChange($event)"
+            ></app-image-upload>
+            <div class="text-danger small mt-1">
+              @if (myForm.get('photo')?.invalid && myForm.get('photo')?.touched) {
+                Fotoğraf zorunludur.
+              }
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="dateInput" class="form-label">Tarih (Date)</label>
             <input
               id="dateInput"
               type="text"
               class="form-control"
               formControlName="date"
             />
-            <div class="text-danger">
-              @if (myForm.get('date')?.invalid && myForm.get('date')?.touched){
-              Date is required.}
+            <div class="text-danger small mt-1">
+              @if (myForm.get('date')?.invalid && myForm.get('date')?.touched) {
+                Tarih zorunludur.
+              }
             </div>
           </div>
         </div>
 
         <div class="modal-footer">
-          <!-- Modal footer butonları burada -->
-
           <button
             type="button"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
           >
-            Cancel
+            İptal
           </button>
 
           <button
@@ -169,7 +180,7 @@
             class="btn btn-primary"
             [disabled]="myForm.invalid"
           >
-            {{ isNew ? "Create" : "Update" }}
+            {{ isNew ? "Oluştur" : "Güncelle" }}
           </button>
         </div>
       </form>

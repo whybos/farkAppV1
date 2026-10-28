@@ -1,125 +1,170 @@
 /* --- Genel Header ve Navigasyon Yapısı --- */
 .fark-navbar {
-  background-color: #141414; /* fark'in koyu arka planı */
-  padding: 1rem 4%; /* Yan boşluklar ve dikey dolgu */
-  border-bottom: 1px solid #000; /* Daha koyu bir alt çizgi */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Hafif gölge */
-  position: sticky; /* Sayfa kaydırıldığında yukarıda kalır */
+  background-color: var(--navbar-bg, #141414);
+  padding: 0.85rem 4%;
+  border-bottom: 1px solid var(--border-color-dark, #333);
+  box-shadow: 0 2px 12px var(--box-shadow-dark, rgba(0, 0, 0, 0.35));
+  position: sticky;
   top: 0;
-  z-index: 1020; /* Diğer içeriklerin üzerinde olmasını sağlar */
-  display: flex; /* İçeriği ortalamak için flex kullan */
-  justify-content: center; /* İçeriği yatayda ortala */
+  z-index: 1020;
+  display: flex;
+  justify-content: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .navbar-content-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1.5rem;
   width: 100%;
-  max-width: 1400px; /* Maksimum genişlik */
+  max-width: 1400px;
 }
 
-/* --- Marka Alanı --- */
+/* --- Marka Alanı (Çoklu eleman geldiğinde küçülmez veya bozulmaz) --- */
+.brand-container {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
 .fark-brand {
-  font-size: 2.2rem; /* Logoya yakın boyut */
+  font-size: 2rem;
   font-weight: 700;
-  color: #e0cf95; /* Ana vurgu kırmızısı */
-  letter-spacing: -1px; /* Harfler arası boşluğu azalt */
+  color: var(--accent-color, #e0cf95);
+  letter-spacing: -1px;
   text-decoration: none;
-  transition: color 0.3s ease;
-  flex-shrink: 0; /* Küçülmesini engelle */
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.25s ease;
 }
 
 .fark-brand:hover {
-  color: #efdda2; /* Hover'da daha parlak kırmızı */
+  opacity: 0.9;
 }
 
-/* --- Masaüstü Navigasyon Linkleri --- */
+.fark-brand-logo {
+  height: 46px;
+  width: auto;
+  max-width: 170px;
+  object-fit: contain;
+  display: block;
+  transition: filter 0.3s ease;
+}
+
+:host-context([data-theme="light"]) .fark-brand-logo {
+  filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(1.15);
+}
+
+/* --- Masaüstü Navigasyon Linkleri (Çoklu eleman geldiğinde esnek sarmalanır) --- */
 .main-nav-links {
   display: flex;
+  flex-wrap: wrap;
   list-style: none;
   margin: 0;
   padding: 0;
   align-items: center;
+  justify-content: flex-end;
+  gap: 0.4rem 1.25rem;
+  flex: 1 1 auto;
 }
 
 .main-nav-links .nav-item {
-  margin: 0 1rem;
+  margin: 0;
+  flex-shrink: 0;
 }
 
 .main-nav-links .nav-link {
-  color: #e5e5e5; /* Açık gri metin rengi */
-  padding: 0.75rem 0; /* Daha geniş dolgu */
+  color: var(--text-color-light, #e5e5e5);
+  padding: 0.45rem 0.2rem;
   position: relative;
-  transition: color 0.3s ease-in-out;
-  font-weight: 500; /* Orta kalınlık */
-  font-size: 1.05rem; /* Hafif büyük metin */
+  transition: color 0.25s ease;
+  font-weight: 500;
+  font-size: 1rem;
   text-decoration: none;
-  display: block; /* Tam tıklanabilir alan */
+  display: block;
+  white-space: nowrap;
 }
 
-/* --- Hover (Üzerine Gelme) Efektleri --- */
-.main-nav-links .nav-link:hover {
-  color: #ffffff; /* Üzerine gelince tam beyaz */
+.main-nav-links .nav-link:hover,
+.main-nav-links .nav-link.active {
+  color: var(--accent-color, #e0cf95);
 }
 
-/* Alt çizgi animasyonu (Modern bir vurgu) */
 .main-nav-links .nav-link::after {
   content: "";
   position: absolute;
   width: 0;
-  height: 3px; /* Daha belirgin çizgi */
-  bottom: -5px; /* Metnin altında biraz boşluk */
+  height: 2px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #e0cf95; /* Ana vurgu kırmızısı */
-  transition: width 0.3s ease-in-out;
+  background-color: var(--accent-color, #e0cf95);
+  transition: width 0.25s ease-in-out;
 }
 
-.main-nav-links .nav-link:hover::after {
-  width: 80%; /* Çizgi daha geniş ve belirgin */
-}
-
-/* Aktif link için ekstra vurgu */
-.main-nav-links .nav-link.active {
-  color: #ffffff; /* Aktif link tam beyaz */
-  font-weight: 700;
-}
+.main-nav-links .nav-link:hover::after,
 .main-nav-links .nav-link.active::after {
-  width: 80%;
-  background-color: #e0cf95;
+  width: 85%;
+}
+
+/* --- Tema Değiştirici Buton --- */
+.theme-toggle-btn {
+  background-color: var(--card-background, #242424);
+  color: var(--text-color-light, #e5e5e5);
+  border: 1px solid var(--border-color-dark, #3a3a3a);
+  border-radius: 8px;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.theme-toggle-btn i {
+  color: var(--accent-color, #e0cf95);
+  font-size: 1rem;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--accent-color, #e0cf95);
+  transform: translateY(-1px);
 }
 
 /* --- Admin Menüsü/Dropdown --- */
 .dropdown-container {
   position: relative;
-  margin-left: 1.5rem;
 }
 
 .admin-dropdown-toggle {
-  background-color: #e0cf95 !important;
+  background-color: var(--accent-color, #e0cf95) !important;
   border: none !important;
-  color: #fff !important;
-  padding: 0.6rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 4px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
+  color: #141414 !important;
+  padding: 0.5rem 1.15rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 6px;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   text-decoration: none;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .admin-dropdown-toggle:hover {
-  background-color: #efdda2 !important;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  background-color: var(--accent-hover, #efdda2) !important;
+  box-shadow: 0 4px 10px var(--box-shadow-dark);
 }
 
 .admin-dropdown-toggle::after {
-  color: #fff;
-  margin-left: 5px;
+  color: #141414;
+  margin-left: 4px;
   display: inline-block;
   vertical-align: 0.255em;
   content: "";
@@ -130,70 +175,61 @@
 }
 
 .admin-dropdown-menu {
-  background-color: #1a1a1a;
-  border: 1px solid #333;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+  background-color: var(--card-background, #1f1f1f);
+  border: 1px solid var(--border-color-dark, #333);
+  box-shadow: 0 8px 24px var(--box-shadow-dark);
   padding: 0.5rem 0;
   list-style: none;
   position: absolute;
   top: 100%;
   left: auto;
-  right: 0; /* Sağa hizalama */
-  min-width: 10rem;
+  right: 0;
+  min-width: 11rem;
   z-index: 1000;
-  border-radius: 4px;
-  /* Dropdown Animasyonu */
-  display: block;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out,
-    visibility 0.3s;
-}
-
-.admin-dropdown-menu.show {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+  border-radius: 8px;
 }
 
 .dropdown-item-link {
-  color: #e5e5e5;
+  color: var(--text-color-light, #e5e5e5);
   font-weight: 500;
-  padding: 0.75rem 1.5rem;
+  padding: 0.65rem 1.25rem;
   transition: background-color 0.2s ease, color 0.2s ease;
   display: block;
   text-decoration: none;
-}
-
-.dropdown-item-link:hover {
-  background-color: #333;
-  color: #ffffff;
-}
-
-/* --- Mobil Menü Açma Butonu (Hamburger) --- */
-.mobile-menu-toggle {
-  display: none; /* Varsayılan olarak gizli (PC'de) */
-  border-color: #e0cf95; /* Vurgu kırmızı kenarlık */
-  background-color: #e0cf95; /* Vurgu kırmızı arka plan */
-  padding: 0.5rem 0.75rem; /* İç dolgu */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); /* Hafif gölge */
-  transition: all 0.3s ease;
-  border-radius: 4px;
   cursor: pointer;
 }
 
-.mobile-menu-toggle:hover {
-  background-color: #efdda2;
-  border-color: #efdda2;
+.dropdown-item-link:hover {
+  background-color: var(--section-background, #2b2b2b);
+  color: var(--accent-color, #e0cf95);
+}
+
+/* --- Mobil Aksiyonlar & Hamburger --- */
+.mobile-actions {
+  display: none;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.mobile-theme-btn {
+  padding: 0.5rem 0.65rem;
+}
+
+.mobile-menu-toggle {
+  border: 1px solid var(--accent-color, #e0cf95);
+  background-color: var(--accent-color, #e0cf95);
+  padding: 0.45rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 .toggle-icon {
   display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.4em;
+  height: 1.4em;
   vertical-align: middle;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2820, 20, 20, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
@@ -201,129 +237,85 @@
 
 /* --- Mobil Offcanvas Menü --- */
 .mobile-offcanvas {
-  background-color: #1a1a1a;
-  color: #e5e5e5;
-  width: 280px; /* Sabit genişlik */
+  background-color: var(--section-background, #1a1a1a);
+  color: var(--text-color-light, #e5e5e5);
+  width: 290px;
 }
 
 .mobile-offcanvas .offcanvas-header {
-  border-bottom: 1px solid #333;
-  padding: 1.5rem 1rem;
+  border-bottom: 1px solid var(--border-color-dark, #333);
+  padding: 1.25rem 1rem;
 }
 
 .mobile-offcanvas .offcanvas-title {
-  color: #e0cf95;
+  color: var(--accent-color, #e0cf95);
   font-weight: 700;
-  font-size: 1.8rem;
+  font-size: 1.35rem;
 }
 
-/* Offcanvas kapatma butonu */
 .btn-close-white {
   background: transparent
-    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e")
+    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23999'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e")
     center/1em auto no-repeat;
   border: 0;
   border-radius: 0.375rem;
-  opacity: 0.8;
+  opacity: 0.85;
   padding: 0.5rem;
-  transition: opacity 0.3s ease;
-  filter: none; /* Bootstrap'in kendi beyaz kapatma butonu stili */
-}
-
-.btn-close-white:hover {
-  opacity: 1;
 }
 
 .mobile-nav-list {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-.mobile-nav-list .nav-item {
-  margin-bottom: 5px; /* Mobil menü öğeleri arasında boşluk */
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
 }
 
 .mobile-nav-list .nav-link {
-  color: #e5e5e5;
-  padding: 1rem 1.5rem;
+  color: var(--text-color-light, #e5e5e5);
+  padding: 0.85rem 1.15rem;
   display: block;
   text-decoration: none;
-  background-color: #222; /* Daha belirgin arka plan */
-  border-radius: 4px;
+  background-color: var(--card-background, #222);
+  border: 1px solid var(--border-color-dark, #333);
+  border-radius: 8px;
   font-weight: 600;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-.mobile-nav-list .nav-link::after {
-  display: none; /* Mobil menüde alt çizgi animasyonu olmasın */
+  transition: all 0.2s ease;
 }
 
 .mobile-nav-list .nav-link:hover {
-  background-color: #3a3a3a;
-  color: #ffffff;
-}
-
-.mobile-nav-list .dropdown-container {
-  margin-left: 0; /* Mobil menüde sol boşluk sıfırlanır */
-  margin-top: 10px; /* Admin sekmesi için üst boşluk */
+  border-color: var(--accent-color, #e0cf95);
+  color: var(--accent-color, #e0cf95);
 }
 
 .mobile-nav-list .admin-dropdown-toggle {
   width: 100%;
-  text-align: left;
-  justify-content: space-between; /* Okun sağa gitmesi için */
+  justify-content: space-between;
 }
 
 .mobile-nav-list .admin-dropdown-menu {
-  position: static; /* Offcanvas içinde pozisyonu iptal et */
+  position: static;
   width: 100%;
-  border: none;
-  box-shadow: none;
-  background-color: #333; /* Mobil dropdown için daha açık arka plan */
-  margin-top: 5px;
-  opacity: 1; /* Mobil menüde direkt görünür olsun */
-  visibility: visible;
-  transform: translateY(0);
+  margin-top: 6px;
 }
 
-/* --- Responsive Düzenlemeler --- */
-
-/* Mobil görünüm için (ekran 991.98px ve altı) */
 @media (max-width: 991.98px) {
-  .fark-brand {
-    font-size: 1.8rem; /* Mobil marka boyutu küçültülür */
-  }
-
   .main-nav-links {
-    display: none; /* Masaüstü navigasyon gizlenir */
+    display: none;
   }
 
-  .mobile-menu-toggle {
-    display: block; /* Hamburger menü ikonu gösterilir */
+  .mobile-actions {
+    display: flex;
+  }
+
+  .fark-brand-logo {
+    height: 38px;
   }
 }
 
-/* PC görünümü için (ekran 992px ve üzeri) */
 @media (min-width: 992px) {
-  .mobile-menu-toggle {
-    display: none; /* Hamburger ikonu gizlenir */
-  }
-
   .mobile-offcanvas {
-    visibility: hidden; /* Offcanvas PC'de tamamen gizli kalır */
-  }
-
-  .main-nav-links {
-    display: flex; /* Masaüstü navigasyonu gösterilir */
-    flex-grow: 1; /* Marka ile menü arasındaki boşluğu doldurur */
-    justify-content: flex-end; /* Menü öğelerini sağa hizalar */
-  }
-
-  .main-nav-links .nav-item {
-    margin: 0 0.8rem; /* PC'de menü öğeleri arası boşluk */
-  }
-
-  .dropdown-container {
-    margin-left: 0.8rem; /* PC'de dropdown'dan önceki boşluk */
+    visibility: hidden;
   }
 }

@@ -1,34 +1,67 @@
-/* --- Admin Panel Genel Yapı --- */
 .admin-panel-wrapper {
-  background-color: #141414;
-  color: #e5e5e5;
-  padding-top: 2rem; /* Üst padding'i koruyalım, bu navbar'dan uzaklığı */
-  padding-bottom: 0; /* Alt padding'i tamamen sıfırla */
-  padding-left: 2rem;
-  padding-right: 2rem;
-  min-height: calc(100vh - var(--navbar-height, 64px));
+  background-color: var(--page-background);
+  color: var(--text-color-light);
+  padding: 2.5rem 4% 4rem 4%;
+  min-height: calc(100vh - 76px);
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   box-sizing: border-box;
-  margin: 0 !important; /* Tüm marginleri sıfırla */
-  /* Eğer bu elementin kendisinin boşluk yaratma ihtimali varsa */
-  width: 100%; /* Genişliğini tam olarak ayarla */
 }
 
-/* Navbar yüksekliğini bir CSS değişkeni olarak tanımlamak iyi bir pratiktir */
-/* Bu değişkeni uygulamanızın global CSS'inde (pl. styles.css) tanımlamanız tavsiye edilir */
-/* :root { --navbar-height: 64px; } */
+.admin-header-bar {
+  margin-bottom: 1.75rem;
+  max-width: 1100px;
+  width: 100%;
+}
+
+.admin-header-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+  background-color: var(--section-background);
+  border: 1px solid var(--border-color-dark);
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+  box-shadow: 0 6px 20px var(--box-shadow-dark);
+}
 
 .admin-panel-title {
-  font-size: 2.8rem;
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: var(--heading-color-primary);
+  margin: 0 0 0.35rem 0;
+  letter-spacing: -0.5px;
+}
+
+.admin-panel-subtitle {
+  color: var(--text-color-medium);
+  font-size: 0.96rem;
+  margin: 0;
+}
+
+.superadmin-reset-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: rgba(220, 53, 69, 0.08);
+  border: 1px solid rgba(220, 53, 69, 0.35);
+  border-radius: 10px;
+}
+
+.superadmin-badge {
+  font-size: 0.78rem;
   font-weight: 700;
-  color: #e0cf95;
-  margin-top: 0; /* Başlığın kendi üstündeki boşluğu sıfırlar */
-  margin-bottom: 2rem; /* Başlık ile sekmeler arası boşluğu koruyalım */
-  text-align: center;
-  letter-spacing: 0.05em;
-  text-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--accent-color);
+  display: inline-flex;
+  align-items: center;
 }
 
 /* --- Sekmeler (Tabs) --- */
@@ -36,104 +69,62 @@
   display: flex;
   justify-content: center;
   list-style: none;
-  padding: 0;
-  margin: 0; /* Tüm marginleri sıfırla */
-  gap: 1.5rem;
+  padding: 0.5rem;
+  margin: 0 0 1.5rem 0;
+  gap: 0.65rem;
   flex-wrap: wrap;
+  background-color: var(--section-background);
+  border: 1px solid var(--border-color-dark);
+  border-radius: 12px;
+  max-width: 1100px;
+  width: 100%;
 }
 
 .tab-item {
   flex-shrink: 0;
-  margin: 0; /* Liste öğelerinin kendi marginlerini sıfırla */
-  padding: 0; /* Liste öğelerinin kendi paddinglerini sıfırla */
 }
 
 .tab-button {
-  background-color: #222;
-  border: 1px solid #333;
-  border-radius: 6px;
-  color: #b3b3b3;
-  padding: 0.9rem 1.8rem;
-  font-size: 1.1rem;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--text-color-medium);
+  padding: 0.65rem 1.25rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   white-space: nowrap;
   text-decoration: none;
   display: block;
-  margin: 0; /* Butonların kendi marginlerini sıfırla */
 }
 
 .tab-button:hover {
-  background-color: #333;
-  color: #e5e5e5;
-  border-color: #e0cf95;
-  box-shadow: 0 0 15px rgba(229, 9, 20, 0.3);
+  background-color: var(--card-background);
+  color: var(--text-color-light);
+  border-color: var(--border-color-dark);
 }
 
 .tab-button.active-tab {
-  background-color: #e0cf95;
-  color: #ffffff;
-  border-color: #e0cf95;
-  box-shadow: 0 0 20px rgba(229, 9, 20, 0.6);
-  transform: translateY(-2px);
+  background-color: var(--accent-color);
+  color: #141414;
+  border-color: var(--accent-color);
+  font-weight: 700;
 }
 
-.tab-button.active-tab .tab-text {
-  color: #ffffff;
-}
-
-.tab-text {
-  color: inherit;
-  text-decoration: none;
-  display: block;
-}
-
-/* --- Router Outlet İçeriği İçin Ayarlar --- */
-router-outlet {
-  display: block;
+.admin-outlet-container {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 !important; /* Tüm dış boşlukları tamamen sıfırla */
-  padding: 0 !important; /* İç boşlukları da tamamen sıfırla */
-  box-sizing: border-box;
-  overflow: hidden; /* Taşmaları engellemek için */
-
-  /* Router-outlet'in içine yansıyan tüm elementlerin margin/padding'ini sıfırla */
-  /* Bu kural çok güçlüdür ve Shadow DOM'u aşmak için kullanılır. */
-  :host ::ng-deep > * {
-    margin: 0 !important;
-    padding: 0 !important;
-    line-height: 1; /* Metinler arası boşluğu da minimuma indir */
-    /* Flex veya grid kapsayıcıları içindeki boşlukları da kontrol edebiliriz */
-    gap: 0 !important;
-  }
+  max-width: 1100px;
 }
 
-/* --- Responsive Düzenlemeler --- */
 @media (max-width: 768px) {
-  .admin-panel-title {
-    font-size: 2.2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .admin-tabs {
+  .admin-header-top {
     flex-direction: column;
-    gap: 0.8rem;
-    max-width: 300px;
-    margin: 0 auto !important; /* Mobil görünümde de boşluk sıfır ve ortala */
-    padding: 0;
+    align-items: stretch;
+    text-align: center;
   }
 
-  .tab-button {
-    width: 100%;
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .admin-panel-title {
-    font-size: 1.8rem;
+  .superadmin-reset-box {
+    align-items: center;
   }
 }

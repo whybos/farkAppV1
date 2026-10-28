@@ -1,44 +1,69 @@
-<div class="container">
-  <div class="text-center">
-    <button
-      class="btn btn-lg btn-outline-danger"
-      (click)="onNew()"
-      data-bs-toggle="modal"
-      data-bs-target="#updateModal"
-    >
-      <i class="bi bi-pencil-square me-1"></i> New Navbar
-    </button>
-  </div>
-  <br />
-
-  @for (item of navbar; track $index) {
-  <div class="card shadow-sm mb-4">
-    <div class="card-body">
-      <h5 class="card-title">{{ item.id }}</h5>
-
-      <p class="card-text text-muted"><strong>Body:</strong> {{ item.body }}</p>
-      <p class="card-text text-muted"><strong>Link:</strong> {{ item.link }}</p>
-
-      <div class="d-flex justify-content-end gap-2">
+<div class="admin-page-container">
+  <div class="admin-action-header">
+    <div>
+      <h3 class="admin-section-heading">Navbar Menü Yönetimi</h3>
+      <p class="admin-section-subtext">
+        Üst menüde (Navbar) yer alan sayfa bağlantılarını buradan ekleyip düzenleyebilirsiniz.
+      </p>
+    </div>
+    <div class="admin-header-actions">
+      @if (isSuperAdmin && navbar.length > 0) {
         <button
-          class="btn btn-sm btn-outline-primary"
-          (click)="onUpdate(item)"
-          data-bs-toggle="modal"
-          data-bs-target="#updateModal"
+          type="button"
+          class="fark-admin-btn-danger-outline"
+          (click)="onDeleteAll()"
         >
-          <i class="bi bi-pencil-square me-1"></i> Update
+          <i class="bi bi-trash3-fill me-1"></i> Tümünü Sil
         </button>
-
-        <button
-          class="btn btn-sm btn-outline-danger"
-          (click)="onDelete(item.id)"
-        >
-          <i class="bi bi-trash me-1"></i> Delete
-        </button>
-      </div>
+      }
+      <button
+        class="fark-admin-btn-primary"
+        (click)="onNew()"
+        data-bs-toggle="modal"
+        data-bs-target="#updateModal"
+      >
+        <i class="bi bi-plus-lg me-1"></i> Yeni Menü Öğesi
+      </button>
     </div>
   </div>
-  }
+
+  <div class="admin-cards-list">
+    @for (item of navbar; track item.id || $index) {
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <div class="admin-item-details">
+            <span class="admin-item-id">#{{ item.id }}</span>
+            <p class="card-text">
+              <strong>Menü Başlığı (Body):</strong> {{ item.body }}
+            </p>
+            <p class="card-text">
+              <strong>Sayfa Yolu (Link):</strong> {{ item.link }}
+            </p>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2 mt-3">
+            <button
+              class="btn btn-sm btn-outline-primary"
+              (click)="onUpdate(item)"
+              data-bs-toggle="modal"
+              data-bs-target="#updateModal"
+            >
+              <i class="bi bi-pencil-square me-1"></i> Güncelle
+            </button>
+
+            <button
+              class="btn btn-sm btn-outline-danger"
+              (click)="onDelete(item.id)"
+            >
+              <i class="bi bi-trash me-1"></i> Sil
+            </button>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="admin-empty-box">Henüz menü öğesi eklenmemiş.</div>
+    }
+  </div>
 </div>
 
 <!-- Modal -->
@@ -49,13 +74,12 @@
   aria-labelledby="updateModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <!-- Tek form açılıyor -->
       <form [formGroup]="myForm" (ngSubmit)="saveUpdate()">
         <div class="modal-header">
           <h5 class="modal-title" id="updateModalLabel">
-            {{ isNew ? "New Navbar Item" : "Update Navbar Item" }}
+            {{ isNew ? "Yeni Navbar Öğesi" : "Navbar Öğesini Güncelle" }}
           </h5>
           <button
             type="button"
@@ -67,43 +91,45 @@
 
         <div class="modal-body">
           <div class="mb-3">
-            <label for="bodyInput" class="form-label">Body</label>
+            <label for="bodyInput" class="form-label">Menü Başlığı (Body)</label>
             <input
               id="bodyInput"
               type="text"
               class="form-control"
+              placeholder="Örn: FARK'INDA"
               formControlName="body"
             />
-            <div class="text-danger">
-              @if (myForm.get('body')?.invalid && myForm.get('body')?.touched){
-              Body is required.}
+            <div class="text-danger small mt-1">
+              @if (myForm.get('body')?.invalid && myForm.get('body')?.touched) {
+                Menü başlığı zorunludur.
+              }
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="linkInput" class="form-label">Link</label>
+            <label for="linkInput" class="form-label">Sayfa Yolu (Link)</label>
             <input
               id="linkInput"
               type="text"
               class="form-control"
+              placeholder="Örn: farkinda"
               formControlName="link"
             />
-            <div class="text-danger">
-              @if (myForm.get('link')?.invalid && myForm.get('link')?.touched){
-              Link is required.}
+            <div class="text-danger small mt-1">
+              @if (myForm.get('link')?.invalid && myForm.get('link')?.touched) {
+                Sayfa yolu zorunludur.
+              }
             </div>
           </div>
         </div>
 
         <div class="modal-footer">
-          <!-- Modal footer butonları burada -->
-
           <button
             type="button"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
           >
-            Cancel
+            İptal
           </button>
 
           <button
@@ -111,7 +137,7 @@
             class="btn btn-primary"
             [disabled]="myForm.invalid"
           >
-            {{ isNew ? "Create" : "Update" }}
+            {{ isNew ? "Oluştur" : "Güncelle" }}
           </button>
         </div>
       </form>

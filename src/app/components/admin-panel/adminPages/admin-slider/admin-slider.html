@@ -1,46 +1,74 @@
-<div class="container">
-  <div class="text-center">
-    <button
-      class="btn btn-lg btn-outline-danger"
-      (click)="onNew()"
-      data-bs-toggle="modal"
-      data-bs-target="#updateModal"
-    >
-      <i class="bi bi-pencil-square me-1"></i> New Slider
-    </button>
-  </div>
-  <br />
-
-  @for (item of slider; track $index) {
-  <div class="card shadow-sm mb-4">
-    <div class="card-body">
-      <h5 class="card-title">{{ item.id }}</h5>
-
-      <p class="card-text text-muted">
-        <strong>Title:</strong> {{ item.title }}
+<div class="admin-page-container">
+  <div class="admin-action-header">
+    <div>
+      <h3 class="admin-section-heading">Slider Yönetimi</h3>
+      <p class="admin-section-subtext">
+        Ana sayfa vitrin (slider) görsellerini ve başlıklarını sürükle-bırak ile yönetebilirsiniz.
       </p>
-      <p class="card-text text-muted"><strong>Body:</strong> {{ item.body }}</p>
-
-      <div class="d-flex justify-content-end gap-2">
+    </div>
+    <div class="admin-header-actions">
+      @if (isSuperAdmin && slider.length > 0) {
         <button
-          class="btn btn-sm btn-outline-primary"
-          (click)="onUpdate(item)"
-          data-bs-toggle="modal"
-          data-bs-target="#updateModal"
+          type="button"
+          class="fark-admin-btn-danger-outline"
+          (click)="onDeleteAll()"
         >
-          <i class="bi bi-pencil-square me-1"></i> Update
+          <i class="bi bi-trash3-fill me-1"></i> Tümünü Sil
         </button>
-
-        <button
-          class="btn btn-sm btn-outline-danger"
-          (click)="onDelete(item.id)"
-        >
-          <i class="bi bi-trash me-1"></i> Delete
-        </button>
-      </div>
+      }
+      <button
+        class="fark-admin-btn-primary"
+        (click)="onNew()"
+        data-bs-toggle="modal"
+        data-bs-target="#updateModal"
+      >
+        <i class="bi bi-plus-lg me-1"></i> Yeni Slider Ekle
+      </button>
     </div>
   </div>
-  }
+
+  <div class="admin-cards-list">
+    @for (item of slider; track item.id || $index) {
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <div class="admin-item-row">
+            @if (item.photo) {
+              <img [src]="item.photo" [alt]="item.title" class="admin-item-thumb" />
+            }
+            <div class="admin-item-details">
+              <span class="admin-item-id">#{{ item.id }}</span>
+              <p class="card-text">
+                <strong>Başlık:</strong> {{ item.title }}
+              </p>
+              <p class="card-text">
+                <strong>Açıklama:</strong> {{ item.body }}
+              </p>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2 mt-3">
+            <button
+              class="btn btn-sm btn-outline-primary"
+              (click)="onUpdate(item)"
+              data-bs-toggle="modal"
+              data-bs-target="#updateModal"
+            >
+              <i class="bi bi-pencil-square me-1"></i> Güncelle
+            </button>
+
+            <button
+              class="btn btn-sm btn-outline-danger"
+              (click)="onDelete(item.id)"
+            >
+              <i class="bi bi-trash me-1"></i> Sil
+            </button>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="admin-empty-box">Henüz slider öğesi eklenmemiş.</div>
+    }
+  </div>
 </div>
 
 <!-- Modal -->
@@ -51,13 +79,12 @@
   aria-labelledby="updateModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <!-- Tek form açılıyor -->
       <form [formGroup]="myForm" (ngSubmit)="saveUpdate()">
         <div class="modal-header">
           <h5 class="modal-title" id="updateModalLabel">
-            {{ isNew ? "New Slider Item" : "Update Slider Item" }}
+            {{ isNew ? "Yeni Slider Öğesi" : "Slider Öğesini Güncelle" }}
           </h5>
           <button
             type="button"
@@ -69,58 +96,58 @@
 
         <div class="modal-body">
           <div class="mb-3">
-            <label for="titleInput" class="form-label">Title</label>
+            <label for="titleInput" class="form-label">Başlık (Title)</label>
             <input
               id="titleInput"
               type="text"
               class="form-control"
               formControlName="title"
             />
-            <div class="text-danger">
-              @if (myForm.get('title')?.invalid &&
-              myForm.get('title')?.touched){ Title is required.}
+            <div class="text-danger small mt-1">
+              @if (myForm.get('title')?.invalid && myForm.get('title')?.touched) {
+                Başlık zorunludur.
+              }
             </div>
           </div>
-        </div>
 
-        <div class="modal-body">
           <div class="mb-3">
-            <label for="bodyInput" class="form-label">Body</label>
-            <input
+            <label for="bodyInput" class="form-label">Açıklama (Body)</label>
+            <textarea
               id="bodyInput"
-              type="text"
+              rows="3"
               class="form-control"
               formControlName="body"
-            />
-            <div class="text-danger">
-              @if (myForm.get('body')?.invalid && myForm.get('body')?.touched){
-              Body is required.}
+            ></textarea>
+            <div class="text-danger small mt-1">
+              @if (myForm.get('body')?.invalid && myForm.get('body')?.touched) {
+                Açıklama zorunludur.
+              }
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="photoInput" class="form-label">Photo</label>
-            <input
-              id="photoInput"
-              type="text"
-              class="form-control"
-              formControlName="photo"
-            />
-            <div class="text-danger">
-              @if (myForm.get('photo')?.invalid &&
-              myForm.get('photo')?.touched){ Photo is required.}
+            <label class="form-label">Slider Fotoğrafı (Sürükle & Bırak)</label>
+            <app-image-upload
+              [value]="myForm.get('photo')?.value"
+              [maxWidth]="1600"
+              [maxHeight]="1000"
+              (valueChange)="onPhotoChange($event)"
+            ></app-image-upload>
+            <div class="text-danger small mt-1">
+              @if (myForm.get('photo')?.invalid && myForm.get('photo')?.touched) {
+                Fotoğraf zorunludur.
+              }
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <!-- Modal footer butonları burada -->
 
+        <div class="modal-footer">
           <button
             type="button"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
           >
-            Cancel
+            İptal
           </button>
 
           <button
@@ -128,7 +155,7 @@
             class="btn btn-primary"
             [disabled]="myForm.invalid"
           >
-            {{ isNew ? "Create" : "Update" }}
+            {{ isNew ? "Oluştur" : "Güncelle" }}
           </button>
         </div>
       </form>

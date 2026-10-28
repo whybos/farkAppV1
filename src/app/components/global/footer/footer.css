@@ -1,38 +1,45 @@
-/* --- Genel Footer Stili --- */
+/* --- Genel Footer Stili (Çoklu link eklendiğinde kaymaz ve bozulmaz) --- */
 .app-footer {
-  font-family: "fark Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: #141414; /* fark'in ana arka plan rengi */
-  padding: 3rem 4%; /* Dikeyde ve yatayda boşluk */
-  border-top: 2px solid #e0cf95; /* fark kırmızısı üst çizgi */
-  display: flex; /* Flexbox düzeni */
-  flex-wrap: wrap; /* Gerekirse alt satıra geçiş */
-  justify-content: space-between; /* Öğeleri aralıklı yerleştir */
-  align-items: center; /* Dikeyde ortala */
-  color: #e5e5e5; /* Genel metin rengi */
+  background-color: var(--footer-bg, #141414);
+  padding: 3rem 4%;
+  border-top: 2px solid var(--accent-color, #e0cf95);
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(300px, 2.2fr) minmax(180px, 1fr);
+  gap: 2rem;
+  align-items: center;
+  color: var(--text-color-light, #e5e5e5);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* --- Kolon Düzenlemeleri --- */
 .app-footer-col {
-  flex-basis: 30%; /* Kolonlara eşit olmayan dağılım verilebilir */
   display: flex;
   align-items: center;
-  margin-bottom: 1.5rem; /* Mobil görünümde alt boşluk */
+  margin: 0;
 }
 
 .app-footer-brand-section {
-  justify-content: flex-start; /* Başlangıca hizala */
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
 }
 
+/* Dinamik Linkler: Kaç tane link gelirse gelsin düzgün satırlara sarılır ve yamulmaz */
 .app-footer-nav-links {
-  justify-content: center; /* Ortaya hizala */
-  flex-grow: 1; /* Ortadaki kısım daha fazla yer kaplasın */
-  list-style: none; /* Liste işaretlerini kaldır */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  list-style: none;
   padding: 0;
   margin: 0;
 }
 
 .app-social-icons-list {
-  justify-content: flex-end; /* Sona hizala */
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 1.15rem;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -41,61 +48,64 @@
 /* --- Logo ve Telif Hakkı --- */
 .app-footer-logo-link {
   text-decoration: none;
-  margin-right: 1rem;
 }
 
 .app-footer-logo-text {
-  font-size: 2.5rem; /* Büyük logo metni */
+  font-size: 2.3rem;
   font-weight: 800;
-  color: #e0cf95; /* fark kırmızısı */
-  letter-spacing: -2px;
-  transition: color 0.3s ease;
+  color: var(--accent-color, #e0cf95);
+  letter-spacing: -1.5px;
+  transition: color 0.25s ease;
 }
 
 .app-footer-logo-text:hover {
-  color: #efdda2;
+  color: var(--accent-hover, #efdda2);
 }
 
 .app-footer-copyright {
-  color: #a0a0a0; /* Açık gri telif metni */
-  font-size: 0.95rem;
+  color: var(--text-color-medium, #a0a0a0);
+  font-size: 0.92rem;
   font-weight: 400;
 }
 
 /* --- Navigasyon Linkleri --- */
 .app-footer-nav-item {
-  margin: 0 1rem; /* Linkler arası boşluk */
+  margin: 0;
 }
 
 .app-footer-nav-link {
-  color: #a0a0a0; /* Açık gri link metni */
+  color: var(--text-color-medium, #a0a0a0);
   text-decoration: none;
   font-weight: 500;
-  font-size: 1.05rem;
-  transition: color 0.3s ease;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 .app-footer-nav-link:hover {
-  color: #e5e5e5; /* Hover'da daha açık gri */
+  color: var(--accent-color, #e0cf95);
 }
 
 /* --- Sosyal Medya İkonları --- */
 .app-social-item {
-  margin-left: 1.5rem; /* İkonlar arası boşluk */
+  margin: 0;
 }
 
 .app-social-link {
-  color: #a0a0a0; /* Açık gri ikon rengi */
-  font-size: 2rem; /* Büyük ikonlar */
-  display: inline-block;
-  transition: all 0.3s ease-in-out, color 0.3s ease;
+  color: var(--text-color-medium, #a0a0a0);
+  font-size: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, color 0.25s ease;
 }
 
 .app-social-link:hover {
-  transform: translateY(-5px); /* Hafif yukarı kayma efekti */
+  transform: translateY(-4px);
 }
 
-/* Sosyal Medya İkon Renkleri (Hover) */
 .app-social-link.instagram:hover {
   background: radial-gradient(
     circle at 30% 107%,
@@ -108,71 +118,38 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .app-social-link.twitter:hover {
-  color: #dddddd; /* X beyaz */
+  color: var(--text-color-light, #ffffff);
 }
+
 .app-social-link.youtube:hover {
-  color: #ff0000; /* YouTube kırmızısı */
+  color: #ff0000;
 }
+
 .app-social-link.linkedin:hover {
-  color: #0077b5; /* LinkedIn mavisi */
+  color: #0077b5;
 }
 
 /* --- Responsive Düzenlemeler --- */
 @media (max-width: 991.98px) {
   .app-footer {
-    flex-direction: column; /* Mobil cihazlarda dikey düzen */
+    grid-template-columns: 1fr;
     text-align: center;
-    padding: 2rem 3%;
-  }
-
-  .app-footer-col {
-    flex-basis: 100%; /* Her kolon tam genişlik */
-    justify-content: center !important; /* Ortaya hizala */
-    margin-bottom: 1.5rem;
+    padding: 2.5rem 4%;
+    gap: 1.75rem;
   }
 
   .app-footer-brand-section {
-    flex-direction: column; /* Logo ve telif hakkı alt alta */
-    margin-bottom: 2rem;
-  }
-
-  .app-footer-logo-link {
-    margin-right: 0;
-    margin-bottom: 0.5rem;
-  }
-
-  .app-footer-logo-text {
-    font-size: 2rem;
-  }
-
-  .app-footer-copyright {
-    font-size: 0.9rem;
+    align-items: center;
   }
 
   .app-footer-nav-links {
-    flex-wrap: wrap; /* Linkleri alt alta geçebilir */
-    margin-bottom: 2rem;
-  }
-
-  .app-footer-nav-item {
-    margin: 0.5rem 0.8rem; /* Mobil link boşlukları */
-  }
-
-  .app-footer-nav-link {
-    font-size: 0.95rem;
+    justify-content: center;
+    gap: 0.65rem 1.15rem;
   }
 
   .app-social-icons-list {
-    flex-basis: 100%; /* Tam genişlik */
-    margin-top: 1rem;
-  }
-
-  .app-social-item {
-    margin: 0 0.8rem; /* İkonlar arası boşluk */
-  }
-
-  .app-social-link {
-    font-size: 1.7rem;
+    justify-content: center;
   }
 }

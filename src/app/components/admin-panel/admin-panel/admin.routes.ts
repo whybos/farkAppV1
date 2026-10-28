@@ -9,6 +9,7 @@ import { AdminForms } from '../adminPages/admin-forms/admin-forms';
 import { AdminBlog } from '../adminPages/admin-blog/admin-blog';
 import { AdminNewsDetail } from '../adminPages/admin-news-detail/admin-news-detail';
 import { AdminAddUser } from '../adminPages/admin-add-user/admin-add-user';
+import { AdminFarkinda } from '../adminPages/admin-farkinda/admin-farkinda';
 
 export const adminRoutes: Routes = [
   {
@@ -23,6 +24,7 @@ export const adminRoutes: Routes = [
       { path: 'footer', component: AdminFooter },
       { path: 'forms', component: AdminForms },
       { path: 'blogs', component: AdminBlog },
+      { path: 'farkinda', component: AdminFarkinda },
       { path: 'news/:id', component: AdminNewsDetail },
       { path: 'addUser', component: AdminAddUser },
     ],

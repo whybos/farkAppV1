@@ -1,0 +1,60 @@
+<div class="content-wrapper">
+  <h1 class="section-title animate-fade-up" [ngStyle]="{ 'animation-delay': '0ms' }">
+    FARK'ında
+  </h1>
+  <p class="farkinda-subtitle animate-fade-up" [ngStyle]="{ 'animation-delay': '80ms' }">
+    Geçmiş sayılarımızı ve PDF yayınlarımızı incelemek veya indirmek için ilgili yayına tıklayabilirsiniz.
+  </p>
+  <hr class="section-divider" />
+
+  <div class="farkinda-grid">
+    @for (item of farkindaList; track item.id || $index) {
+      <a
+        class="farkinda-card-link animate-fade-up"
+        [ngStyle]="{ 'animation-delay': ($index + 1) * 120 + 'ms' }"
+        [href]="getSafeUrl(item.link)"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <article class="farkinda-card">
+          <div class="farkinda-cover-wrapper">
+            @if (item.photo) {
+              <img
+                [src]="item.photo"
+                [alt]="item.title"
+                class="farkinda-cover-image"
+              />
+            } @else {
+              <div class="farkinda-cover-fallback">
+                <i class="bi bi-file-earmark-pdf"></i>
+                <span>PDF Yayını</span>
+              </div>
+            }
+            <div class="farkinda-hover-overlay">
+              <span class="farkinda-open-cta">
+                <i class="bi bi-box-arrow-up-right me-2"></i>Drive'da Aç / İndir
+              </span>
+            </div>
+          </div>
+
+          <div class="farkinda-card-body">
+            <h3 class="farkinda-card-title">{{ item.title }}</h3>
+            <div class="farkinda-card-footer">
+              <span class="farkinda-card-date">
+                <i class="bi bi-calendar3 me-1"></i>{{ item.date }}
+              </span>
+              <span class="farkinda-action-text">
+                PDF Görüntüle →
+              </span>
+            </div>
+          </div>
+        </article>
+      </a>
+    } @empty {
+      <div class="no-content-message animate-fade-up">
+        <i class="bi bi-journal-richtext d-block mb-3" style="font-size: 2.5rem;"></i>
+        <p>Şu anda gösterilecek FARK'ında yayını bulunmamaktadır.</p>
+      </div>
+    }
+  </div>
+</div>

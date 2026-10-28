@@ -1,42 +1,52 @@
-<div class="container">
-  <div class="text-center">
+<div class="admin-page-container">
+  <div class="admin-action-header">
+    <div>
+      <h3 class="admin-section-heading">Yönetici Kullanıcılar</h3>
+      <p class="admin-section-subtext">
+        Yönetim paneline erişim yetkisi olan kullanıcıları buradan görüntüleyebilir ve ekleyebilirsiniz.
+      </p>
+    </div>
     <button
-      class="btn btn-lg btn-outline-danger"
+      type="button"
+      class="fark-admin-btn-primary"
       (click)="onNew()"
-      data-bs-toggle="modal"
-      data-bs-target="#updateModal"
     >
-      <i class="bi bi-pencil-square me-1"></i> New User
+      <i class="bi bi-person-plus me-1"></i> Yeni Kullanıcı Ekle
     </button>
   </div>
-  <br />
 
-  @for (item of users; track $index) {
-  <div class="card shadow-sm mb-4">
-    <div class="card-body">
-      <h5 class="card-title">{{ item.id }}</h5>
+  <div class="admin-cards-list">
+    @for (item of users; track item.id || $index) {
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <div class="admin-item-details">
+            <span class="admin-item-id">#{{ item.id }}</span>
+            <p class="card-text">
+              <strong>Ad:</strong> {{ item.firstName }}
+            </p>
+            <p class="card-text">
+              <strong>Soyad:</strong> {{ item.lastName }}
+            </p>
+            <p class="card-text">
+              <strong>E-posta:</strong> {{ item.email }}
+            </p>
+          </div>
 
-      <p class="card-text text-muted">
-        <strong>firstname:</strong> {{ item.firstName }}
-      </p>
-      <p class="card-text text-muted">
-        <strong>lastname:</strong> {{ item.lastName }}
-      </p>
-      <p class="card-text text-muted">
-        <strong>email:</strong> {{ item.email }}
-      </p>
-
-      <div class="d-flex justify-content-end gap-2">
-        <button
-          class="btn btn-sm btn-outline-danger"
-          (click)="onDelete(item.id)"
-        >
-          <i class="bi bi-trash me-1"></i> Delete
-        </button>
+          <div class="d-flex justify-content-end gap-2 mt-3">
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-danger"
+              (click)="onDelete(item.id)"
+            >
+              <i class="bi bi-trash me-1"></i> Sil
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    } @empty {
+      <div class="admin-empty-box">Kayıtlı kullanıcı bulunamadı.</div>
+    }
   </div>
-  }
 </div>
 
 <!-- Modal -->
@@ -47,13 +57,12 @@
   aria-labelledby="updateModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <!-- Tek form açılıyor -->
       <form [formGroup]="myForm" (ngSubmit)="saveUpdate()">
         <div class="modal-header">
           <h5 class="modal-title" id="updateModalLabel">
-            {{ isNew ? "New User Item" : "Update User Item" }}
+            {{ isNew ? "Yeni Kullanıcı Ekle" : "Kullanıcıyı Güncelle" }}
           </h5>
           <button
             type="button"
@@ -65,77 +74,73 @@
 
         <div class="modal-body">
           <div class="mb-3">
-            <label for="firstnameInput" class="form-label">firstname</label>
+            <label for="firstNameInput" class="form-label">Ad (First Name)</label>
             <input
-              id="firstnameInput"
+              id="firstNameInput"
               type="text"
               class="form-control"
-              formControlName="firstname"
+              formControlName="firstName"
             />
-            <div class="text-danger">
-              @if (myForm.get('firstname')?.invalid &&
-              myForm.get('firstname')?.touched){ firstname is required.}
+            <div class="text-danger small mt-1">
+              @if (myForm.get('firstName')?.invalid && myForm.get('firstName')?.touched) {
+                Ad zorunludur.
+              }
             </div>
           </div>
-        </div>
 
-        <div class="modal-body">
           <div class="mb-3">
-            <label for="lastnameInput" class="form-label">lastname</label>
+            <label for="lastNameInput" class="form-label">Soyad (Last Name)</label>
             <input
-              id="lastnameInput"
+              id="lastNameInput"
               type="text"
               class="form-control"
-              formControlName="lastname"
+              formControlName="lastName"
             />
-            <div class="text-danger">
-              @if (myForm.get('lastname')?.invalid &&
-              myForm.get('lastname')?.touched){ lastname is required.}
+            <div class="text-danger small mt-1">
+              @if (myForm.get('lastName')?.invalid && myForm.get('lastName')?.touched) {
+                Soyad zorunludur.
+              }
             </div>
           </div>
-        </div>
 
-        <div class="modal-body">
           <div class="mb-3">
-            <label for="emailInput" class="form-label">email</label>
+            <label for="emailInput" class="form-label">E-posta (Email)</label>
             <input
               id="emailInput"
-              type="text"
+              type="email"
               class="form-control"
               formControlName="email"
             />
-            <div class="text-danger">
-              @if (myForm.get('email')?.invalid &&
-              myForm.get('email')?.touched){ email is required.}
+            <div class="text-danger small mt-1">
+              @if (myForm.get('email')?.invalid && myForm.get('email')?.touched) {
+                Geçerli bir e-posta zorunludur.
+              }
             </div>
           </div>
-        </div>
 
-        <div class="modal-body">
           <div class="mb-3">
-            <label for="passwordInput" class="form-label">password</label>
+            <label for="passwordInput" class="form-label">Şifre (Password)</label>
             <input
               id="passwordInput"
-              type="text"
+              type="password"
               class="form-control"
               formControlName="password"
             />
-            <div class="text-danger">
-              @if (myForm.get('password')?.invalid &&
-              myForm.get('password')?.touched){ password is required.}
+            <div class="text-danger small mt-1">
+              @if (myForm.get('password')?.invalid && myForm.get('password')?.touched) {
+                Şifre zorunludur.
+              }
             </div>
           </div>
         </div>
 
         <div class="modal-footer">
-          <!-- Modal footer butonları burada -->
-
           <button
             type="button"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
           >
-            Cancel
+            İptal
           </button>
 
           <button
@@ -143,7 +148,7 @@
             class="btn btn-primary"
             [disabled]="myForm.invalid"
           >
-            {{ isNew ? "Create" : "Update" }}
+            {{ isNew ? "Oluştur" : "Güncelle" }}
           </button>
         </div>
       </form>

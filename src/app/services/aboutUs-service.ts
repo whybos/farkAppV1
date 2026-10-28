@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { aboutUsModel } from '../model/aboutUs.model';
 import { ListResponse } from '../model/globalResponseModel';
 
@@ -27,6 +27,26 @@ export class aboutUsService {
   deleteAboutUs(id: number): Observable<ListResponse<aboutUsModel>> {
     return this.httpClient.delete<ListResponse<aboutUsModel>>(
       `${this.apiUrl}?id=${id}`
+    );
+  }
+
+  deleteAllAboutUs(): Observable<number> {
+    return this.httpClient.delete(`${this.apiUrl}/deleteAll`).pipe(
+      catchError(() => of(null)),
+      switchMap(() =>
+        this.getaboutUs().pipe(
+          catchError(() => of({ success: false, message: '', data: [] as aboutUsModel[] }))
+        )
+      ),
+      switchMap((resp) => {
+        const items = Array.isArray(resp?.data) ? resp.data : [];
+        if (items.length === 0) return of(0);
+        return forkJoin(
+          items.map((item) =>
+            this.deleteAboutUs(item.id).pipe(catchError(() => of(null)))
+          )
+        ).pipe(map(() => items.length));
+      })
     );
   }
 }

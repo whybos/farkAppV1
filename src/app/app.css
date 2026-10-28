@@ -3,28 +3,23 @@
   bottom: 30px;
   right: 30px;
   z-index: 1000;
-  width: 56px;
-  height: 56px;
-  background-color: #212529; /* Bootstrap primary */
-  color: white;
+  width: 52px;
+  height: 52px;
+  background-color: var(--accent-color);
+  color: #141414;
   border: none;
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 14px var(--box-shadow-dark);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  font-size: 26px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
 
 .scroll-to-top:hover {
-  background-color: #212529; /* Darker shade of primary */
+  background-color: var(--accent-hover);
   transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-}
-
-.scroll-to-top:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px #212529;
+  box-shadow: 0 6px 18px var(--box-shadow-dark);
 }

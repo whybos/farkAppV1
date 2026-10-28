@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { aboutUsService } from '../../../../services/aboutUs-service';
+import { AuthService } from '../../../../services/auth-service';
 import { aboutUsModel } from '../../../../model/aboutUs.model';
 import {
   FormBuilder,
@@ -7,6 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-about-us',
@@ -16,11 +18,13 @@ import {
 })
 export class AdminAboutUs implements OnInit {
   readonly aboutUsService = inject(aboutUsService);
+  readonly authService = inject(AuthService);
   aboutUs: aboutUsModel[] = [];
   myForm: FormGroup;
   isNew = true;
   selectedItem?: aboutUsModel;
   modalInstance: any;
+  isSuperAdmin = false;
 
   constructor(private fb: FormBuilder) {
     this.myForm = this.fb.group({
@@ -30,6 +34,7 @@ export class AdminAboutUs implements OnInit {
     });
   }
   ngOnInit(): void {
+    this.isSuperAdmin = this.authService.isSuperAdmin();
     this.getData();
 
     const modalEl = document.getElementById('updateModal');
@@ -42,11 +47,10 @@ export class AdminAboutUs implements OnInit {
   getData() {
     this.aboutUsService.getaboutUs().subscribe(
       (resp) => {
-        console.log('Gelen veri:', resp);
-
         if (resp.success && Array.isArray(resp.data)) {
-          // En büyük ID’li haberi bul
           this.aboutUs = [...resp.data].sort((a, b) => b.id - a.id);
+        } else {
+          this.aboutUs = [];
         }
       },
       (err) => {
@@ -68,15 +72,44 @@ export class AdminAboutUs implements OnInit {
       summary: item.summary,
       date: item.date,
     });
-    this.modalInstance.show();
+    this.modalInstance?.show();
   }
 
   onDelete(id: number): void {
-    if (confirm('Bu öğeyi silmek istediğinizden emin misiniz?')) {
-      this.aboutUsService.deleteAboutUs(id).subscribe(() => {
-        this.getData();
-      });
-    }
+    Swal.fire({
+      icon: 'warning',
+      title: 'Öğeyi Sil',
+      text: 'Bu hakkımızda içeriğini silmek istediğinizden emin misiniz?',
+      showCancelButton: true,
+      confirmButtonText: 'Evet, Sil',
+      cancelButtonText: 'İptal',
+      confirmButtonColor: '#dc3545',
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.aboutUsService.deleteAboutUs(id).subscribe(() => {
+          this.getData();
+        });
+      }
+    });
+  }
+
+  onDeleteAll(): void {
+    if (!this.authService.isSuperAdmin()) return;
+    Swal.fire({
+      icon: 'warning',
+      title: 'Tüm Hakkımızda İçeriklerini Sil',
+      text: 'Hakkımızda tablosundaki tüm kayıtlar kalıcı olarak silinecektir. Emin misiniz?',
+      showCancelButton: true,
+      confirmButtonText: 'Evet, Tümünü Sil',
+      cancelButtonText: 'İptal',
+      confirmButtonColor: '#dc3545',
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.aboutUsService.deleteAllAboutUs().subscribe(() => {
+          this.getData();
+        });
+      }
+    });
   }
 
   saveUpdate(): void {

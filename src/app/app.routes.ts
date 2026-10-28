@@ -10,6 +10,7 @@ import { adminGuard } from './guards/adminPanel.guard';
 import { Login } from './components/login/login';
 import { AdminPanel } from './components/admin-panel/admin-panel/admin-panel';
 import { AdminGuard } from './guards/admin.guard';
+import { Farkinda } from './components/farkinda/farkinda';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'main' },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'blog', component: Blog },
   { path: 'query', component: Query },
   { path: 'contact', component: Contact },
+  { path: 'farkinda', component: Farkinda },
   { path: 'news/detail/:id', component: NewsDetail },
   { path: 'login', component: Login },
 

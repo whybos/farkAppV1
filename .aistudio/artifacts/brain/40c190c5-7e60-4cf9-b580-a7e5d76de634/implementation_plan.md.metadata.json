@@ -1,0 +1,6 @@
+{
+  "summary":  "Güncellenmiş YTÜ FARK uygulama planı:\n1. FARK'ında bileşeni diğer bileşenler gibi doğrudan backend sunucusuna (api/Farkinda) bağlanacak; Başlık (title), Tarih (date), Link (link) ve Kapak Fotoğrafı (photo) alanlarını içerecek ve PDF sunucuyu yormamak için karta/fotoğrafa tıklandığında doğrudan Google Drive linkine yönlendirecek.\n2. Admin panelindeki tüm fotoğraf alanları sürükle-bırak ile otomatik boyutlandırılıp sıkıştırılarak Base64'e çevrilecek.\n3. Dağınık CSS dosyaları merkezi tasarım sisteminde (styles.css) birleştirilecek ve Gece/Aydınlık mod eklenecek.\n4. Admin paneli, Navbar ve Footer sitenin genel stiline uygun ve çoklu elemanda bozulmayacak şekilde düzenlenecek.",
+  "updatedAt":  "2026-10-28T12:14:35.110601657Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}

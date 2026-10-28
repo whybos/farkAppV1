@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth-service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 // Bootstrap modal tipi import
 declare var bootstrap: any;
@@ -17,7 +18,7 @@ declare var bootstrap: any;
 export class Login implements OnInit {
   email = '';
   password = '';
-  passwordFieldType: 'password' | 'text' = 'password'; // başlangıçta gizli
+  passwordFieldType: 'password' | 'text' = 'password';
 
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
@@ -33,14 +34,30 @@ export class Login implements OnInit {
   onLogin() {
     this.auth
       .login({ email: this.email, password: this.password })
-      .subscribe((res) => {
-        const token = res.data?.token;
-        if (token) {
-          this.auth.saveToken(token);
-          this.router.navigate(['/adminPanel']);
-        } else {
-          alert('Giriş başarısız');
-        }
+      .subscribe({
+        next: (res) => {
+          const token = res.data?.token;
+          if (token) {
+            this.auth.saveToken(token);
+            this.auth.saveUserEmail(this.email);
+            this.router.navigate(['/adminPanel']);
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Giriş Başarısız',
+              text: 'E-posta veya şifre hatalı.',
+              confirmButtonColor: '#e0cf95',
+            });
+          }
+        },
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Giriş Başarısız',
+            text: 'Sunucu ile bağlantı kurulamadı veya bilgiler hatalı.',
+            confirmButtonColor: '#e0cf95',
+          });
+        },
       });
   }
 

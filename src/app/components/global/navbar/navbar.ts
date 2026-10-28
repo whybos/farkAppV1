@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NavbarService } from '../../../services/navbar-service';
 import { navbarModel } from '../../../model/navbar.model';
+import { ThemeService } from '../../../services/theme-service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +13,7 @@ import { navbarModel } from '../../../model/navbar.model';
 })
 export class Navbar implements OnInit {
   readonly navbarService = inject(NavbarService);
+  readonly themeService = inject(ThemeService);
   navbar: navbarModel[] = [];
   readonly router = inject(Router);
 
