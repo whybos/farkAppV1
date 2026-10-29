@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { ListResponse } from '../model/globalResponseModel';
+import { ListResponse, SingleResponse } from '../model/globalResponseModel';
 import { farkindaModel } from '../model/farkinda.model';
 
 @Injectable({
@@ -15,6 +15,12 @@ export class FarkindaService {
 
   getFarkinda(): Observable<ListResponse<farkindaModel>> {
     return this.httpClient.get<ListResponse<farkindaModel>>(this.apiUrl);
+  }
+
+  getFarkindaById(id: number): Observable<SingleResponse<farkindaModel>> {
+    return this.httpClient.get<SingleResponse<farkindaModel>>(
+      `${this.apiUrl}/GetById?id=${id}`
+    );
   }
 
   createFarkinda(data: farkindaModel): Observable<ListResponse<farkindaModel>> {
@@ -33,7 +39,9 @@ export class FarkindaService {
 
   deleteAllFarkinda(): Observable<number> {
     return this.getFarkinda().pipe(
-      catchError(() => of({ success: false, data: [] as farkindaModel[], message: '' })),
+      catchError(() =>
+        of({ success: false, data: [] as farkindaModel[], message: '' })
+      ),
       switchMap((resp) => {
         const items = Array.isArray(resp?.data) ? resp.data : [];
         if (items.length === 0) return of(0);

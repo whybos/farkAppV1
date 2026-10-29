@@ -1,9 +1,9 @@
 <div class="admin-page-container">
   <div class="admin-action-header">
     <div>
-      <h3 class="admin-section-heading">FARK'ında Yayınları</h3>
+      <h3 class="admin-section-heading">FARK'ında Dergi Yönetimi</h3>
       <p class="admin-section-subtext">
-        PDF yayınların başlık, tarih, Google Drive linki ve kapak fotoğrafını buradan yönetebilirsiniz.
+        FARK'ında dergi sayılarının başlık, tarih, dergi okuma bağlantısı ve kapak fotoğrafını buradan yönetebilirsiniz.
       </p>
     </div>
     <div class="admin-header-actions">
@@ -22,7 +22,7 @@
         data-bs-toggle="modal"
         data-bs-target="#updateModal"
       >
-        <i class="bi bi-plus-lg me-1"></i> Yeni FARK'ında Ekle
+        <i class="bi bi-plus-lg me-1"></i> Yeni Dergi Sayısı Ekle
       </button>
     </div>
   </div>
@@ -44,7 +44,7 @@
                 <strong>Tarih:</strong> {{ item.date }}
               </p>
               <p class="card-text text-break">
-                <strong>Drive Linki:</strong>
+                <strong>Dergi Bağlantısı:</strong>
                 <a [href]="item.link" target="_blank" rel="noopener noreferrer" class="content-link ms-1">
                   {{ item.link }}
                 </a>
@@ -73,7 +73,7 @@
       </div>
     } @empty {
       <div class="admin-empty-box">
-        Henüz FARK'ında yayını eklenmemiş.
+        Henüz FARK'ında dergi sayısı eklenmemiş.
       </div>
     }
   </div>
@@ -92,7 +92,7 @@
       <form [formGroup]="myForm" (ngSubmit)="saveUpdate()">
         <div class="modal-header">
           <h5 class="modal-title" id="updateModalLabel">
-            {{ isNew ? "Yeni FARK'ında Yayını" : "FARK'ında Yayınını Güncelle" }}
+            {{ isNew ? "Yeni FARK'ında Dergisi Ekle" : "FARK'ında Dergisini Güncelle" }}
           </h5>
           <button
             type="button"
@@ -104,7 +104,7 @@
 
         <div class="modal-body">
           <div class="mb-3">
-            <label for="titleInput" class="form-label">Başlık (Title)</label>
+            <label for="titleInput" class="form-label">Dergi Başlığı (Title)</label>
             <input
               id="titleInput"
               type="text"
@@ -136,17 +136,17 @@
           </div>
 
           <div class="mb-3">
-            <label for="linkInput" class="form-label">Google Drive Linki (Link)</label>
+            <label for="linkInput" class="form-label">Dergi Bağlantısı (Link)</label>
             <input
               id="linkInput"
               type="text"
               class="form-control"
-              placeholder="https://drive.google.com/file/d/..."
+              placeholder="https://farkindadergisi.com/2026-6/"
               formControlName="link"
             />
             <div class="text-danger small mt-1">
               @if (myForm.get('link')?.invalid && myForm.get('link')?.touched) {
-                Drive linki zorunludur.
+                Dergi bağlantısı zorunludur.
               }
             </div>
           </div>

@@ -1,9 +1,9 @@
 <div class="content-wrapper">
   <h1 class="section-title animate-fade-up" [ngStyle]="{ 'animation-delay': '0ms' }">
-    FARK'ında
+    FARK'ında Dergisi
   </h1>
   <p class="farkinda-subtitle animate-fade-up" [ngStyle]="{ 'animation-delay': '80ms' }">
-    Geçmiş sayılarımızı ve PDF yayınlarımızı incelemek veya indirmek için ilgili yayına tıklayabilirsiniz.
+    Okumak istediğiniz dergi sayısına tıklayarak dergi okuyucu sayfasına geçebilir ve sayfa sayfa inceleyebilirsiniz.
   </p>
   <hr class="section-divider" />
 
@@ -11,10 +11,8 @@
     @for (item of farkindaList; track item.id || $index) {
       <a
         class="farkinda-card-link animate-fade-up"
-        [ngStyle]="{ 'animation-delay': ($index + 1) * 120 + 'ms' }"
-        [href]="getSafeUrl(item.link)"
-        target="_blank"
-        rel="noopener noreferrer"
+        [ngStyle]="{ 'animation-delay': ($index + 1) * 100 + 'ms' }"
+        [routerLink]="['/farkinda/detail', item.id]"
       >
         <article class="farkinda-card">
           <div class="farkinda-cover-wrapper">
@@ -26,13 +24,13 @@
               />
             } @else {
               <div class="farkinda-cover-fallback">
-                <i class="bi bi-file-earmark-pdf"></i>
-                <span>PDF Yayını</span>
+                <i class="bi bi-journal-richtext"></i>
+                <span>FARK'ında Dergi</span>
               </div>
             }
             <div class="farkinda-hover-overlay">
               <span class="farkinda-open-cta">
-                <i class="bi bi-box-arrow-up-right me-2"></i>Drive'da Aç / İndir
+                <i class="bi bi-book-half me-2"></i>Dergiyi Aç ve Oku
               </span>
             </div>
           </div>
@@ -44,7 +42,7 @@
                 <i class="bi bi-calendar3 me-1"></i>{{ item.date }}
               </span>
               <span class="farkinda-action-text">
-                PDF Görüntüle →
+                Dergiyi Oku →
               </span>
             </div>
           </div>
@@ -53,7 +51,7 @@
     } @empty {
       <div class="no-content-message animate-fade-up">
         <i class="bi bi-journal-richtext d-block mb-3" style="font-size: 2.5rem;"></i>
-        <p>Şu anda gösterilecek FARK'ında yayını bulunmamaktadır.</p>
+        <p>Şu anda gösterilecek FARK'ında dergi sayısı bulunmamaktadır.</p>
       </div>
     }
   </div>

@@ -580,3 +580,142 @@ app-root {
     height: 160px;
   }
 }
+
+/* =========================================================
+   FARK'INDA DERGİ OKUYUCU - GERÇEKÇİ İKİLİ DERGİ & SOFT CURL (StPageFlip)
+   ========================================================= */
+.flipbook-centering-shell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.flipbook-centering-shell.cover-front-shift {
+  transform: translateX(-25%);
+}
+
+.flipbook-centering-shell.cover-back-shift {
+  transform: translateX(25%);
+}
+
+.flipbook-stage-host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.farkinda-flipbook-root.stf__parent {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  margin: 0 auto;
+  user-select: none;
+  filter: drop-shadow(0 22px 44px rgba(0, 0, 0, 0.68));
+}
+
+.farkinda-flipbook-root .stf__wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.farkinda-flipbook-root .stf__block {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  perspective: 2400px;
+}
+
+.flip-page-item {
+  background-color: #1c1c20;
+  overflow: hidden;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.flip-page-item.--left {
+  border-radius: 6px 0 0 6px;
+  box-shadow:
+    inset -1px 0 0 rgba(0, 0, 0, 0.45),
+    -3px 0 0 #d4d4d8,
+    -6px 0 0 #a1a1aa;
+}
+
+.flip-page-item.--right {
+  border-radius: 0 6px 6px 0;
+  box-shadow:
+    inset 1px 0 0 rgba(255, 255, 255, 0.12),
+    3px 0 0 #d4d4d8,
+    6px 0 0 #a1a1aa;
+}
+
+.flip-page-surface {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #202024;
+  overflow: hidden;
+}
+
+.flip-page-skeleton {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #a1a1aa;
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.flip-page-img {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  user-select: none;
+  pointer-events: none;
+}
+
+.flip-page-spine-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Sol sayfanın orta cilt (sırt) oluğuna doğru gerçekçi dergi gölgesi */
+.flip-page-item.--left .flip-page-spine-shade {
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 82%,
+    rgba(0, 0, 0, 0.07) 92%,
+    rgba(0, 0, 0, 0.22) 97%,
+    rgba(0, 0, 0, 0.42) 100%
+  );
+}
+
+/* Sağ sayfanın orta cilt (sırt) oluğundan çıkış gölgesi ve hafif parlama */
+.flip-page-item.--right .flip-page-spine-shade {
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0) 82%,
+    rgba(255, 255, 255, 0.08) 91%,
+    rgba(0, 0, 0, 0.14) 96%,
+    rgba(0, 0, 0, 0.42) 100%
+  );
+}
+
+

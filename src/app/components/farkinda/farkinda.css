@@ -8,8 +8,8 @@
 
 .farkinda-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
   text-align: left;
 }
 
@@ -17,7 +17,13 @@
   text-decoration: none;
   color: inherit;
   display: block;
+  width: 100%;
   height: 100%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
 }
 
 .farkinda-card {
@@ -32,7 +38,8 @@
   flex-direction: column;
 }
 
-.farkinda-card:hover {
+.farkinda-card:hover,
+.farkinda-card.active-magazine {
   transform: translateY(-6px);
   border-color: var(--accent-color);
   box-shadow: 0 14px 35px var(--box-shadow-dark);
@@ -41,7 +48,7 @@
 .farkinda-cover-wrapper {
   position: relative;
   width: 100%;
-  padding-top: 130%; /* 3:4 Dergi/PDF Kapak Oranı */
+  padding-top: 130%;
   background-color: var(--section-background);
   overflow: hidden;
 }
@@ -89,7 +96,8 @@
   transition: opacity 0.25s ease;
 }
 
-.farkinda-card:hover .farkinda-hover-overlay {
+.farkinda-card:hover .farkinda-hover-overlay,
+.farkinda-card.active-magazine .farkinda-hover-overlay {
   opacity: 1;
 }
 
@@ -104,7 +112,7 @@
 }
 
 .farkinda-card-body {
-  padding: 22px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -112,10 +120,10 @@
 }
 
 .farkinda-card-title {
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-color-light);
-  margin: 0 0 16px 0;
+  margin: 0 0 14px 0;
   line-height: 1.35;
 }
 
@@ -123,7 +131,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 14px;
+  padding-top: 12px;
   border-top: 1px solid var(--border-color-dark);
   font-size: 0.9rem;
 }
@@ -135,6 +143,11 @@
 .farkinda-action-text {
   color: var(--accent-color);
   font-weight: 600;
+}
+
+.farkinda-detail-host {
+  width: 100%;
+  margin-top: 2.5rem;
 }
 
 .no-content-message {

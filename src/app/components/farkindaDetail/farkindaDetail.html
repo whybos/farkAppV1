@@ -1,0 +1,311 @@
+<section
+  class="farkinda-reader-section reader-standalone"
+  [class.reader-fullscreen]="isFullscreen"
+>
+  @if (!activeMagazine && !isLoading) {
+    <div class="reader-empty-box">
+      <i class="bi bi-journal-x reader-empty-icon"></i>
+      <h3>Dergi Sayısı Bulunamadı</h3>
+      <p>Aradığınız FARK'ında dergi sayısına ulaşılamadı.</p>
+      <a routerLink="/farkinda" class="reader-back-btn mt-2">
+        <i class="bi bi-arrow-left"></i> Dergi Listesine Dön
+      </a>
+    </div>
+  } @else if (activeMagazine) {
+    <div class="reader-shell">
+      <!-- Üst Bilgi ve Araç Çubuğu -->
+      <header class="reader-topbar">
+        <div class="reader-title-group">
+          <a routerLink="/farkinda" class="reader-back-btn" title="Dergi Listesine Dön">
+            <i class="bi bi-arrow-left"></i>
+            <span>Dergiler</span>
+          </a>
+          <div class="reader-meta">
+            <span class="reader-badge">FARK'ında Dergi Okuyucu</span>
+            <h1 class="reader-heading">{{ activeMagazine.title }}</h1>
+            <span class="reader-date">
+              <i class="bi bi-calendar3 me-1"></i>{{ activeMagazine.date }}
+            </span>
+          </div>
+        </div>
+
+        <div class="reader-tools">
+          <!-- Okuma Modu Seçici (Sayfa Sayfa vs Kaydırarak Oku) -->
+          @if (isFarkindaDergisiDomain && !webpLoadError) {
+            <div class="reader-zoom-group" role="group" aria-label="Okuma Modu">
+              <button
+                type="button"
+                class="reader-tool-btn"
+                [class.active-mode]="viewMode === 'page'"
+                (click)="setViewMode('page')"
+                title="İkili dergi ve yumuşak sayfa çevirme modu"
+              >
+                <i class="bi bi-book-half"></i>
+                <span>Sayfa Sayfa</span>
+              </button>
+              <button
+                type="button"
+                class="reader-tool-btn"
+                [class.active-mode]="viewMode === 'scroll'"
+                (click)="setViewMode('scroll')"
+                title="Yukarıdan aşağıya kaydırarak okuma modu"
+              >
+                <i class="bi bi-distribute-vertical"></i>
+                <span>Kaydırarak Oku</span>
+              </button>
+            </div>
+          }
+
+          <!-- Yakınlaştırma (Büyütme / Küçültme) Kontrolleri -->
+          <div class="reader-zoom-group" aria-label="Yakınlaştırma Kontrolleri">
+            <button
+              type="button"
+              class="reader-tool-btn"
+              (click)="zoomOut()"
+              [disabled]="zoomLevel <= minZoom"
+              title="Küçült (-)"
+            >
+              <i class="bi bi-dash-lg"></i>
+            </button>
+            <button
+              type="button"
+              class="reader-zoom-Readout"
+              (click)="resetZoom()"
+              title="Varsayılan Boyuta Dön (%100)"
+            >
+              %{{ zoomLevel }}
+            </button>
+            <button
+              type="button"
+              class="reader-tool-btn"
+              (click)="zoomIn()"
+              [disabled]="zoomLevel >= maxZoom"
+              title="Büyüt (+)"
+            >
+              <i class="bi bi-plus-lg"></i>
+            </button>
+          </div>
+
+          <!-- Tam Ekran Butonu -->
+          <button
+            type="button"
+            class="reader-tool-btn"
+            (click)="toggleFullscreen()"
+          >
+            <i class="bi" [ngClass]="isFullscreen ? 'bi-fullscreen-exit' : 'bi-arrows-fullscreen'"></i>
+            <span>{{ isFullscreen ? 'Küçült' : 'Tam Ekran' }}</span>
+          </button>
+
+          <!-- Yeni Sekmede Aç -->
+          @if (rawCleanUrl) {
+            <a
+              [href]="rawCleanUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="reader-tool-btn"
+              title="Dergiyi Yeni Sekmede Aç"
+            >
+              <i class="bi bi-box-arrow-up-right"></i>
+              <span class="d-none d-md-inline">Kaynağı Aç</span>
+            </a>
+          }
+        </div>
+      </header>
+
+      <!-- Dergi Okuma Alanı -->
+      <div
+        #readerViewport
+        class="reader-viewport"
+        [class.viewport-zoomed]="viewMode === 'scroll' && zoomLevel > 100"
+        [class.viewport-dragging]="isDraggingViewport"
+        (scroll)="onViewportScroll()"
+        (mousedown)="onViewportMouseDown($event)"
+      >
+        @if (isLoading) {
+          <div class="reader-loading-overlay">
+            <div class="spinner-border text-light mb-2" role="status"></div>
+            <span>Dergi sayfaları hazırlanıyor...</span>
+          </div>
+        }
+
+        @if (viewMode === 'page' && isFarkindaDergisiDomain) {
+          <div class="webp-page-stage">
+            <!-- Sol Hızlı Sayfa Geçiş Tuşu -->
+            <button
+              type="button"
+              class="stage-side-nav stage-side-prev"
+              (click)="prevPage()"
+              [disabled]="currentPage <= 1"
+              aria-label="Önceki Sayfa"
+            >
+              <i class="bi bi-chevron-left"></i>
+            </button>
+
+            <!-- Gerçekçi İkili Dergi (StPageFlip) Sahnesi -->
+            <div
+              class="flipbook-centering-shell"
+              [class.cover-front-shift]="!isPortraitFlipMode && zoomLevel === 100 && currentPage === 1"
+              [class.cover-back-shift]="!isPortraitFlipMode && zoomLevel === 100 && currentPage === totalPages && totalPages % 2 === 0"
+              (dblclick)="toggleQuickZoom()"
+              title="Köşeden tutup sürükleyerek veya tıklayarak sayfayı çevirebilirsiniz"
+            >
+              <div #flipbookStageHost class="flipbook-stage-host"></div>
+            </div>
+
+            <!-- Sağ Hızlı Sayfa Geçiş Tuşu -->
+            <button
+              type="button"
+              class="stage-side-nav stage-side-next"
+              (click)="nextPage()"
+              [disabled]="currentPage >= totalPages"
+              aria-label="Sonraki Sayfa"
+            >
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </div>
+        } @else if (viewMode === 'scroll' && isFarkindaDergisiDomain) {
+          <!-- Kaydırarak Oku Modu (Gerçek Ölçeklenebilir Dikey Dergi Akışı) -->
+          <div class="scroll-pages-stream">
+            @for (pageNum of pagesArray; track pageNum) {
+              <div
+                [id]="'scroll-page-' + pageNum"
+                class="scroll-page-item webp-page-card"
+                [style.width]="zoomedCardWidth"
+                (dblclick)="toggleQuickZoom()"
+              >
+                <span class="scroll-page-badge">Sayfa {{ pageNum }} / {{ totalPages }}</span>
+                <picture>
+                  <source
+                    type="image/avif"
+                    [attr.srcset]="getPageAvifSrcset(pageNum)"
+                    sizes="(min-width: 932px) 900px, 100vw"
+                  />
+                  <img
+                    [src]="getPageWebp900Url(pageNum)"
+                    [attr.srcset]="getPageWebpSrcset(pageNum)"
+                    sizes="(min-width: 932px) 900px, 100vw"
+                    [alt]="activeMagazine.title + ' - Sayfa ' + pageNum"
+                    [attr.loading]="pageNum <= 2 ? 'eager' : 'lazy'"
+                    decoding="async"
+                    draggable="false"
+                    class="webp-page-img"
+                    (load)="pageNum === 1 ? onMediaLoad() : null"
+                  />
+                </picture>
+              </div>
+            }
+          </div>
+        } @else if (safeIframeUrl) {
+          <div
+            class="reader-iframe-scaler"
+            [style.transform]="'scale(' + zoomScaleRatio + ')'"
+          >
+            <iframe
+              #magazineIframe
+              [src]="safeIframeUrl"
+              [title]="activeMagazine.title"
+              class="reader-iframe"
+              allowfullscreen
+              allow="autoplay; fullscreen; clipboard-write"
+              (load)="onMediaLoad()"
+            ></iframe>
+          </div>
+        } @else {
+          <div class="reader-empty-box">
+            <p>Bu dergi sayısı için geçerli bir bağlantı bulunamadı.</p>
+          </div>
+        }
+      </div>
+
+      <!-- Alt Sayfa Sayfa Gezinme Çubuğu (Mobil ve Masaüstü Uyumlu) -->
+      <footer class="reader-bottom-bar">
+        <div class="page-nav-controls">
+          <button
+            type="button"
+            class="page-nav-btn page-nav-first"
+            (click)="firstPage()"
+            [disabled]="currentPage <= 1"
+            title="İlk Sayfa"
+          >
+            <i class="bi bi-chevron-bar-left"></i>
+            <span class="d-none d-sm-inline">İlk</span>
+          </button>
+
+          <button
+            type="button"
+            class="page-nav-btn page-nav-prev"
+            (click)="prevPage()"
+            [disabled]="currentPage <= 1"
+          >
+            <i class="bi bi-chevron-left"></i>
+            <span>Önceki Sayfa</span>
+          </button>
+
+          <div class="page-indicator-box">
+            <span class="page-label">Sayfa</span>
+            <input
+              type="number"
+              min="1"
+              [max]="isFarkindaDergisiDomain ? totalPages : 999"
+              class="page-number-input"
+              [value]="currentPage"
+              (change)="goToPage($event)"
+              aria-label="Sayfa numarası"
+            />
+            @if (isFarkindaDergisiDomain) {
+              <span class="page-label">/ {{ totalPages }}</span>
+              @if (viewMode === 'page' && !isPortraitFlipMode && currentPage > 1 && currentPage < totalPages) {
+                <span class="page-label ms-1 d-none d-md-inline">({{ activeSpreadText }})</span>
+              }
+            }
+          </div>
+
+          <button
+            type="button"
+            class="page-nav-btn page-nav-next"
+            (click)="nextPage()"
+            [disabled]="isFarkindaDergisiDomain && currentPage >= totalPages"
+          >
+            <span>Sonraki Sayfa</span>
+            <i class="bi bi-chevron-right"></i>
+          </button>
+
+          @if (isFarkindaDergisiDomain) {
+            <button
+              type="button"
+              class="page-nav-btn page-nav-first"
+              (click)="lastPage()"
+              [disabled]="currentPage >= totalPages"
+              title="Son Sayfa"
+            >
+              <span class="d-none d-sm-inline">Son</span>
+              <i class="bi bi-chevron-bar-right"></i>
+            </button>
+          }
+        </div>
+
+        <!-- Dergi Sayıları Arası Hızlı Geçiş -->
+        @if (allMagazines.length > 1) {
+          <div class="issue-switcher">
+            <button
+              type="button"
+              class="issue-switch-btn"
+              (click)="goPrevMagazine()"
+              [disabled]="!hasPrevMagazine"
+            >
+              <i class="bi bi-journal-arrow-up me-1"></i>Önceki Dergi
+            </button>
+            <button
+              type="button"
+              class="issue-switch-btn"
+              (click)="goNextMagazine()"
+              [disabled]="!hasNextMagazine"
+            >
+              Sonraki Dergi<i class="bi bi-journal-arrow-down ms-1"></i>
+            </button>
+          </div>
+        }
+      </footer>
+    </div>
+  }
+</section>

@@ -11,6 +11,7 @@ import { Login } from './components/login/login';
 import { AdminPanel } from './components/admin-panel/admin-panel/admin-panel';
 import { AdminGuard } from './guards/admin.guard';
 import { Farkinda } from './components/farkinda/farkinda';
+import { FarkindaDetail } from './components/farkindaDetail/farkindaDetail';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'main' },
@@ -21,6 +22,8 @@ export const routes: Routes = [
   { path: 'query', component: Query },
   { path: 'contact', component: Contact },
   { path: 'farkinda', component: Farkinda },
+  { path: 'farkinda/detail/:id', component: FarkindaDetail },
+  { path: 'farkinda/:id', component: FarkindaDetail },
   { path: 'news/detail/:id', component: NewsDetail },
   { path: 'login', component: Login },
 
